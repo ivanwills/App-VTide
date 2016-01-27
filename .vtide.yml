@@ -1,0 +1,46 @@
+---
+# optional name of project (default name is the directory)
+name: vtide
+# the total number of terminals to start up
+count: 4
+# default configs for terminals
+default:
+    # when the command finishes restart the command (useful for running
+    # dev servers which may die or you may want to kill and restart)
+    restart: false
+    # run the command at first start or wait for the user to press enter
+    wait: false
+# configure your editor
+editor:
+    # the command to run
+    command:
+        # this will run vim -O pluse what ever files are found but the files config
+        - vim
+            -O
+    # files store the named file groups
+    files:
+        lib:
+            - bin/vtide
+              lib/App/VTide.pm
+              lib/App/VTide/*.pm
+        test:
+            - t/00-load.t
+              t/vtide.t
+              t/vtide-config.t
+        base-tests:
+            - t/boilerplate.t
+              t/critic.t
+              t/kwalitee.t
+              t/manifest.t
+              t/perlcriticrc
+              t/pod-coverage.t
+              t/pod.t
+              t/spelling.t
+# configure the individual terminals
+terminals:
+    2:
+        edit:
+            - lib
+    3:
+        edit:
+            - db

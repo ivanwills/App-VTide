@@ -9,18 +9,15 @@
 
 =head1 App::VTide
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
-
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+An IDE(ish) environment built on Tmux and Vim (or another editor if desired)
 
 =head1 INSTALLATION
+
+From cpan:
+
+    cpanm App::TVide
+    # or if you don't have cpnam
+    cpan App::TVide
 
 To install this module, run the following commands:
 
@@ -28,6 +25,73 @@ To install this module, run the following commands:
     ./Build
     ./Build test
     ./Build install
+
+=head1 Usage
+
+  vtide init [name]
+  vtide start (project)
+  vtide edit [--save[=]name] (group|files)
+
+=head1 Configuration
+
+There are 2 global and 1 local configuration files
+
+=head2 .vtide.yml
+
+The individual projects configuration
+
+    ---
+    # optional name of project (default name is the directory)
+    name: myapp
+    # the total number of terminals to start up
+    count: 4
+    # default configs for terminals
+    default:
+        # when the command finishes restart the command (useful for running
+        # dev servers which may die or you may want to kill and restart)
+        restart: false
+        # run the command at first start or wait for the user to press enter
+        wait: false
+    # configure your editor
+    editor:
+        # the command to run
+        command:
+            # this will run vim -O pluse what ever files are found but the files config
+            - vim
+                -O
+        # files store the named file groups
+        files:
+            lib:
+                - lib/Myapp.pm
+                  lib/Myapp/Controller/Root.pm
+            db:
+                - database/*.sql
+    # configure the individual terminals
+    terminals:
+        1:
+            restart: true
+            command:
+                - plackup
+                  --port
+                  3000
+                  myapp.psgi
+        2:
+            edit:
+                - lib
+        3:
+            edit:
+                - db
+
+=head2 ~/.vtide.yml
+
+Global options/alias etc for all projects. This contains all the same values
+as C<.vtide.yml> but C<name> and C<terminals> will be ignored.
+
+=head2 ~/.vtide.rc
+
+Stores record of all used projects for command line helpers. As new sessions
+are started they will be recorded in this file. Also this will be updated if
+a session changes it's name.
 
 =head1 SUPPORT AND DOCUMENTATION
 
