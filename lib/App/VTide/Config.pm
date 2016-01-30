@@ -22,7 +22,12 @@ has global_conf => (
     default => sub { path $ENV{HOME}, '.vtide.yml' },
 );
 
-has [qw/global_time local_conf local_time data/] => (
+has local_conf => (
+    is      => 'rw',
+    default => sub { path $ENV{VTIDE_CONFIG} || '.vtide.yml' },
+);
+
+has [qw/global_time local_time data/] => (
     is  => 'rw',
 );
 
@@ -37,8 +42,8 @@ sub get {
     ) {
         $self->global_time( $global_time );
         $self->local_time( $local_time );
-        my $global = LoadFile( $self->global_conf );
-        my $local = LoadFile( $self->local_conf );
+        my $global = eval { LoadFile( $self->global_conf ); } || {};
+        my $local  = eval { LoadFile( $self->local_conf );  } || {};
 
         $self->data( merge $global, $local );
     }
