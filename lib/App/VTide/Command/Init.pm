@@ -21,17 +21,19 @@ our $VERSION = version->new('0.0.1');
 
 sub run {
     my ($self) = @_;
-    my $dir    = path $self->defaults->{dir} || '.';
+    my $dir    = path( $self->defaults->{dir} || '.' )->absolute;
     my $file   = $dir->path( '.vtide.yml' );
     my $count  = $self->defaults->{count} || 4;
+    my $name   = $self->defaults->{name} || $dir->basename;
     my $config = {
-        name    => $self->defaults->{name} || $dir->basename,
+        name    => $name,
         count   => $count,
         default => {
             restart => 0,
             wait    => 0,
         },
         editor => {
+            eg => [qw/some-file.eg/],
         },
         terminals => {
             map { $_ => [] } 2 .. $count
@@ -39,6 +41,10 @@ sub run {
     };
 
     DumpFile( $file, $config );
+
+    $self->save_session( $name, $dir );
+
+    return;
 }
 
 1;
