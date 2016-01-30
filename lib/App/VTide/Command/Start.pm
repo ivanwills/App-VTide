@@ -11,14 +11,40 @@ use warnings;
 use version;
 use Carp;
 use English qw/ -no_match_vars /;
+use File::chdir;
+use Path::Tiny;
 
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
 
+sub run {
+    my ($self) = @_;
 
+    my ( $name, $dir ) = $self->session_dir(
+        $self->defaults->{name}
+        || $self->options->files->[0]
+    );
+    my $config = path $dir, '.vtide.yml';
 
+    $self->config->local_config( $config );
+    $self->env( $name, $dir, $config );
 
+    use Data::Dumper qw/Dumper/;
+    warn Dumper $self->config->get, "$dir";
+
+    return;
+}
+
+sub env {
+    my ( $self, $name, $dir, $config ) = @_;
+
+    $ENV{VTIDE_NAME}   = "$dir";
+    $ENV{VTIDE_DIR}    = "$dir";
+    $ENV{VTIDE_CONFIG} = "$config";
+
+    return;
+}
 
 1;
 
