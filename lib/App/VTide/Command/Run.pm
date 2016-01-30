@@ -1,4 +1,4 @@
-package App::VTide::Command::Edit;
+package App::VTide::Command::Run;
 
 # Created on: 2016-01-30 15:06:40
 # Create by:  Ivan Wills
@@ -16,9 +16,15 @@ extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
 
+sub run {
+    my ($self) = @_;
 
+    my ( $name ) = $self->env;
+    my $cmd = $self->defaults->{run} || $self->options->files->[0];
+    print "Running $name - $cmd\n";
 
-
+    return exec 'bash';
+}
 
 1;
 
@@ -26,16 +32,16 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Edit - <One-line description of module's purpose>
+App::VTide::Command::Run - <One-line description of module's purpose>
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Edit version 0.0.1
+This documentation refers to App::VTide::Command::Run version 0.0.1
 
 
 =head1 SYNOPSIS
 
-   use App::VTide::Command::Edit;
+   use App::VTide::Command::Run;
 
    # Brief but working code example(s) here showing the most common usage(s)
    # This section will be as far as many users bother reading, so make it as
@@ -68,7 +74,7 @@ context to help them understand the methods that are subsequently described.
 
 Param: C<$search> - type (detail) - description
 
-Return: App::VTide::Command::Edit -
+Return: App::VTide::Command::Run -
 
 Description:
 
