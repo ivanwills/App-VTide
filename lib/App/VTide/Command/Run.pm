@@ -11,6 +11,7 @@ use warnings;
 use version;
 use Carp;
 use English qw/ -no_match_vars /;
+use Hash::Merge::Simple qw/ merge /;
 
 extends 'App::VTide::Command';
 
@@ -23,7 +24,38 @@ sub run {
     my $cmd = $self->defaults->{run} || $self->options->files->[0];
     print "Running $name - $cmd\n";
 
-    return exec 'bash';
+    my $params = $self->params( $cmd );
+    my @cmd    = ref $params->{command} ? @{ $params->{command} } : ( $params->{command} );
+
+    if ($params->{wait}) {
+        print join ' ', @cmd, "\n";
+        print "Press enter to start : ";
+        my $ans = <STDIN>;
+        if (!$ans || !ord $ans) {
+            print "\n";
+            return;
+        }
+    }
+
+    print join ' ', @cmd, "\n";
+    system @cmd;
+
+    return;
+}
+
+sub params {
+    my ( $self, $cmd ) = @_;
+
+    my $config = $self->config->get;
+    my $params = $config->{terminals}{$cmd} || {};
+
+    if ( ref $params eq 'ARRAY' ) {
+        $params = { command => @{ $params } ? $params : 'bash' };
+    }
+
+    $params->{command} ||= 'bash';
+
+    return merge $config->{default} || {}, $params;
 }
 
 1;
