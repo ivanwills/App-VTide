@@ -43,8 +43,11 @@ sub run {
                 ],
                 start => [
                     'name|n=s',
+                    'count|c=i',
+                    'test|T!',
                 ],
-                edit  => [
+                run  => [
+                    'test|T!',
                 ],
             },
         },
