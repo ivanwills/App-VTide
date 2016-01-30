@@ -45,7 +45,27 @@ sub session_dir {
     my $file     = path $ENV{HOME}, '.vtide.rc';
     my $sessions = eval { LoadFile( $file ) } || {};
 
-    return $sessions->{sessions}{$name || ''} || $ENV{VTIDE_DIR} || '.';
+    my $dir = $sessions->{sessions}{$name || ''} || $ENV{VTIDE_DIR} || '.';
+
+    $name ||= path($dir)->absolute->basename;
+
+    return ( $name, $dir );
+}
+
+sub env {
+    my ( $self, $name, $dir, $config ) = @_;
+
+    $dir    ||= path( $dir || '.' )->absolute;
+    $config ||= $dir->path( '.vtide.yml' );
+    $name   ||= $self->defaults->{name}
+        || $self->config->get->{name}
+        || $dir->basename;
+
+    $ENV{VTIDE_NAME}   = "$name";
+    $ENV{VTIDE_DIR}    = "$dir";
+    $ENV{VTIDE_CONFIG} = "$config";
+
+    return ( $name, $dir, $config );
 }
 
 1;
