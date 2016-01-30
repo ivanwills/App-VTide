@@ -30,20 +30,33 @@ sub run {
     $self->config->local_config( $config );
     $self->env( $name, $dir, $config );
 
-    use Data::Dumper qw/Dumper/;
-    warn Dumper $self->config->get, "$dir";
+    local $CWD = $dir;
 
-    return;
+    return $self->tmux( $name );
 }
 
-sub env {
-    my ( $self, $name, $dir, $config ) = @_;
+sub tmux {
+    my ( $self, $name ) = @_;
 
-    $ENV{VTIDE_NAME}   = "$dir";
-    $ENV{VTIDE_DIR}    = "$dir";
-    $ENV{VTIDE_CONFIG} = "$config";
+    my $tmux = "tmux -u2 new-session -s $name \\; "
+        . "split-window -h 'vtide run 1a' \\; "
+        . "split-window -dv 'vtide run 1b' \\; ";
+    my $count = $self->defaults->{count} || $self->config->get->{count};
 
-    return;
+    for my $window ( 2 .. $count ) {
+        $tmux .= "new-window 'vtide run $window' \\; ";
+    }
+    $tmux .= "select-window -t 1";
+
+    eval { require Term::Title; }
+        and Term::Title::set_titlebar($name);
+
+    if ( $self->defaults->{test} ) {
+        print "$tmux\n";
+        return 1;
+    }
+
+    exec $tmux;
 }
 
 1;
