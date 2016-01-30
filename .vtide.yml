@@ -21,21 +21,21 @@ editor:
     files:
         lib:
             - bin/vtide
-              lib/App/VTide.pm
-              lib/App/VTide/*.pm
+            - lib/App/VTide.pm
+            - lib/App/VTide/*.pm
         test:
             - t/00-load.t
-              t/vtide.t
-              t/vtide-config.t
+            - t/vtide.t
+            - t/vtide-config.t
         base-tests:
             - t/boilerplate.t
-              t/critic.t
-              t/kwalitee.t
-              t/manifest.t
-              t/perlcriticrc
-              t/pod-coverage.t
-              t/pod.t
-              t/spelling.t
+            - t/critic.t
+            - t/kwalitee.t
+            - t/manifest.t
+            - t/perlcriticrc
+            - t/pod-coverage.t
+            - t/pod.t
+            - t/spelling.t
 # configure the individual terminals
 terminals:
     2:
