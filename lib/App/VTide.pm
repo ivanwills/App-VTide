@@ -20,11 +20,10 @@ has config => (
     is      => 'rw',
     default => sub { App::VTide::Config->new() },
 );
-has [qw/defaults options/] => (
-    is => 'rw',
-);
 
 sub run {
+    my ($self) = @_;
+
     my ($options, $cmd, $opt) = get_options(
         {
             name        => 'vtide',
@@ -38,11 +37,12 @@ sub run {
             },
             sub_command => {
                 init  => [
-            'name|n=s',
+                    'name|n=s',
                     'dir|d=s',
                     'count|c=i',
                 ],
                 start => [
+                    'name|n=s',
                 ],
                 edit  => [
                 ],
@@ -62,6 +62,7 @@ sub run {
     $module->new(
         defaults => $options,
         options  => $opt,
+        vtide    => $self,
     )
     ->run;
 }
