@@ -13,7 +13,7 @@ use App::VTide;
 
 our $VERSION = version->new('0.0.1');
 
-App:VTide->new->run;
+App::VTide->new->run;
 
 __DATA__
 
