@@ -17,12 +17,12 @@ use Hash::Merge::Simple qw/ merge /;
 
 our $VERSION = version->new('0.0.1');
 
-has global_conf => (
+has global_config => (
     is      => 'rw',
     default => sub { path $ENV{HOME}, '.vtide.yml' },
 );
 
-has local_conf => (
+has local_config => (
     is      => 'rw',
     default => sub { path $ENV{VTIDE_CONFIG} || '.vtide.yml' },
 );
@@ -33,22 +33,31 @@ has [qw/global_time local_time data/] => (
 
 sub get {
     my ($self) = @_;
-    my $global_time = ( stat $self->global_conf )[9];
-    my $local_time = ( stat $self->local_conf )[9];
 
-    if ( ! $self->conf
-        || $self->global_time < $global_time
-        || $self->local_time < $local_time
-    ) {
+    if ( $self->changed ) {
+        my $global_time = ( stat $self->global_config )[9];
+        my $local_time = ( stat $self->local_config )[9];
+
         $self->global_time( $global_time );
         $self->local_time( $local_time );
-        my $global = eval { LoadFile( $self->global_conf ); } || {};
-        my $local  = eval { LoadFile( $self->local_conf );  } || {};
+
+        my $global = eval { LoadFile( $self->global_config ); } || {};
+        my $local  = eval { LoadFile( $self->local_config );  } || {};
 
         $self->data( merge $global, $local );
     }
 
     return $self->data;
+}
+
+sub changed {
+    my ($self) = @_;
+    my $global_time = ( stat $self->global_config )[9];
+    my $local_time = ( stat $self->local_config )[9];
+
+    return ! $self->data
+        || $self->global_time < $global_time
+        || $self->local_time < $local_time;
 }
 
 1;
