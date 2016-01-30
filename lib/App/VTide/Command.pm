@@ -11,19 +11,42 @@ use warnings;
 use version;
 use Carp;
 use English qw/ -no_match_vars /;
+use File::chdir;
+use Path::Tiny;
+use YAML::Syck;
 
 our $VERSION = version->new('0.0.1');
-
-has config => (
-    is      => 'rw',
-    default => sub { App::VTide::Config->new() },
-    #handles => [qw/ config /],
-);
 
 has [qw/ defaults options /] => (
     is => 'rw',
 );
 
+has vtide => (
+    is      => 'rw',
+    handles => [qw/ config /],
+);
+
+sub save_session {
+    my ( $self, $name, $dir ) = @_;
+
+    my $file     = path $ENV{HOME}, '.vtide.rc';
+    my $sessions = eval { LoadFile( $file ) } || {};
+
+    $sessions->{sessions}{$name} = "$dir" || $CWD;
+
+    DumpFile( $file, $sessions );
+
+    return;
+}
+
+sub session_dir {
+    my ( $self, $name ) = @_;
+
+    my $file     = path $ENV{HOME}, '.vtide.rc';
+    my $sessions = eval { LoadFile( $file ) } || {};
+
+    return $sessions->{sessions}{$name || ''} || $ENV{VTIDE_DIR} || '.';
+}
 
 1;
 
