@@ -10,19 +10,61 @@ use Moo;
 use warnings;
 use version;
 use Carp;
-use Scalar::Util;
-use List::Util;
-#use List::MoreUtils;
-use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
-
-extends 'Some::Thing';
+use Getopt::Alt;
+use App::VTide::Config;
 
 our $VERSION = version->new('0.0.1');
 
+has config => (
+    is      => 'rw',
+    default => sub { App::VTide::Config->new() },
+);
+has [qw/defaults options/] => (
+    is => 'rw',
+);
 
+sub run {
+    my ($options, $cmd, $opt) = get_options(
+        {
+            name        => 'vtide',
+            conf_prefix => '.',
+            helper      => 1,
+            default     => {
+                test => 0,
+            },
+            auto_complete => sub {
+                my ($opt, $auto) = @_;
+            },
+            sub_command => {
+                init  => [
+            'name|n=s',
+                    'dir|d=s',
+                    'count|c=i',
+                ],
+                start => [
+                ],
+                edit  => [
+                ],
+            },
+        },
+        [
+            'name|n=s',
+            'test|T!',
+        ],
+    );
 
+    my $file   = 'App/VTide/Command/' . ucfirst $opt->cmd . '.pm';
+    my $module = 'App::VTide::Command::' . ucfirst $opt->cmd;
 
+    require $file;
+
+    $module->new(
+        defaults => $options,
+        options  => $opt,
+    )
+    ->run;
+}
 
 1;
 
