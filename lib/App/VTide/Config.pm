@@ -10,19 +10,41 @@ use Moo;
 use warnings;
 use version;
 use Carp;
-use Scalar::Util;
-use List::Util;
-#use List::MoreUtils;
-use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
-
-extends 'Some::Thing';
+use Path::Tiny;
+use YAML::Syck qw/ LoadFile /;
+use Hash::Merge::Simple qw/ merge /;
 
 our $VERSION = version->new('0.0.1');
 
+has global_conf => (
+    is      => 'rw',
+    default => sub { path $ENV{HOME}, '.vtide.yml' },
+);
 
+has [qw/global_time local_conf local_time data/] => (
+    is  => 'rw',
+);
 
+sub get {
+    my ($self) = @_;
+    my $global_time = ( stat $self->global_conf )[9];
+    my $local_time = ( stat $self->local_conf )[9];
 
+    if ( ! $self->conf
+        || $self->global_time < $global_time
+        || $self->local_time < $local_time
+    ) {
+        $self->global_time( $global_time );
+        $self->local_time( $local_time );
+        my $global = LoadFile( $self->global_conf );
+        my $local = LoadFile( $self->local_conf );
+
+        $self->data( merge $global, $local );
+    }
+
+    return $self->data;
+}
 
 1;
 
