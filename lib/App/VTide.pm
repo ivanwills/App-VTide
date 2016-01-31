@@ -62,7 +62,7 @@ sub run {
 
     require $file;
 
-    $module->new(
+    return $module->new(
         defaults => $options,
         options  => $opt,
         vtide    => $self,
