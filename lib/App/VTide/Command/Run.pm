@@ -12,10 +12,16 @@ use version;
 use Carp;
 use English qw/ -no_match_vars /;
 use Hash::Merge::Simple qw/ merge /;
+use Path::Tiny;
 
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
+
+has files => (
+    is      => 'rw',
+    default => sub {[]},
+);
 
 sub run {
     my ($self) = @_;
@@ -25,7 +31,7 @@ sub run {
     print "Running $name - $cmd\n";
 
     my $params = $self->params( $cmd );
-    my @cmd    = ref $params->{command} ? @{ $params->{command} } : ( $params->{command} );
+    my @cmd    = $self->command( $params );
 
     if ($params->{wait}) {
         print join ' ', @cmd, "\n";
@@ -38,7 +44,7 @@ sub run {
     }
 
     print join ' ', @cmd, "\n";
-    system @cmd;
+    system @cmd if !$self->defaults->{test};
 
     return;
 }
@@ -56,6 +62,70 @@ sub params {
     $params->{command} ||= 'bash';
 
     return merge $config->{default} || {}, $params;
+}
+
+sub command {
+    my ( $self, $params ) = @_;
+
+    if ( ! $params->{edit} ) {
+        return ref $params->{command}
+            ? @{ $params->{command} }
+            : ( $params->{command} );
+    }
+
+    my $editor = ref $params->{editor}{command} || $self->config->get->{editor}{command};
+
+    my @files;
+    my @globs  = @{ $params->{edit} };
+    my $groups = $self->config->get->{editor}{files};
+    while ( my $glob = shift @globs ) {
+        if ( $groups->{$glob} ) {
+            push @globs, @{ $groups->{$glob} };
+            next;
+        }
+
+        push @files, $self->_dglob($glob);
+    }
+
+    return ref $editor
+        ? ( @$editor, @files )
+        : ( "$editor " . join ' ', map {_shell_quote($_)} @files );
+}
+
+sub _shell_quote {
+    my ($file) = @_;
+    $file =~ s/([\s&;*'"])/\\$1/gxms;
+    return $file;
+}
+
+sub _dglob {
+    my ($self, $glob) = @_;
+
+    # if the "glob" is actually a single file then just return it
+    return ($glob) if -f $glob;
+
+    my @files;
+    for my $deep_glob ( $self->globable($glob) ) {
+        push @files, glob $deep_glob;
+    }
+
+    return @files;
+}
+
+sub globable {
+    my ($self, $glob) = @_;
+
+    my ($base, $rest) = $glob =~ m{^(.*?) [*][*] /? (.*)$}xms;
+
+    return ($glob) if !$rest;
+
+    my @globs;
+    for ( 0 .. 3 ) {
+        push @globs, $self->globable("$base$rest");
+        $base .= '*/';
+    }
+
+    return @globs;
 }
 
 1;
