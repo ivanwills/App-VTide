@@ -48,6 +48,7 @@ sub run {
                 ],
                 run  => [
                     'test|T!',
+                    'verbose|v+',
                 ],
             },
         },
