@@ -29,6 +29,7 @@ editor:
             - t/00-load.t
             - t/vtide.t
             - t/vtide-config.t
+            - t/glob.t
         base-tests:
             - t/boilerplate.t
             - t/critic.t
