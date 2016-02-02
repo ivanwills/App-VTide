@@ -27,7 +27,12 @@ has local_config => (
     default => sub { path $ENV{VTIDE_CONFIG} || '.vtide.yml' },
 );
 
-has [qw/global_time local_time data/] => (
+has [qw/ global_time local_time /] => (
+    is      => 'rw',
+    default => 0,
+);
+
+has data => (
     is  => 'rw',
 );
 
@@ -56,8 +61,8 @@ sub changed {
     my $local_time = ( stat $self->local_config )[9];
 
     return ! $self->data
-        || $self->global_time < $global_time
-        || $self->local_time < $local_time;
+        || ( $global_time && $self->global_time < $global_time )
+        || ( $local_time  && $self->local_time  < $local_time  );
 }
 
 1;
