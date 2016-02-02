@@ -43,8 +43,7 @@ sub run {
         }
     }
 
-    print join ' ', @cmd, "\n";
-    system @cmd if !$self->defaults->{test};
+    $self->runit( @cmd );
 
     return;
 }
@@ -126,6 +125,30 @@ sub globable {
     }
 
     return @globs;
+}
+
+sub runit {
+    my ( $self, @cmd ) = @_;
+
+    print join ' ', @cmd, "\n" if $self->defaults->{verbose};
+
+    return if $self->defaults->{test};
+
+    if ( @cmd > 1 ) {
+        my $found = 0;
+        for my $dir ( split /:/, $ENV{PATH} ) {
+            if ( -d $dir && -x path $dir, $cmd[0] ) {
+                $found = 1;
+                last;
+            }
+        }
+
+        if ( ! $found ) {
+            @cmd = ( join ' ', @cmd );
+        }
+    }
+
+    return system @cmd;
 }
 
 1;
