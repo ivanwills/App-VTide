@@ -7,9 +7,9 @@ count: 4
 default:
     # when the command finishes restart the command (useful for running
     # dev servers which may die or you may want to kill and restart)
-    restart: false
+    restart: 0
     # run the command at first start or wait for the user to press enter
-    wait: false
+    wait: 0
 # configure your editor
 editor:
     # the command to run
@@ -19,10 +19,12 @@ editor:
             -O
     # files store the named file groups
     files:
-        lib:
-            - bin/vtide
+        base:
             - lib/App/VTide.pm
-            - lib/App/VTide/*.pm
+            - lib/App/VTide/Config.pm
+            - lib/App/VTide/Command.pm
+        cmds:
+            - lib/App/VTide/Command/*.pm
         test:
             - t/00-load.t
             - t/vtide.t
@@ -39,8 +41,10 @@ editor:
 # configure the individual terminals
 terminals:
     2:
+        command: v -O --title base
         edit:
-            - lib
+            - base
     3:
+        command: v -O --title cmds
         edit:
-            - db
+            - cmds
