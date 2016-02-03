@@ -2,7 +2,7 @@
 # optional name of project (default name is the directory)
 name: vtide
 # the total number of terminals to start up
-count: 4
+count: 6
 # default configs for terminals
 default:
     # when the command finishes restart the command (useful for running
