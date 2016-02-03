@@ -55,10 +55,13 @@ sub params {
     my $params = $config->{terminals}{$cmd} || {};
 
     if ( ref $params eq 'ARRAY' ) {
-        $params = { command => @{ $params } ? $params : 'bash' };
+        $params = { command => @{ $params } ? $params : '' };
     }
 
-    $params->{command} ||= 'bash';
+    if ( ! $params->{command} ) {
+        $params->{command} = 'bash';
+        $params->{wait} = 0;
+    }
 
     return merge $config->{default} || {}, $params;
 }
@@ -86,9 +89,7 @@ sub command {
         push @files, $self->_dglob($glob);
     }
 
-    return ref $editor
-        ? ( @$editor, @files )
-        : ( "$editor " . join ' ', map {_shell_quote($_)} @files );
+    return ( @$editor, @files );
 }
 
 sub _shell_quote {
@@ -130,7 +131,7 @@ sub globable {
 sub runit {
     my ( $self, @cmd ) = @_;
 
-    print join ' ', @cmd, "\n" if $self->defaults->{verbose};
+    print join ' ', @cmd, "\n" if $self->defaults->{test} || $self->defaults->{verbose};
 
     return if $self->defaults->{test};
 
