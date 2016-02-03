@@ -23,7 +23,7 @@ sub run {
     my ($self) = @_;
     my $dir    = path( $self->defaults->{dir} || '.' )->absolute;
     my $file   = $dir->path( '.vtide.yml' );
-    my $count  = $self->defaults->{count} || 4;
+    my $count  = $self->defaults->{windows} || 4;
     my $name   = $self->defaults->{name} || $dir->basename;
     my $config = {
         name    => $name,

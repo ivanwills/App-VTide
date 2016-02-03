@@ -39,11 +39,11 @@ sub run {
                 init  => [
                     'name|n=s',
                     'dir|d=s',
-                    'count|c=i',
+                    'windows|w=i',
                 ],
                 start => [
                     'name|n=s',
-                    'count|c=i',
+                    'windows|w=i',
                     'test|T!',
                 ],
                 run  => [
