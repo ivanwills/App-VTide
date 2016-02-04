@@ -33,13 +33,21 @@ sub run {
     my $params = $self->params( $cmd );
     my @cmd    = $self->command( $params );
 
-    if ($params->{wait}) {
+    if ( $params->{wait} ) {
         print join ' ', @cmd, "\n";
         print "Press enter to start : ";
         my $ans = <STDIN>;
         if (!$ans || !ord $ans) {
             print "\n";
             return;
+        }
+    }
+
+    if ( $params->{env} && ref $params->{env} eq 'HASH' ) {
+        for my $env ( keys %{ $params->{env} } ) {
+            my $orig = $ENV{$env};
+            $ENV{$env} = $params->{env}{$env};
+            $ENV{$env} =~ s/[\$]$env/$orig/;
         }
     }
 
