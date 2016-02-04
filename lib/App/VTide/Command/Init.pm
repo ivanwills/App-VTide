@@ -33,7 +33,9 @@ sub run {
             wait    => 0,
         },
         editor => {
-            eg => [qw/some-file.eg/],
+            files => {
+                eg => [qw/some-file.eg/],
+            },
         },
         terminals => {
             map { $_ => [] } 2 .. $count
