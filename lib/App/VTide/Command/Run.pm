@@ -78,7 +78,7 @@ sub command {
     my $editor = ref $params->{editor}{command} || $self->config->get->{editor}{command};
 
     my @files;
-    my @globs  = @{ $params->{edit} };
+    my @globs  = ref $params->{edit} ? @{ $params->{edit} } : ( $params->{edit} );
     my $groups = $self->config->get->{editor}{files};
     while ( my $glob = shift @globs ) {
         if ( $groups->{$glob} ) {
