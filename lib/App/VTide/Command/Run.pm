@@ -87,6 +87,10 @@ sub command {
 
     my @files;
     my @globs  = ref $params->{edit} ? @{ $params->{edit} } : ( $params->{edit} );
+
+    eval { require Term::Title; }
+        and Term::Title::set_titlebar($globs[0]);
+
     my $groups = $self->config->get->{editor}{files};
     while ( my $glob = shift @globs ) {
         if ( $groups->{$glob} ) {
