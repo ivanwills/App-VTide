@@ -50,6 +50,18 @@ sub run {
                     'test|T!',
                     'verbose|v+',
                 ],
+                edit => [
+                    'test|T!',
+                    'verbose|v+',
+                ],
+                save => [
+                    'test|T!',
+                    'verbose|v+',
+                ],
+                conf => [
+                    'test|T!',
+                    'verbose|v+',
+                ],
             },
         },
         [
