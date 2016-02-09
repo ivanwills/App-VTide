@@ -53,7 +53,61 @@ sub run {
 
     $self->runit( @cmd );
 
+    if ( ! $self->defaults->{test} && $self->restart($cmd) ) {
+        return $self->run;
+    }
+
     return;
+}
+
+sub restart {
+    my ($self, $cmd) = @_;
+
+    my $params = $self->params( $cmd );
+
+    return if ! $params->{restart};
+
+    my %action = (
+        q => {
+            msg  => 'quit',
+            exec => sub { 0; },
+        },
+        r => {
+            msg  => 'restart',
+            exec => sub { 1 },
+        },
+    );
+
+    if ($params->{restart} ne 1) {
+        my ($letter) = $params->{restart} =~ /^(.)/;
+        $action{$letter} = {
+            msg  => $params->{restart},
+            exec => sub { exec $params->{restart}; },
+        };
+    }
+
+    # show restart menu
+    my $menu = "Options:\n";
+    for my $letter (sort keys %action) {
+        $menu .= "$letter - $action{$letter}{msg}\n";
+    }
+    print $menu;
+
+    # get answer
+    my $answer = <STDIN>;
+    chomp $answer if $answer;
+    $answer ||= $params->{default} || '';
+
+    # ask the question
+    while ( ! $action{$answer} ) {
+        print $menu;
+        print "Please choose one of " . (join ', ', sort keys %action) . "\n";
+        $answer = <STDIN>;
+        chomp $answer if $answer;
+        $answer ||= $params->{default} || '';
+    }
+
+    return $action{$answer}{exec}->();
 }
 
 sub params {
@@ -66,7 +120,7 @@ sub params {
         $params = { command => @{ $params } ? $params : '' };
     }
 
-    if ( ! $params->{command} ) {
+    if ( ! $params->{command} && ! $params->{edit} ) {
         $params->{command} = 'bash';
         $params->{wait} = 0;
     }
