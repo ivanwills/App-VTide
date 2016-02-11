@@ -19,6 +19,13 @@ our $VERSION = version->new('0.0.1');
 sub run {
     my ($self) = @_;
 
+    if ( $self->defaults->{verbose} ) {
+        print "VTIDE_NAME   : $ENV{VTIDE_NAME}  \n";
+        print "VTIDE_DIR    : $ENV{VTIDE_DIR}   \n";
+        print "VTIDE_CONFIG : $ENV{VTIDE_CONFIG}\n";
+        print "\n";
+    }
+
     my @files = sort keys %{ $self->config->get->{editor}{files} };
 
     print join "\n", @files, '';
