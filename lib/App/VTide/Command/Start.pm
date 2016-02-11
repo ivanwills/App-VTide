@@ -38,13 +38,14 @@ sub run {
 sub tmux {
     my ( $self, $name ) = @_;
 
-    my $tmux = "tmux -u2 new-session -s $name \\; "
-        . "split-window -h 'vtide run 1a' \\; "
-        . "split-window -dv 'vtide run 1b' \\; ";
+    my $v    = $self->defaults->{verbose} ? '--verbose' : '';
+    my $tmux = "tmux -u2 new-session -s $name 'vtide run $v 1' \\; "
+        . "split-window -h 'vtide run $v 1a' \\; "
+        . "split-window -dv 'vtide run $v 1b' \\; ";
     my $count = $self->defaults->{windows} || $self->config->get->{count};
 
     for my $window ( 2 .. $count ) {
-        $tmux .= "new-window 'vtide run $window' \\; ";
+        $tmux .= "new-window 'vtide run $v $window' \\; ";
     }
     $tmux .= "select-window -t 1";
 
