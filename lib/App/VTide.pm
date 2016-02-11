@@ -40,11 +40,13 @@ sub run {
                     'name|n=s',
                     'dir|d=s',
                     'windows|w=i',
+                    'verbose|v+',
                 ],
                 start => [
                     'name|n=s',
                     'windows|w=i',
                     'test|T!',
+                    'verbose|v+',
                 ],
                 run  => [
                     'test|T!',
