@@ -18,6 +18,7 @@ our $VERSION = version->new('0.0.1');
 
 has config => (
     is      => 'rw',
+    lazy    => 1,
     default => sub { App::VTide::Config->new() },
 );
 
