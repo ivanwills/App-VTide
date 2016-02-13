@@ -26,10 +26,15 @@ has vtide => (
     handles => [qw/ config /],
 );
 
+has history => (
+    is      => 'rw',
+    default => sub { path $ENV{HOME}, '.vtide/history.yml' },
+);
+
 sub save_session {
     my ( $self, $name, $dir ) = @_;
 
-    my $file     = path $ENV{HOME}, '.vtide.rc';
+    my $file     = $self->history;
     my $sessions = eval { LoadFile( $file ) } || {};
 
     $sessions->{sessions}{$name} = "$dir" || $CWD;
@@ -42,7 +47,7 @@ sub save_session {
 sub session_dir {
     my ( $self, $name ) = @_;
 
-    my $file     = path $ENV{HOME}, '.vtide.rc';
+    my $file     = $self->history;
     my $sessions = eval { LoadFile( $file ) } || {};
 
     my $dir = $sessions->{sessions}{$name || ''} || $ENV{VTIDE_DIR} || '.';

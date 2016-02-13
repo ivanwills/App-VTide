@@ -19,11 +19,15 @@ our $VERSION = version->new('0.0.1');
 
 has global_config => (
     is      => 'rw',
-    default => sub { path $ENV{HOME}, '.vtide.yml' },
+    default => sub {
+        mkdir path $ENV{HOME}, '.vtide' if ! -d path $ENV{HOME}, '.vtide';
+        path $ENV{HOME}, '.vtide/defaults.yml';
+    },
 );
 
 has local_config => (
     is      => 'rw',
+    lazy    => 1,
     default => sub { path $ENV{VTIDE_CONFIG} || '.vtide.yml' },
 );
 
