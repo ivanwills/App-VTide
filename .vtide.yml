@@ -9,14 +9,14 @@ default:
     # dev servers which may die or you may want to kill and restart)
     restart: 0
     # run the command at first start or wait for the user to press enter
-    wait: 0
+    wait: 1
     env:
         PERL5LIB: 'lib:$PERL5LIB'
 # configure your editor
 editor:
     # the command to run
     command:
-        # this will run vim -O pluse what ever files are found but the files config
+        # this will run vim -O plus what ever files are found but the files config
         - vim
             -O
     # files store the named file groups
