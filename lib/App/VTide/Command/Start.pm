@@ -25,12 +25,10 @@ sub run {
         $self->defaults->{name}
         || $self->options->files->[0]
     );
-    my $config = path $dir, '.vtide.yml';
-
-    $self->config->local_config( $config );
-    $self->env( $name, $dir, $config );
 
     local $CWD = $dir;
+
+    $self->save_session( $name, $dir );
 
     return $self->tmux( $name );
 }
@@ -39,6 +37,7 @@ sub tmux {
     my ( $self, $name ) = @_;
 
     my $v    = $self->defaults->{verbose} ? '--verbose' : '';
+    $v .= " --name $name";
     my $tmux = "tmux -u2 new-session -s $name 'vtide run $v 1' \\; "
         . "split-window -h 'vtide run $v 1a' \\; "
         . "split-window -dv 'vtide run $v 1b' \\; ";

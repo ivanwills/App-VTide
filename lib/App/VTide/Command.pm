@@ -50,9 +50,14 @@ sub session_dir {
     my $file     = $self->history;
     my $sessions = eval { LoadFile( $file ) } || {};
 
-    my $dir = $sessions->{sessions}{$name || ''} || $ENV{VTIDE_DIR} || '.';
+    my $dir = $sessions->{sessions}{$name || ''} || $ENV{VTIDE_DIR} || path('.')->absolute;
 
     $name ||= path($dir)->absolute->basename;
+
+    my $config = path $dir, '.vtide.yml';
+
+    $self->config->local_config( $config );
+    $self->env( $name, $dir, $config );
 
     return ( $name, $dir );
 }
@@ -60,9 +65,10 @@ sub session_dir {
 sub env {
     my ( $self, $name, $dir, $config ) = @_;
 
-    $dir    ||= path( $dir || '.' )->absolute;
-    $config ||= $dir->path( '.vtide.yml' );
-    $name   ||= $self->defaults->{name}
+    $dir    ||= path( $ENV{VTIDE_DIR} ) || path( $dir || '.' )->absolute;
+    $config ||= $ENV{VTIDE_CONFIG} || $dir->path( '.vtide.yml' );
+    $name   ||= $ENV{VTIDE_NAME}
+        || $self->defaults->{name}
         || $self->config->get->{name}
         || $dir->basename;
 

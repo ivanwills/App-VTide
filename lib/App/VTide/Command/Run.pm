@@ -26,9 +26,10 @@ has files => (
 sub run {
     my ($self) = @_;
 
-    my ( $name ) = $self->env;
-    my $cmd = $self->defaults->{run} || $self->options->files->[0];
+    my ( $name ) = $self->session_dir($self->defaults->{name});
+    my $cmd = $self->options->files->[0];
     print "Running $name - $cmd\n";
+    $ENV{VTIDE_TERM} = $cmd;
 
     my $params = $self->params( $cmd );
     my @cmd    = $self->command( $params );

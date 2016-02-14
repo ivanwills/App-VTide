@@ -50,6 +50,7 @@ sub run {
                     'verbose|v+',
                 ],
                 run  => [
+                    'name|n=s',
                     'test|T!',
                     'verbose|v+',
                 ],

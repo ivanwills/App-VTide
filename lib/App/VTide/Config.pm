@@ -33,6 +33,7 @@ has local_config => (
 
 has [qw/ global_time local_time /] => (
     is      => 'rw',
+    lazy    => 1,
     default => 0,
 );
 
@@ -61,12 +62,18 @@ sub get {
 
 sub changed {
     my ($self) = @_;
+    my $global_orig = $self->global_time;
+    my $local_orig  = $self->local_time ;
+
     my $global_time = ( stat $self->global_config )[9];
-    my $local_time = ( stat $self->local_config )[9];
+    my $local_time  = ( stat $self->local_config )[9];
+
+    $self->global_time( $global_time );
+    $self->local_time ( $local_time  );
 
     return ! $self->data
-        || ( $global_time && $self->global_time < $global_time )
-        || ( $local_time  && $self->local_time  < $local_time  );
+        || ( $global_time && $global_orig < $global_time )
+        || ( $local_time  && $local_orig  < $local_time  );
 }
 
 1;
