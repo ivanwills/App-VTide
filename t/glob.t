@@ -13,17 +13,17 @@ globable();
 done_testing();
 
 sub globable {
-    my @globs = App::VTide::Command::Run->globable('a/b');
+    my @globs = App::VTide::Command::Run->_globable('a/b');
     is $globs[0], 'a/b', 'Plain file just gets returned';
 
-    @globs = App::VTide::Command::Run->globable('a/b*');
+    @globs = App::VTide::Command::Run->_globable('a/b*');
     is $globs[0], 'a/b*', 'Plain glob just gets returned';
 
-    @globs = App::VTide::Command::Run->globable('a/**/b');
+    @globs = App::VTide::Command::Run->_globable('a/**/b');
     is_deeply \@globs, [qw{a/b a/*/b a/*/*/b a/*/*/*/b}], 'simple ** is expanded'
         or diag explain \@globs;
 
-    @globs = App::VTide::Command::Run->globable('a/**/b/**/c');
+    @globs = App::VTide::Command::Run->_globable('a/**/b/**/c');
     is_deeply \@globs, [qw{
         a/b/c a/b/*/c a/b/*/*/c a/b/*/*/*/c
         a/*/b/c a/*/b/*/c a/*/b/*/*/c a/*/b/*/*/*/c
