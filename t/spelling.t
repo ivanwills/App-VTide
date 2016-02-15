@@ -33,5 +33,6 @@ add_stopwords(qw/
     VTide
     vtide
     programmatic
+    tmux
 /);
 all_pod_files_spelling_ok();
