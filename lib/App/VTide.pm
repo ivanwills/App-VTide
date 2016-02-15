@@ -123,6 +123,10 @@ editors/commands) in each.
 
 =head1 SUBROUTINES/METHODS
 
+=head2 C<run ()>
+
+Run the vtide commands
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

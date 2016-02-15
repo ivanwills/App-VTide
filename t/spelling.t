@@ -31,6 +31,7 @@ add_stopwords(qw/
     Param
     IDE
     VTide
+    vtide
     programmatic
 /);
 all_pod_files_spelling_ok();
