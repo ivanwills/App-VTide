@@ -59,4 +59,13 @@ subtest 'Changes' => sub {
 };
 
 module_boilerplate_ok('lib/App/VTide.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Conf.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Edit.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Init.pm');
+module_boilerplate_ok('lib/App/VTide/Command.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Run.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Save.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Start.pm');
+module_boilerplate_ok('lib/App/VTide/Config.pm');
+module_boilerplate_ok('bin/vtide');
 done_testing();
