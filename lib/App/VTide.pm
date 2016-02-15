@@ -117,7 +117,7 @@ This documentation refers to App::VTide version 0.0.1
 
 =head1 DESCRIPTION
 
-VTide is the programatic expression of my workflow. It uses the C<tmux>
+VTide is the programmatic expression of my workflow. It uses the C<tmux>
 terminal multiplexer to start multiple terminals and run vim (or other
 editors/commands) in each.
 
