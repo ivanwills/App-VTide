@@ -61,3 +61,9 @@ Debian_CPANTS.txt
 
 # Avoid archives of this distribution
 \bApp-VTide-[\d\.\_]+
+^MYMETA\.json$
+
+.editorconfig
+.travis.yml
+.vtide.yml
+vrc.yml
