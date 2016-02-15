@@ -24,6 +24,37 @@ has config => (
 
 sub run {
     my ($self) = @_;
+    my %sub_commands = (
+        init  => [
+            'name|n=s',
+            'dir|d=s',
+            'windows|w=i',
+            'verbose|v+',
+        ],
+        start => [
+            'name|n=s',
+            'windows|w=i',
+            'test|T!',
+            'verbose|v+',
+        ],
+        run  => [
+            'name|n=s',
+            'test|T!',
+            'verbose|v+',
+        ],
+        edit => [
+            'test|T!',
+            'verbose|v+',
+        ],
+        save => [
+            'test|T!',
+            'verbose|v+',
+        ],
+        conf => [
+            'test|T!',
+            'verbose|v+',
+        ],
+    );
 
     my ($options, $cmd, $opt) = get_options(
         {
@@ -36,37 +67,7 @@ sub run {
             auto_complete => sub {
                 my ($opt, $auto) = @_;
             },
-            sub_command => {
-                init  => [
-                    'name|n=s',
-                    'dir|d=s',
-                    'windows|w=i',
-                    'verbose|v+',
-                ],
-                start => [
-                    'name|n=s',
-                    'windows|w=i',
-                    'test|T!',
-                    'verbose|v+',
-                ],
-                run  => [
-                    'name|n=s',
-                    'test|T!',
-                    'verbose|v+',
-                ],
-                edit => [
-                    'test|T!',
-                    'verbose|v+',
-                ],
-                save => [
-                    'test|T!',
-                    'verbose|v+',
-                ],
-                conf => [
-                    'test|T!',
-                    'verbose|v+',
-                ],
-            },
+            sub_command => \%sub_commands,
         },
         [
             'name|n=s',
@@ -77,7 +78,13 @@ sub run {
     my $file   = 'App/VTide/Command/' . ucfirst $opt->cmd . '.pm';
     my $module = 'App::VTide::Command::' . ucfirst $opt->cmd;
 
-    require $file;
+    eval { require $file; };
+    if ($@) {
+        warn "Unknown command '" . $opt->cmd . "'!\n",
+            "Valid commands - ", ( join ', ', sort keys %sub_commands ),
+            "\n";
+        return 10;
+    }
 
     return $module->new(
         defaults => $options,
