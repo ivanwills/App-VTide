@@ -13,6 +13,7 @@ use Carp;
 use English qw/ -no_match_vars /;
 use File::chdir;
 use Path::Tiny;
+use YAML::Syck;
 
 extends 'App::VTide::Command';
 
@@ -57,6 +58,17 @@ sub tmux {
     }
 
     exec $tmux;
+}
+
+sub auto_complete {
+    my ($self) = @_;
+
+    my $file     = $self->history;
+    my $sessions = eval { LoadFile( $file ) } || {};
+
+    print join ' ', sort keys %{ $sessions->{sessions} };
+
+    return;
 }
 
 1;
