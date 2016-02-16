@@ -22,7 +22,7 @@ sub run {
     my ($self) = @_;
 
     my ( $name ) = $self->session_dir($self->defaults->{name});
-    my $cmd = $self->options->files->[0];
+    my $cmd = $self->options->files->[0] || '';
     print "Running $name - $cmd\n";
     $ENV{VTIDE_TERM} = $cmd;
 
@@ -212,6 +212,17 @@ sub runit {
     }
 
     return system @cmd;
+}
+
+sub auto_complete {
+    my ($self) = @_;
+
+    my $env = $self->options->files->[-1];
+    print join ' ', my @files = sort keys %{ $self->config->get->{termials} };
+
+    print join ' ', grep { $env ne 'run' ? /$env/ : 1 } @files;
+
+    return;
 }
 
 1;

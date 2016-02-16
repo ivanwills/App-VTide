@@ -44,6 +44,17 @@ sub run {
     return;
 }
 
+sub auto_complete {
+    my ($self) = @_;
+
+    my $env = $self->options->files->[-1];
+    my @files = sort keys %{ $self->config->get->{editor}{files} };
+
+    print join ' ', grep { $env ne 'edit' ? /$env/ : 1 } @files;
+
+    return;
+}
+
 1;
 
 __END__
