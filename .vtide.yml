@@ -24,6 +24,7 @@ editor:
         base:
             - lib/App/VTide.pm
             - lib/App/VTide/Config.pm
+            - lib/App/VTide/Command/Conf.pm
         cmds:
             - lib/App/VTide/Command.pm
             - lib/App/VTide/Command/Init.pm
