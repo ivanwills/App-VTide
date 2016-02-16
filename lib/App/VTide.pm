@@ -65,7 +65,9 @@ sub run {
                 test => 0,
             },
             auto_complete => sub {
-                my ($opt, $auto) = @_;
+                my ($opt, $auto, $errors) = @_;
+                my $subcommand = $self->load_subcommand( $opt->cmd, $opt );
+                $subcommand->auto_complete();
             },
             sub_command => \%sub_commands,
         },
@@ -75,23 +77,31 @@ sub run {
         ],
     );
 
-    my $file   = 'App/VTide/Command/' . ucfirst $opt->cmd . '.pm';
-    my $module = 'App::VTide::Command::' . ucfirst $opt->cmd;
-
-    eval { require $file; };
+    my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
     if ($@) {
-        warn "Unknown command '" . $opt->cmd . "'!\n",
+        warn "Unknown command '$cmd'!\n",
             "Valid commands - ", ( join ', ', sort keys %sub_commands ),
             "\n";
         return 10;
     }
 
+    return $subcommand
+    ->run;
+}
+
+sub load_subcommand {
+    my ( $self, $cmd, $opt ) = @_;
+
+    my $file   = 'App/VTide/Command/' . ucfirst $cmd . '.pm';
+    my $module = 'App::VTide::Command::' . ucfirst $cmd;
+
+    require $file;
+
     return $module->new(
-        defaults => $options,
+        defaults => $opt->opt,
         options  => $opt,
         vtide    => $self,
-    )
-    ->run;
+    );
 }
 
 1;
