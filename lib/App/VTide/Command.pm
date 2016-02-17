@@ -79,6 +79,13 @@ sub env {
     return ( $name, $dir, $config );
 }
 
+sub auto_complete {
+    my ($self) = @_;
+
+    warn lc ( ref $self =~ /.*::/ ), " has no --auto-complete support\n";
+    return;
+}
+
 1;
 
 __END__
