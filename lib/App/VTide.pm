@@ -66,8 +66,17 @@ sub run {
             },
             auto_complete => sub {
                 my ($opt, $auto, $errors) = @_;
-                my $subcommand = $self->load_subcommand( $opt->cmd, $opt );
-                $subcommand->auto_complete();
+                my $cmd = $opt->cmd;
+                if ( $cmd eq '--' ) {
+                    print join ' ', sort keys %sub_commands;
+                    return;
+                }
+                eval {
+                    $self->load_subcommand( $cmd, $opt )->auto_complete();
+                };
+                if ($@) {
+                    print join ' ', grep {/$cmd/} sort keys %sub_commands;
+                }
             },
             sub_command => \%sub_commands,
         },
