@@ -20,9 +20,10 @@ sub run {
     my ($self) = @_;
 
     if ( $self->defaults->{verbose} ) {
-        print "VTIDE_NAME   : $ENV{VTIDE_NAME}  \n";
-        print "VTIDE_DIR    : $ENV{VTIDE_DIR}   \n";
-        print "VTIDE_CONFIG : $ENV{VTIDE_CONFIG}\n";
+        for my $env (sort keys %ENV ) {
+            next if $env !~ /VTIDE/;
+            printf "%-12s : %s\n", $env, $ENV{$env};
+        }
         print "\n";
     }
 
