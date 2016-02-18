@@ -97,13 +97,17 @@ This documentation refers to App::VTide::Command::Start version 0.0.1
 
 =head1 SUBROUTINES/METHODS
 
-=head3 C<run ()>
+=head2 C<run ()>
 
 Starts the tmux session running a C<vtide run> command in each terminal
 
-=head3 C<tmux ( $name )>
+=head2 C<tmux ( $name )>
 
 Run a tmux session with the name C<$name>
+
+=head2 C<auto_complete ()>
+
+Auto completes session names
 
 =head1 DIAGNOSTICS
 

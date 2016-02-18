@@ -284,6 +284,10 @@ Converts a deep blog (e.g. **/*.js) to a series of perl globs
 
 Executes a command (with --test skipping)
 
+=head2 C<auto_complete ()>
+
+Auto completes terminal names
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

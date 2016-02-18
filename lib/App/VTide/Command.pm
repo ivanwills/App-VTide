@@ -108,17 +108,21 @@ This documentation refers to App::VTide::Command version 0.0.1
 
 =head1 SUBROUTINES/METHODS
 
-=head3 C<session_dir ( $name )>
+=head2 C<session_dir ( $name )>
 
 Get the session directory for C<$name>.
 
-=head3 C<save_session ( $name, $dir )>
+=head2 C<save_session ( $name, $dir )>
 
 Save the session and directory in the history file.
 
-=head3 C<env ( $name, $dir, $config )>
+=head2 C<env ( $name, $dir, $config )>
 
 Configure the environment variables based on C<$name>, C<$dir> and C<$config>
+
+=head2 C<auto_complete ()>
+
+Default auto-complete action for sub-commands
 
 =head1 ATTRIBUTES
 

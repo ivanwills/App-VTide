@@ -84,6 +84,10 @@ This documentation refers to App::VTide::Command::Edit version 0.0.1
 
 Run an editor command with passed in file globs
 
+=head2 C<auto_complete ()>
+
+Auto completes editor file groups
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

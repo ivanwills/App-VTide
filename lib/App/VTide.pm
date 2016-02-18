@@ -153,6 +153,11 @@ editors/commands) in each.
 
 Run the vtide commands
 
+=head2 C<load_subcommand ( $cmd, $opt )>
+
+Loads the sub-command module and creates a new instance of it to return
+to the caller.
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT
