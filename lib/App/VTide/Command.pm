@@ -106,6 +106,9 @@ This documentation refers to App::VTide::Command version 0.0.1
 
 =head1 DESCRIPTION
 
+C<App::VTide::Command> is the base class for the sub-commands of C<vtide>.
+It provides helper methods and default attributes for those commands.
+
 =head1 SUBROUTINES/METHODS
 
 =head2 C<session_dir ( $name )>
