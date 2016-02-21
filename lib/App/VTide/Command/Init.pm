@@ -74,7 +74,7 @@ This documentation refers to App::VTide::Command::Init version 0.0.1
 
 =head1 SUBROUTINES/METHODS
 
-=head3 C<run ()>
+=head2 C<run ()>
 
 Initialize the configuration file
 
