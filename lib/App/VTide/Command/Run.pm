@@ -39,14 +39,7 @@ sub run {
         }
     }
 
-    if ( $params->{env} && ref $params->{env} eq 'HASH' ) {
-        for my $env ( keys %{ $params->{env} } ) {
-            my $orig = $ENV{$env};
-            $ENV{$env} = $params->{env}{$env};
-            $ENV{$env} =~ s/[\$]$env/$orig/;
-        }
-    }
-
+    $self->load_env( $params->{env} );
     $self->runit( @cmd );
 
     if ( ! $self->defaults->{test} && $self->restart($cmd) ) {
@@ -188,6 +181,20 @@ sub _globable {
     }
 
     return @globs;
+}
+
+sub load_env {
+    my ($self, $env) = @_;
+
+    if ( $env && ref $env eq 'HASH' ) {
+        for my $env ( keys %{ $env } ) {
+            my $orig = $ENV{$env};
+            $ENV{$env} = $env->{$env};
+            $ENV{$env} =~ s/[\$]$env/$orig/;
+        }
+    }
+
+    return;
 }
 
 sub runit {

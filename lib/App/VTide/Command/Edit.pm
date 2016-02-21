@@ -39,6 +39,7 @@ sub run {
         }
     }
 
+    $self->load_env( $params->{env} );
     $self->runit( @cmd );
 
     return;
