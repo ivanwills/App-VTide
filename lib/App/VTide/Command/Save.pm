@@ -10,19 +10,80 @@ use Moo;
 use warnings;
 use version;
 use Carp;
-use Scalar::Util;
-use List::Util;
-#use List::MoreUtils;
-use Data::Dumper qw/Dumper/;
+use List::MoreUtils qw/uniq/;
 use English qw/ -no_match_vars /;
+use YAML::Syck;
 
 extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.0.1');
 
+sub run {
+    my ($self) = @_;
 
+    if ( $self->defaults->{record_env} ) {
+        $self->record_env();
+    }
+    elsif ( $self->defaults->{diff_env} ) {
+        $self->defaults->{verbose} = 1;
+        $self->diff_env();
+    }
+    elsif ( $self->defaults->{save_env} ) {
+        $self->save_env( $self->diff_env() );
+    }
 
+}
 
+sub record_env {
+    my ($self) = @_;
+
+    DumpFile('.current-env', \%ENV);
+
+    return;
+}
+
+sub diff_env {
+    my ($self) = @_;
+
+    my $old_env = LoadFile('.current-env');
+    my @keys = uniq sort keys %ENV, keys %$old_env;
+    my %diff;
+
+    for my $key (@keys) {
+        next if ($ENV{$key} || '') eq ($old_env->{$key} || '');
+        if ( $self->defaults->{verbose} ) {
+            printf "%-15s %-45.45s %-45.45s\n", $key, $ENV{$key} || q{''}, $old_env->{$key} || q{''};
+        }
+        $diff{$key} = $ENV{$key};
+    }
+
+    return %diff;
+}
+
+sub save_env {
+    my ($self, %env) = @_;
+
+    my $file   = $ENV{VTIDE_CONFIG} || '.vtide.yml';
+    my $config = LoadFile($file);
+
+    if ( $self->defaults->{terminal} ) {
+        my $term = $self->defaults->{terminal};
+        $config->{terminals}{$term}{env} = {
+            %{ $config->{terminals}{$term}{env} || {} },
+            %env,
+        };
+    }
+    else {
+        $config->{default}{env} = {
+            %{ $config->{default}{env} || {} },
+            %env,
+        };
+    }
+
+    DumpFile($file, $config);
+
+    return;
+}
 
 1;
 

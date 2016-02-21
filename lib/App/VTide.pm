@@ -47,6 +47,9 @@ sub run {
             'verbose|v+',
         ],
         save => [
+            'record_env|record-env|r',
+            'diff_env|diff-env|d',
+            'save_env|save-env|d',
             'test|T!',
             'verbose|v+',
         ],
