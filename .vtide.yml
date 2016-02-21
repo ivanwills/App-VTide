@@ -5,56 +5,56 @@ name: vtide
 count: 6
 # default configs for terminals
 default:
-    # when the command finishes restart the command (useful for running
-    # dev servers which may die or you may want to kill and restart)
-    restart: 0
-    # run the command at first start or wait for the user to press enter
-    wait: 1
-    env:
-        PERL5LIB: 'lib:$PERL5LIB'
+  # when the command finishes restart the command (useful for running
+  # dev servers which may die or you may want to kill and restart)
+  restart: 0
+  # run the command at first start or wait for the user to press enter
+  wait: 1
+  env:
+    PERL5LIB: lib:$PERL5LIB
 # configure your editor
 editor:
-    # the command to run
-    command:
-        # this will run vim -O plus what ever files are found but the files config
-        - vim
-            -O
-    # files store the named file groups
-    files:
-        base:
-            - lib/App/VTide.pm
-            - lib/App/VTide/Config.pm
-            - lib/App/VTide/Command/Conf.pm
-        cmds:
-            - lib/App/VTide/Command.pm
-            - lib/App/VTide/Command/Init.pm
-            - lib/App/VTide/Command/Start.pm
-        run:
-            - lib/App/VTide/Command/Run.pm
-            - lib/App/VTide/Command/Edit.pm
-            - lib/App/VTide/Command/Save.pm
-        test:
-            - t/00-load.t
-            - t/vtide.t
-            - t/vtide-config.t
-            - t/glob.t
-        base-tests:
-            - t/boilerplate.t
-            - t/critic.t
-            - t/kwalitee.t
-            - t/manifest.t
-            - t/perlcriticrc
-            - t/pod-coverage.t
-            - t/pod.t
-            - t/spelling.t
+  # the command to run
+  command:
+    # this will run vim -O plus what ever files are found but the files config
+    - vim
+      -O
+  # files store the named file groups
+  files:
+    base:
+      - lib/App/VTide.pm
+      - lib/App/VTide/Config.pm
+      - lib/App/VTide/Command/Conf.pm
+    base-tests:
+      - t/boilerplate.t
+      - t/critic.t
+      - t/kwalitee.t
+      - t/manifest.t
+      - t/perlcriticrc
+      - t/pod-coverage.t
+      - t/pod.t
+      - t/spelling.t
+    cmds:
+      - lib/App/VTide/Command.pm
+      - lib/App/VTide/Command/Init.pm
+      - lib/App/VTide/Command/Start.pm
+    run:
+      - lib/App/VTide/Command/Run.pm
+      - lib/App/VTide/Command/Edit.pm
+      - lib/App/VTide/Command/Save.pm
+    test:
+      - t/00-load.t
+      - t/vtide.t
+      - t/vtide-config.t
+      - t/glob.t
 # configure the individual terminals
 terminals:
-    2:
-        edit:
-            - base
-    3:
-        edit:
-            - cmds
-    4:
-        edit:
-            - run
+  2:
+    edit:
+      - base
+  3:
+    edit:
+      - cmds
+  4:
+    edit:
+      - run
