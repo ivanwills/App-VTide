@@ -45,13 +45,11 @@ sub tmux {
 
     my $v    = $self->defaults->{verbose} ? '--verbose' : '';
     $v .= " --name $name";
-    my $tmux = "tmux -u2 new-session -s $name 'vtide run $v 1' \\; "
-        . "split-window -h 'vtide run $v 1a' \\; "
-        . "split-window -dv 'vtide run $v 1b' \\; ";
+    my $tmux = 'tmux -u2 ';
     my $count = $self->defaults->{windows} || $self->config->get->{count};
 
-    for my $window ( 2 .. $count ) {
-        $tmux .= "new-window 'vtide run $v $window' \\; ";
+    for my $window ( 1 .. $count ) {
+        $tmux .= $self->tmux_window($window, "vtide run $v", $name);
     }
     $tmux .= "select-window -t 1";
 
@@ -64,6 +62,30 @@ sub tmux {
     }
 
     exec $tmux;
+}
+
+sub tmux_window {
+    my ( $self, $term, $cmd, $name ) = @_;
+    use Data::Dumper qw/Dumper/;
+    warn Dumper $self->config->get->{terminals}{$term};
+    my $conf = $self->config->get->{terminals}{$term} || {};
+    my $out = $term == 1 ? "new-session -s $name '$cmd $term' \\; " : "new-window '$cmd $term' \\; ";
+    my $letter = 'a';
+
+    for my $split ( split //, ( $conf->{split} || '' ) ) {
+        next if ! $split;
+
+        my $arg = $split eq 'H' ? '-h'
+            : $split eq 'h' ? '-dh'
+            : $split eq 'V' ? '-v'
+            : $split eq 'v' ? '-dv'
+            :                 die "Unknown split for terminal $term $split (split = '$conf->{split}')!\n";
+
+         $out .= "split-window $arg '$cmd $term$letter' \\; ";
+         $letter++;
+    }
+
+    return $out;
 }
 
 sub auto_complete {
