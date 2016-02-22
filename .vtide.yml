@@ -49,6 +49,8 @@ editor:
       - t/glob.t
 # configure the individual terminals
 terminals:
+  1:
+    split: Hv
   2:
     edit:
       - base
