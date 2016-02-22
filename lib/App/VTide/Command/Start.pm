@@ -37,6 +37,12 @@ sub run {
 sub tmux {
     my ( $self, $name ) = @_;
 
+    my %session = map {/(^[^:]+)/; $1 => 1} `tmux ls`;
+    if ( $session{$name} ) {
+        # reconnect
+        exec 'tmux', 'attach-session', '-t', $name;
+    }
+
     my $v    = $self->defaults->{verbose} ? '--verbose' : '';
     $v .= " --name $name";
     my $tmux = "tmux -u2 new-session -s $name 'vtide run $v 1' \\; "
