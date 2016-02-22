@@ -50,6 +50,9 @@ editor:
 # configure the individual terminals
 terminals:
   1:
+    # splits once horizontally then once vertically for a large vertical
+    # left hand terminal and two smaller right hand terminals, the focus
+    # being left in the top right terminal
     split: Hv
   2:
     edit:
