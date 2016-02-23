@@ -66,11 +66,13 @@ sub tmux {
 
 sub tmux_window {
     my ( $self, $term, $cmd, $name ) = @_;
-    use Data::Dumper qw/Dumper/;
-    warn Dumper $self->config->get->{terminals}{$term};
-    my $conf = $self->config->get->{terminals}{$term} || {};
+    my $conf = $self->config->get->{terminals}{$term};
     my $out = $term == 1 ? "new-session -s $name '$cmd $term' \\; " : "new-window '$cmd $term' \\; ";
     my $letter = 'a';
+
+    if ( ! $conf || ref $conf ne 'HASH' ) {
+        $conf = {};
+    }
 
     for my $split ( split //, ( $conf->{split} || '' ) ) {
         next if ! $split;
