@@ -82,6 +82,10 @@ sub run {
                 }
             },
             sub_command => \%sub_commands,
+            help_packages => {
+                map {$_ => __PACKAGE__ . '::Command::' . ucfirst $_}
+                qw/ init start run edit save conf /
+            },
         },
         [
             'name|n=s',
