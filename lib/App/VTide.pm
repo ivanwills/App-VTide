@@ -81,7 +81,8 @@ sub run {
                     print join ' ', grep {/$cmd/} sort keys %sub_commands;
                 }
             },
-            sub_command => \%sub_commands,
+            sub_command   => \%sub_commands,
+            help_package  => __PACKAGE__,
             help_packages => {
                 map {$_ => __PACKAGE__ . '::Command::' . ucfirst $_}
                 qw/ init start run edit save conf /
@@ -98,11 +99,14 @@ sub run {
         warn "Unknown command '$cmd'!\n",
             "Valid commands - ", ( join ', ', sort keys %sub_commands ),
             "\n";
-        return 10;
+            require Pod::Usage;
+            Pod::Usage::pod2usage(
+                -verbose => 1,
+                -input   => __FILE__,
+            );
     }
 
-    return $subcommand
-    ->run;
+    return $subcommand->run;
 }
 
 sub load_subcommand {
