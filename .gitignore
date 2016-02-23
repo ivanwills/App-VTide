@@ -18,3 +18,4 @@ nytprof*
 tmp*
 *~
 errors.err
+.current-env
