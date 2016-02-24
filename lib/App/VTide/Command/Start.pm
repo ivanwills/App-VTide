@@ -116,14 +116,25 @@ This documentation refers to App::VTide::Command::Start version 0.0.1
 
 =head1 SYNOPSIS
 
-   use App::VTide::Command::Start;
+    vtide start
+    vtide start ([-n|--name] name) [[-w|--window] num]
+    vtide init [--help|--man]
 
-   # Brief but working code example(s) here showing the most common usage(s)
-   # This section will be as far as many users bother reading, so make it as
-   # educational and exemplary as possible.
-
+  OPTIONS:
+    -n --name[=]str
+                    The project to start (If not specified the current
+                    directory is used to find a .vtide.yml file to start)
+    -w --windows[=]int
+                    Use a different number of windows from the configured
+                    number
+    -T --test       Test a config (show the tmux command)
+    -v --verbose    Show more details out put (passed on to run as well)
+       --help       Show this help
+       --man        Show full documentation
 
 =head1 DESCRIPTION
+
+Starts up a VTide project.
 
 =head1 SUBROUTINES/METHODS
 
