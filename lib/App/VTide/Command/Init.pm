@@ -63,12 +63,16 @@ This documentation refers to App::VTide::Command::Init version 0.0.1
 
 =head1 SYNOPSIS
 
-   use App::VTide::Command::Init;
+    vtide init [(-n|--name) name] [(-d|--dir) dir] [(-w|--windows) num]
+    vtide init [--help|--man]
 
-   # Brief but working code example(s) here showing the most common usage(s)
-   # This section will be as far as many users bother reading, so make it as
-   # educational and exemplary as possible.
-
+  OPTIONS:
+    -n --name[=]str Name of the project (Default is the current directory name)
+    -d --dir[=]str  Use this as the current directory
+    -w --windows[=]int
+                    The number of tmux windows to create
+       --help       Show this help
+       --man        Show the full man page
 
 =head1 DESCRIPTION
 

@@ -138,19 +138,23 @@ This documentation refers to App::VTide version 0.0.1
 
 =head1 SYNOPSIS
 
-    use App::VTide;
+    vtide (init|start|run|edit|save|conf) [options]
 
-    App::VTide->run;
+  COMMANDS:
+    init    Initialise a new project
+    start   Open a project in Tmux
+    run     Run a projects terminal command
+    edit    Run vim for a group of files
+    save    Make/Save changes to a projects config file
+    conf    Show editor config settings
 
-    # from the command line:
-    # start a new vtide project
+  Examples:
+    # start a new project, name taken from the directory name
     vtide init
-
-    # run an existing vtide project from the current directory
+    # start the project in the current directory
     vtide start
-
-    # run a named vtide project
-    vtide start myproj
+    # start the "my-project" project previously initialised
+    vtide start my-project
 
 =head1 DESCRIPTION
 
