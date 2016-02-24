@@ -99,12 +99,12 @@ This documentation refers to App::VTide::Command::Save version 0.0.1
 
 =head1 SYNOPSIS
 
-   use App::VTide::Command::Save;
+    vtide run
+    vtide run [--help|--man]
 
-   # Brief but working code example(s) here showing the most common usage(s)
-   # This section will be as far as many users bother reading, so make it as
-   # educational and exemplary as possible.
-
+  OPTIONS:
+       --help       Show this help
+       --man        Show full documentation
 
 =head1 DESCRIPTION
 
