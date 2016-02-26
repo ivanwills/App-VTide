@@ -146,6 +146,10 @@ Starts the tmux session running a C<vtide run> command in each terminal
 
 Run a tmux session with the name C<$name>
 
+=head2 C<tmux_window ( $name )>
+
+Creates the C<tmux> configuration for a new window.
+
 =head2 C<auto_complete ()>
 
 Auto completes session names

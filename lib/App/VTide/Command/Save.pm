@@ -18,6 +18,11 @@ extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.0.1');
 
+has env_store => (
+    is      => 'ro',
+    default => '.current-env',
+);
+
 sub run {
     my ($self) = @_;
 
@@ -37,7 +42,7 @@ sub run {
 sub record_env {
     my ($self) = @_;
 
-    DumpFile('.current-env', \%ENV);
+    DumpFile($self->env_store, \%ENV);
 
     return;
 }
@@ -45,7 +50,7 @@ sub record_env {
 sub diff_env {
     my ($self) = @_;
 
-    my $old_env = LoadFile('.current-env');
+    my $old_env = LoadFile($self->env_store);
     my @keys = uniq sort keys %ENV, keys %$old_env;
     my %diff;
 
@@ -113,6 +118,25 @@ This documentation refers to App::VTide::Command::Save version 0.0.1
 =head2 C<run ()>
 
 Need to implement
+
+=head2 C<record_env ()>
+
+Save the current environment variables to a temporary file
+
+=head2 C<diff_env ()>
+
+Find the environment keys that differ in the current environment vs that stored
+in the temporary file
+
+=head2 C<save_env ()>
+
+Save environment differences to the projects C<.vtide.yml> file
+
+=head1 ATTRIBUTES
+
+=head2 C<env_store>
+
+The name of the temporary file for storing the environment variables
 
 =head1 DIAGNOSTICS
 

@@ -287,6 +287,10 @@ Gets the files globs from $glob
 Converts a deep blog (e.g. **/*.js) to a series of perl globs
 (e.g. ['*.js', '*/*.js', '*/*/*.js', '*/*/*/*.js'])
 
+=head2 C<load_env ( %env )>
+
+Put the values of %env into the %ENV variable.
+
 =head2 C<runit ( @cmd )>
 
 Executes a command (with --test skipping)
