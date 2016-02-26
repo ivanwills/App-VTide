@@ -225,7 +225,7 @@ sub auto_complete {
     my ($self) = @_;
 
     my $env = $self->options->files->[-1];
-    print join ' ', my @files = sort keys %{ $self->config->get->{termials} };
+    my @files = sort keys %{ $self->config->get->{terminals} };
 
     print join ' ', grep { $env ne 'run' ? /$env/ : 1 } @files;
 
