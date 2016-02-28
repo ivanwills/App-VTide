@@ -11,6 +11,7 @@ use warnings;
 use version;
 use Carp;
 use English qw/ -no_match_vars /;
+use YAML::Syck qw/ Dump /;
 
 extends 'App::VTide::Command';
 
@@ -19,7 +20,7 @@ our $VERSION = version->new('0.0.1');
 sub run {
     my ($self) = @_;
 
-    if ( $self->defaults->{verbose} ) {
+    if ( $self->defaults->{env} ) {
         for my $env (sort keys %ENV ) {
             next if $env !~ /VTIDE/;
             printf "%-12s : %s\n", $env, $ENV{$env};
@@ -27,9 +28,19 @@ sub run {
         print "\n";
     }
 
-    my @files = sort keys %{ $self->config->get->{editor}{files} };
+    my $data  = $self->defaults->{terms}
+        ? $self->config->get->{terminals}
+        : $self->config->get->{editor}{files};
+    my @files = sort keys %{ $data };
 
-    print join "\n", @files, '';
+    if ( $self->defaults->{verbose} ) {
+        for my $file (@files) {
+            print $file, Dump( $data->{$file} ), "\n";
+        }
+    }
+    else {
+        print join "\n", @files, '';
+    }
 
     return;
 }

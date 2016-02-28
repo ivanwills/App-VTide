@@ -54,6 +54,8 @@ sub run {
             'verbose|v+',
         ],
         conf => [
+            'env|e',
+            'terms|t',
             'test|T!',
             'verbose|v+',
         ],
