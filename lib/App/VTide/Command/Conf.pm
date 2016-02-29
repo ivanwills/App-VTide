@@ -57,7 +57,9 @@ sub which {
     my (%files, %groups, %terms);
 
     for my $group (keys %$file) {
-        my @found = grep {/$which/} @{ $file->{$group} };
+        my @found = grep {/$which/}
+            @{ $file->{$group} },
+            map { $self->_dglob($_) } @{ $file->{$group} };
         next if !@found;
 
         for my $found (@found) {
@@ -70,17 +72,26 @@ sub which {
     my @groups = sort keys %groups;
     my @terms;
     for my $terminal (sort keys %$term) {
+        my $edit = !$term->{$terminal}{edit} ? []
+            : ! ref $term->{$terminal}{edit} ? [ $term->{$terminal}{edit} ]
+            :                                  $term->{$terminal}{edit};
+
         my @found = (
-            ( intersect @files , @{ $term->{$terminal}{edit} } ),
-            ( intersect @groups, @{ $term->{$terminal}{edit} } ),
+            ( intersect @files , @$edit ),
+            ( intersect @groups, @$edit ),
         );
         next if !@found;
         push @terms, $terminal;
     }
 
-    print "Files:     " . ( join ', ', @files )  . "\n" if @files;
-    print "Groups:    " . ( join ', ', @groups ) . "\n" if @groups;
-    print "Terminals: " . ( join ', ', @terms )  . "\n" if @terms;
+    if (@files) {
+        print "Files:     " . ( join ', ', @files )  . "\n";
+        print "Groups:    " . ( join ', ', @groups ) . "\n";
+        print "Terminals: " . ( join ', ', @terms )  . "\n" if @terms;
+    }
+    else {
+        print "Not found\n";
+    }
 
     return;
 }
