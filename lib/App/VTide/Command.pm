@@ -86,6 +86,36 @@ sub auto_complete {
     return;
 }
 
+sub _dglob {
+    my ($self, $glob) = @_;
+
+    # if the "glob" is actually a single file then just return it
+    return ($glob) if -f $glob;
+
+    my @files;
+    for my $deep_glob ( $self->_globable($glob) ) {
+        push @files, glob $deep_glob;
+    }
+
+    return @files;
+}
+
+sub _globable {
+    my ($self, $glob) = @_;
+
+    my ($base, $rest) = $glob =~ m{^(.*?) [*][*] /? (.*)$}xms;
+
+    return ($glob) if !$rest;
+
+    my @globs;
+    for ( 0 .. 3 ) {
+        push @globs, $self->_globable("$base$rest");
+        $base .= '*/';
+    }
+
+    return @globs;
+}
+
 1;
 
 __END__
@@ -126,6 +156,15 @@ Configure the environment variables based on C<$name>, C<$dir> and C<$config>
 =head2 C<auto_complete ()>
 
 Default auto-complete action for sub-commands
+
+=head2 C<_dglob ( $glob )>
+
+Gets the files globs from $glob
+
+=head2 C<_globable ( $glob )>
+
+Converts a deep blog (e.g. **/*.js) to a series of perl globs
+(e.g. ['*.js', '*/*.js', '*/*/*.js', '*/*/*/*.js'])
 
 =head1 ATTRIBUTES
 

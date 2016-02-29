@@ -153,36 +153,6 @@ sub _shell_quote {
     return $file;
 }
 
-sub _dglob {
-    my ($self, $glob) = @_;
-
-    # if the "glob" is actually a single file then just return it
-    return ($glob) if -f $glob;
-
-    my @files;
-    for my $deep_glob ( $self->_globable($glob) ) {
-        push @files, glob $deep_glob;
-    }
-
-    return @files;
-}
-
-sub _globable {
-    my ($self, $glob) = @_;
-
-    my ($base, $rest) = $glob =~ m{^(.*?) [*][*] /? (.*)$}xms;
-
-    return ($glob) if !$rest;
-
-    my @globs;
-    for ( 0 .. 3 ) {
-        push @globs, $self->_globable("$base$rest");
-        $base .= '*/';
-    }
-
-    return @globs;
-}
-
 sub load_env {
     my ($self, $ENV) = @_;
 
@@ -277,15 +247,6 @@ where the files are got from the groups
 =head2 C<_shell_quote ( $file )>
 
 Quote C<$file> for shell execution
-
-=head2 C<_dglob ( $glob )>
-
-Gets the files globs from $glob
-
-=head2 C<_globable ( $glob )>
-
-Converts a deep blog (e.g. **/*.js) to a series of perl globs
-(e.g. ['*.js', '*/*.js', '*/*/*.js', '*/*/*/*.js'])
 
 =head2 C<load_env ( %env )>
 
