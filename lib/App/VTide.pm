@@ -56,6 +56,7 @@ sub run {
         conf => [
             'env|e',
             'terms|t',
+            'which|w=s',
             'test|T!',
             'verbose|v+',
         ],

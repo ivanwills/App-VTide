@@ -12,6 +12,7 @@ use version;
 use Carp;
 use English qw/ -no_match_vars /;
 use YAML::Syck qw/ Dump /;
+use Array::Utils qw/intersect/;
 
 extends 'App::VTide::Command';
 
@@ -28,6 +29,10 @@ sub run {
         print "\n";
     }
 
+    if ( $self->defaults->{which} ) {
+        return $self->which( $self->defaults->{which} );
+    }
+
     my $data  = $self->defaults->{terms}
         ? $self->config->get->{terminals}
         : $self->config->get->{editor}{files};
@@ -41,6 +46,41 @@ sub run {
     else {
         print join "\n", @files, '';
     }
+
+    return;
+}
+
+sub which {
+    my ( $self, $which ) = @_;
+    my $term = $self->config->get->{terminals};
+    my $file = $self->config->get->{editor}{files};
+    my (%files, %groups, %terms);
+
+    for my $group (keys %$file) {
+        my @found = grep {/$which/} @{ $file->{$group} };
+        next if !@found;
+
+        for my $found (@found) {
+            $files{$found}++;
+        }
+        $groups{$group}++;
+    }
+
+    my @files  = sort keys %files;
+    my @groups = sort keys %groups;
+    my @terms;
+    for my $terminal (sort keys %$term) {
+        my @found = (
+            ( intersect @files , @{ $term->{$terminal}{edit} } ),
+            ( intersect @groups, @{ $term->{$terminal}{edit} } ),
+        );
+        next if !@found;
+        push @terms, $terminal;
+    }
+
+    print "Files:     " . ( join ', ', @files )  . "\n" if @files;
+    print "Groups:    " . ( join ', ', @groups ) . "\n" if @groups;
+    print "Terminals: " . ( join ', ', @terms )  . "\n" if @terms;
 
     return;
 }
