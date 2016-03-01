@@ -84,6 +84,9 @@ sub restart {
 
     # get answer
     my $answer = <STDIN>;
+
+    return if !$answer;
+
     chomp $answer if $answer;
     $answer ||= $params->{default} || '';
 
