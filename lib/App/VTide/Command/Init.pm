@@ -77,7 +77,8 @@ This documentation refers to App::VTide::Command::Init version 0.0.1
     -n --name[=]str Name of the project (Default is the current directory name)
     -d --dir[=]str  Use this as the current directory
     -w --windows[=]int
-                    The number of tmux windows to create
+                    The number of tmux windows to create when starting
+    -f --force      Force the overwritting of existing .vtide.yml file when found
        --help       Show this help
        --man        Show the full man page
 

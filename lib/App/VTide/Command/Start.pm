@@ -128,7 +128,7 @@ This documentation refers to App::VTide::Command::Start version 0.0.1
                     directory is used to find a .vtide.yml file to start)
     -w --windows[=]int
                     Use a different number of windows from the configured
-                    number
+                    number (i.e. as set is .vtide.yml)
     -T --test       Test a config (show the tmux command)
     -v --verbose    Show more details out put (passed on to run as well)
        --help       Show this help
