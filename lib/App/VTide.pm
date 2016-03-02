@@ -29,6 +29,7 @@ sub run {
             'name|n=s',
             'dir|d=s',
             'windows|w=i',
+            'force|f!',
             'verbose|v+',
         ],
         start => [

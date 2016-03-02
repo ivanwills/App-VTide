@@ -42,6 +42,13 @@ sub run {
         },
     };
 
+    if ( -f $file ) {
+        if ( ! $self->defaults->{force} ) {
+            die "The config file '.vtide.yml' already exists wont overwrite without --force!\n";
+        }
+        warn "Overwritting '.vtide.yml'\n";
+    }
+
     DumpFile( $file, $config );
 
     $self->save_session( $name, $dir );
