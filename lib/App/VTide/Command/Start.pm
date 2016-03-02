@@ -97,7 +97,9 @@ sub auto_complete {
     my $sessions = eval { LoadFile( $file ) } || {};
 
     my $env = $self->options->files->[-1];
-    print join ' ', grep { $env ne 'start' ? /$env/ : 1 } sort keys %{ $sessions->{sessions} };
+    print join ' ',
+        grep { $env ne 'start' ? /^$env/ : 1 }
+        sort keys %{ $sessions->{sessions} };
 
     return;
 }
