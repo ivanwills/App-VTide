@@ -13,10 +13,16 @@ use Carp;
 use English qw/ -no_match_vars /;
 use Hash::Merge::Simple qw/ merge /;
 use Path::Tiny;
+use File::stat;
 
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
+
+has first => (
+    is      => 'rw',
+    default => 1,
+);
 
 sub run {
     my ($self) = @_;
@@ -29,18 +35,22 @@ sub run {
     my $params = $self->params( $cmd );
     my @cmd    = $self->command( $params );
 
-    if ( $params->{wait} ) {
-        print join ' ', @cmd, "\n";
-        print "Press enter to start : ";
-        my $ans = <STDIN>;
-        if (!$ans || !ord $ans) {
-            print "\n";
-            return;
+    if ( !( $self->first && $params->{watch} && $params->{wait} ) ) {
+        if ( $params->{wait} ) {
+            print join ' ', @cmd, "\n";
+            print "Press enter to start : ";
+            my $ans = <STDIN>;
+            if (!$ans || !ord $ans) {
+                print "\n";
+                return;
+            }
         }
+
+        $self->load_env( $params->{env} );
+        $self->runit( @cmd );
     }
 
-    $self->load_env( $params->{env} );
-    $self->runit( @cmd );
+    $self->first(0);
 
     if ( ! $self->defaults->{test} && $self->restart($cmd) ) {
         return $self->run;
@@ -53,6 +63,8 @@ sub restart {
     my ($self, $cmd) = @_;
 
     my $params = $self->params( $cmd );
+
+    return $self->watch($cmd) if $params->{watch};
 
     return if ! $params->{restart};
 
@@ -100,6 +112,35 @@ sub restart {
     }
 
     return $action{$answer}{exec}->();
+}
+
+sub watch {
+    my ($self, $cmd) = @_;
+
+    my $params = $self->params( $cmd );
+    my @files  = $self->command(
+        {
+            editor => { command => undef },
+            edit   => $params->{watch},
+        },
+    );
+
+    shift @files;
+    my %stats;
+
+    for my $file (@files) {
+        $stats{$file} = stat $file;
+    }
+
+    while (1) {
+        sleep 1;
+        for my $file (@files) {
+            my $stat = stat $file;
+            return 1 if $stats{$file}->mtime ne $stat->mtime;
+        }
+    }
+
+    return;
 }
 
 sub params {
