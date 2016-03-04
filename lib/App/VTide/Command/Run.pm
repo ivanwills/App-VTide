@@ -125,16 +125,16 @@ sub watch {
         },
     );
 
-    shift @files;
     my %stats;
-
     for my $file (@files) {
+        next if !$file || !-f $file;
         $stats{$file} = stat $file;
     }
 
     while (1) {
         sleep 1;
         for my $file (@files) {
+            next if !$file || !-f $file;
             my $stat = stat $file;
             return 1 if $stats{$file}->mtime ne $stat->mtime;
         }
