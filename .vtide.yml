@@ -47,6 +47,13 @@ editor:
       - t/vtide.t
       - t/vtide-config.t
       - t/glob.t
+    lib:
+      - lib/**/*.pm
+      - lib/**/*.pom
+    bin:
+      - bin/*
+    all-tests:
+      - t/**/*.t
 # configure the individual terminals
 terminals:
   1:
@@ -54,6 +61,12 @@ terminals:
     # left hand terminal and two smaller right hand terminals, the focus
     # being left in the top right terminal
     split: Hv
+  1a:
+    watch:
+      - lib
+      - bin
+      - all-tests
+    command: builder -c testcover
   2:
     edit:
       - base
