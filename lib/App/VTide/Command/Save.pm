@@ -108,6 +108,12 @@ This documentation refers to App::VTide::Command::Save version 0.0.1
     vtide run [--help|--man]
 
   OPTIONS:
+    -r --record-env Record the current environment (use before running commands
+                    like nvm, rvm and perlbrew)
+    -d --diff-env   Show the diff of the current environment and recorded
+                    environment
+    -s --save-env   Save the environment differences to .vtide.yml
+
        --help       Show this help
        --man        Show full documentation
 
