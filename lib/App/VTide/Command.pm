@@ -31,7 +31,7 @@ has history => (
     default => sub { path $ENV{HOME}, '.vtide/history.yml' },
 );
 
-has _glob_depth => (
+has glob_depth => (
     is      => 'rw',
     lazy    => 1,
     default => sub { $_[0]->config->get->{default}{glob_depth} || 3 },
@@ -114,7 +114,7 @@ sub _globable {
     return ($glob) if !$rest;
 
     my @globs;
-    for ( 0 .. $self->_glob_depth ) {
+    for ( 0 .. $self->glob_depth ) {
         push @globs, $self->_globable("$base$rest");
         $base .= '*/';
     }

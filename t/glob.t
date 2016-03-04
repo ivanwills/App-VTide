@@ -13,22 +13,28 @@ globable();
 done_testing();
 
 sub globable {
-    my @globs = App::VTide::Command::Run->_globable('a/b');
+    my $run = App::VTide::Command::Run->new({ glob_depth => 3 });
+    my @globs = $run->_globable('a/b');
     is $globs[0], 'a/b', 'Plain file just gets returned';
 
-    @globs = App::VTide::Command::Run->_globable('a/b*');
+    @globs = $run->_globable('a/b*');
     is $globs[0], 'a/b*', 'Plain glob just gets returned';
 
-    @globs = App::VTide::Command::Run->_globable('a/**/b');
+    @globs = $run->_globable('a/**/b');
     is_deeply \@globs, [qw{a/b a/*/b a/*/*/b a/*/*/*/b}], 'simple ** is expanded'
         or diag explain \@globs;
 
-    @globs = App::VTide::Command::Run->_globable('a/**/b/**/c');
+    @globs = $run->_globable('a/**/b/**/c');
     is_deeply \@globs, [qw{
         a/b/c a/b/*/c a/b/*/*/c a/b/*/*/*/c
         a/*/b/c a/*/b/*/c a/*/b/*/*/c a/*/b/*/*/*/c
         a/*/*/b/c a/*/*/b/*/c a/*/*/b/*/*/c a/*/*/b/*/*/*/c
         a/*/*/*/b/c a/*/*/*/b/*/c a/*/*/*/b/*/*/c a/*/*/*/b/*/*/*/c
     }], 'deep ** is expanded'
+        or diag explain \@globs;
+
+    $run->glob_depth(2);
+    @globs = $run->_globable('a/**/b');
+    is_deeply \@globs, [qw{a/b a/*/b a/*/*/b}], 'simple ** is expanded with depth 2'
         or diag explain \@globs;
 }
