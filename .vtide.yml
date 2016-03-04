@@ -62,6 +62,7 @@ terminals:
     # being left in the top right terminal
     split: Hv
   1a:
+    wait: 0
     watch:
       - lib
       - bin
