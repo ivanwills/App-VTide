@@ -63,11 +63,14 @@ terminals:
     split: Hv
   1a:
     wait: 0
+    # watch is a list of files (or file groups) to watch for changes and
+    # re-run the command. This watch waits for changes in files in the
+    # lib bin and tests directories and then runs tests
     watch:
       - lib
       - bin
       - all-tests
-    command: builder -c testcover
+    command: ./Build && ./Build testcover
   2:
     edit:
       - base
