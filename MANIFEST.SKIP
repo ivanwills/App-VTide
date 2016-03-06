@@ -63,7 +63,16 @@ Debian_CPANTS.txt
 \bApp-VTide-[\d\.\_]+
 ^MYMETA\.json$
 
+# Avoid prove saved state file
+.prove
+
+# Debian package files (not for CPAN)
+debian/
+
+# Other files of interest
+\..*\.tag$
 .editorconfig
-.travis.yml
 .vtide.yml
+.travis.yml
+.current-env
 vrc.yml
