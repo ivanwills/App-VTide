@@ -18,6 +18,14 @@ extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
 
+sub _alphanum {
+    my $A = $a;
+    my $B = $b;
+    $A =~ s/(\d+)/sprintf "%05i", $1/egxms;
+    $B =~ s/(\d+)/sprintf "%05i", $1/egxms;
+    $A cmp $B;
+}
+
 sub run {
     my ($self) = @_;
 
@@ -36,7 +44,7 @@ sub run {
     my $data  = $self->defaults->{terms}
         ? $self->config->get->{terminals}
         : $self->config->get->{editor}{files};
-    my @files = sort keys %{ $data };
+    my @files = sort _alphanum keys %{ $data };
 
     if ( $self->defaults->{verbose} ) {
         for my $file (@files) {
