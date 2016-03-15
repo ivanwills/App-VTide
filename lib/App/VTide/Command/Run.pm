@@ -14,6 +14,7 @@ use English qw/ -no_match_vars /;
 use Hash::Merge::Simple qw/ merge /;
 use Path::Tiny;
 use File::stat;
+use File::chdir;
 
 extends 'App::VTide::Command';
 
@@ -47,6 +48,10 @@ sub run {
         }
 
         $self->load_env( $params->{env} );
+        local $CWD = $CWD;
+        if ( $params->{dir} ) {
+            $CWD = $params->{dir};
+        }
         $self->runit( @cmd );
     }
 
