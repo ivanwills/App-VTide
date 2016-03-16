@@ -121,6 +121,10 @@ This documentation refers to App::VTide::Command::Conf version 0.0.1
     vtide conf [-v|--verbose]
 
     OPTIONS
+     -e --env       Show the current VTIide environment
+     -t --terms     Show the terminal configurations
+     -w --which[=]glob-name
+                    Show the files found by "glob-name"
      -v --verbose   Show environment as well as config
 
 =head1 DESCRIPTION
