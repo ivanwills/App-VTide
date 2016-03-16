@@ -56,6 +56,10 @@ sub run {
     return;
 }
 
+sub auto_complete {
+    return;
+}
+
 1;
 
 __END__
@@ -89,6 +93,10 @@ This documentation refers to App::VTide::Command::Init version 0.0.1
 =head2 C<run ()>
 
 Initialize the configuration file
+
+=head2 C<auto_complete ()>
+
+NoOp.
 
 =head1 DIAGNOSTICS
 
