@@ -126,6 +126,8 @@ This documentation refers to App::VTide::Command::Conf version 0.0.1
      -w --which[=]glob-name
                     Show the files found by "glob-name"
      -v --verbose   Show environment as well as config
+        --help       Show this help
+        --man        Show the full man page
 
 =head1 DESCRIPTION
 
