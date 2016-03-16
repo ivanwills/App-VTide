@@ -66,12 +66,15 @@ This documentation refers to App::VTide::Command::Edit version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide run
+    vtide run (glob ...)
     vtide run [--help|--man]
 
   OPTIONS:
-       --help       Show this help
-       --man        Show full documentation
+   -T --test        Test the running of the terminal (shows the commands
+                    that would be executed)
+   -v --verbose     Show more verbose output.
+      --help        Show this help
+      --man         Show full documentation
 
 =head1 DESCRIPTION
 

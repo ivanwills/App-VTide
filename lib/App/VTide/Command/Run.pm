@@ -265,12 +265,16 @@ This documentation refers to App::VTide::Command::Run version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide run
+    vtide run terminal
+    vtide run (-n|--name) terminal
     vtide run [--help|--man]
 
   OPTIONS:
-       --help       Show this help
-       --man        Show full documentation
+   -n --name[=]str  The name of the terminal to run
+   -T --test        Test the running of the terminal (shows the commands
+                    that would be executed)
+      --help        Show this help
+      --man         Show full documentation
 
 =head1 DESCRIPTION
 
