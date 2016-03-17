@@ -273,6 +273,7 @@ This documentation refers to App::VTide::Command::Run version 0.0.1
    -n --name[=]str  The name of the terminal to run
    -T --test        Test the running of the terminal (shows the commands
                     that would be executed)
+   -v --verbose     Show more verbose output.
       --help        Show this help
       --man         Show full documentation
 

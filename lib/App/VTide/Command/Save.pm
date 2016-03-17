@@ -113,7 +113,7 @@ This documentation refers to App::VTide::Command::Save version 0.0.1
     -d --diff-env   Show the diff of the current environment and recorded
                     environment
     -s --save-env   Save the environment differences to .vtide.yml
-
+   -v --verbose     Show more verbose output.
        --help       Show this help
        --man        Show full documentation
 
