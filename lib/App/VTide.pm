@@ -13,6 +13,8 @@ use Carp;
 use English qw/ -no_match_vars /;
 use Getopt::Alt;
 use App::VTide::Config;
+use Path::Tiny;
+use YAML::Syck qw/ LoadFile /;
 
 our $VERSION = version->new('0.0.1');
 
@@ -22,46 +24,14 @@ has config => (
     default => sub { App::VTide::Config->new() },
 );
 
+has sub_commands => (
+    is      => 'rw',
+    lazy    => 1,
+    builder => '_sub_commands',
+);
+
 sub run {
     my ($self) = @_;
-    my %sub_commands = (
-        init  => [
-            'name|n=s',
-            'dir|d=s',
-            'windows|w=i',
-            'force|f!',
-            'verbose|v+',
-        ],
-        start => [
-            'name|n=s',
-            'windows|w=i',
-            'test|T!',
-            'verbose|v+',
-        ],
-        run  => [
-            'name|n=s',
-            'test|T!',
-            'verbose|v+',
-        ],
-        edit => [
-            'test|T!',
-            'verbose|v+',
-        ],
-        save => [
-            'record_env|record-env|r',
-            'diff_env|diff-env|d',
-            'save_env|save-env|s',
-            'test|T!',
-            'verbose|v+',
-        ],
-        conf => [
-            'env|e',
-            'terms|t',
-            'which|w=s',
-            'test|T!',
-            'verbose|v+',
-        ],
-    );
 
     my ($options, $cmd, $opt) = get_options(
         {
@@ -75,17 +45,17 @@ sub run {
                 my ($opt, $auto, $errors) = @_;
                 my $cmd = $opt->cmd;
                 if ( $cmd eq '--' ) {
-                    print join ' ', sort keys %sub_commands;
+                    print join ' ', sort keys %{ $self->sub_commands };
                     return;
                 }
                 eval {
                     $self->load_subcommand( $cmd, $opt )->auto_complete();
                 };
                 if ($@) {
-                    print join ' ', grep {/$cmd/} sort keys %sub_commands;
+                    print join ' ', grep {/$cmd/} sort keys %{ $self->sub_commands };
                 }
             },
-            sub_command   => \%sub_commands,
+            sub_command   => $self->sub_commands,
             help_package  => __PACKAGE__,
             help_packages => {
                 map {$_ => __PACKAGE__ . '::Command::' . ucfirst $_}
@@ -101,7 +71,7 @@ sub run {
     my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
     if ($@) {
         warn "Unknown command '$cmd'!\n",
-            "Valid commands - ", ( join ', ', sort keys %sub_commands ),
+            "Valid commands - ", ( join ', ', sort keys %{ $self->sub_commands } ),
             "\n";
             require Pod::Usage;
             Pod::Usage::pod2usage(
@@ -126,6 +96,27 @@ sub load_subcommand {
         options  => $opt,
         vtide    => $self,
     );
+}
+
+sub _sub_commands {
+    my ($self)   = @_;
+    my $sub_file = path $ENV{HOME}, '.vtide', 'sub-commands.yml';
+
+    mkdir $sub_file->parent if ! -d $sub_file->parent;
+
+    return LoadFile("$sub_file") if -f $sub_file;
+
+    require Module::Pluggable;
+    Module::Pluggable->import( require => 1, search_path => ['App::VTide::Command'] );
+    my @commands = __PACKAGE__->plugins;
+
+    my $sub_commands = {};
+    for my $command (reverse sort @commands) {
+        my ($name, $conf) = $command->_sub;
+        $sub_commands->{$name} = $conf;
+    }
+
+    return $sub_commands;
 }
 
 1;
