@@ -14,7 +14,7 @@ use English qw/ -no_match_vars /;
 use Getopt::Alt;
 use App::VTide::Config;
 use Path::Tiny;
-use YAML::Syck qw/ LoadFile /;
+use YAML::Syck qw/ LoadFile DumpFile /;
 
 our $VERSION = version->new('0.0.1');
 
@@ -115,6 +115,8 @@ sub _sub_commands {
         my ($name, $conf) = $command->_sub;
         $sub_commands->{$name} = $conf;
     }
+
+    DumpFile($sub_file, $sub_commands);
 
     return $sub_commands;
 }
