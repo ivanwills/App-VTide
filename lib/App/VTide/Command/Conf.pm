@@ -25,6 +25,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
+sub _sub {( $NAME, $OPTIONS )};
 
 sub _alphanum {
     my $A = $a;

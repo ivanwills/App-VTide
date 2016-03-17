@@ -19,12 +19,13 @@ use File::chdir;
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
-our $NAME    = 'conf';
+our $NAME    = 'run';
 our $OPTIONS = [
     'name|n=s',
     'test|T!',
     'verbose|v+',
 ];
+sub _sub {( $NAME, $OPTIONS )};
 
 has first => (
     is      => 'rw',

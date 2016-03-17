@@ -17,7 +17,7 @@ use YAML::Syck;
 extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.0.1');
-our $NAME    = 'conf';
+our $NAME    = 'save';
 our $OPTIONS = [
     'record_env|record-env|r',
     'diff_env|diff-env|d',
@@ -25,6 +25,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
+sub _sub {( $NAME, $OPTIONS )};
 
 has env_store => (
     is      => 'ro',

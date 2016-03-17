@@ -18,7 +18,7 @@ use YAML::Syck;
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
-our $NAME    = 'conf';
+our $NAME    = 'init';
 our $OPTIONS = [
     'name|n=s',
     'dir|d=s',
@@ -26,6 +26,7 @@ our $OPTIONS = [
     'force|f!',
     'verbose|v+',
 ];
+sub _sub {( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;

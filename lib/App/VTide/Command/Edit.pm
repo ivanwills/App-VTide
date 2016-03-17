@@ -15,11 +15,12 @@ use English qw/ -no_match_vars /;
 extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.0.1');
-our $NAME    = 'conf';
+our $NAME    = 'edit';
 our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
+sub _sub {( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;
