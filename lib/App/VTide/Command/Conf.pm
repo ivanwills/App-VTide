@@ -17,6 +17,14 @@ use Array::Utils qw/intersect/;
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
+our $NAME    = 'conf';
+our $OPTIONS = [
+    'env|e',
+    'terms|t',
+    'which|w=s',
+    'test|T!',
+    'verbose|v+',
+];
 
 sub _alphanum {
     my $A = $a;

@@ -18,6 +18,14 @@ use YAML::Syck;
 extends 'App::VTide::Command';
 
 our $VERSION = version->new('0.0.1');
+our $NAME    = 'conf';
+our $OPTIONS = [
+    'name|n=s',
+    'dir|d=s',
+    'windows|w=i',
+    'force|f!',
+    'verbose|v+',
+];
 
 sub run {
     my ($self) = @_;
