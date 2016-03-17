@@ -137,6 +137,10 @@ This documentation refers to App::VTide::Command::Conf version 0.0.1
 
 Show's the current files configuration
 
+=head2 C<which ( $what )>
+
+Finds which terminals / file globs C<$what> belongs to.
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

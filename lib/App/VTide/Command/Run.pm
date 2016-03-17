@@ -309,9 +309,19 @@ Put the values of %env into the %ENV variable.
 
 Executes a command (with --test skipping)
 
+=head2 C<watch ( $cmd )>
+
+Watches files till they change then returns.
+
 =head2 C<auto_complete ()>
 
 Auto completes terminal names
+
+=head1 ATTRIBUTES
+
+=head2 first
+
+Track first run vs later runs (for things like waiting)
 
 =head1 DIAGNOSTICS
 
