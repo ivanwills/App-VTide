@@ -106,6 +106,13 @@ sub _sub_commands {
 
     return LoadFile("$sub_file") if -f $sub_file;
 
+    return $self->_generate_sub_command();
+}
+
+sub _generate_sub_command {
+    my ($self)   = @_;
+    my $sub_file = path $ENV{HOME}, '.vtide', 'sub-commands.yml';
+
     require Module::Pluggable;
     Module::Pluggable->import( require => 1, search_path => ['App::VTide::Command'] );
     my @commands = __PACKAGE__->plugins;
