@@ -15,6 +15,7 @@ my $builder = Module::Build->new(
         'Hash::Merge::Simple' => '0.051',
         'List::Util'          => '1.42',
         'List::MoreUtils'     => '0.413',
+        'Module::Pluggable'   => 0,
         'Moo'                 => '2.000001',
         'Path::Tiny'          => '0.068',
         'Scalar::Util'        => '1.42',
