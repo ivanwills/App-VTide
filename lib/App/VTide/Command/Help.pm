@@ -11,6 +11,7 @@ use warnings;
 use version;
 use Carp;
 use English qw/ -no_match_vars /;
+use Pod::Usage;
 
 extends 'App::VTide::Command::Run';
 
@@ -33,6 +34,25 @@ sub run {
     }
     else {
         # show the list of commands and their descriptions
+        for my $cmd (sort keys %$sub) {
+            my $title  = ucfirst $cmd;
+            my $module = 'App/VTide/Command/' . $title . '.pm';
+            require Tie::Handle::Scalar;
+            my $out = '';
+            tie *FH, 'Tie::Handle::Scalar', \$out;
+
+            pod2usage(
+                -verbose  => 99,
+                -input    => $INC{$module},
+                -exitval  => 'NOEXIT',
+                -output   => \*FH,
+                -sections => [qw/ NAME /],
+            );
+
+            $out =~ s/Name.*?$title/$cmd/xms;
+            $out =~ s/\s\s+/ /gxms;
+            print "$out\n";
+        }
     }
 
     return;
