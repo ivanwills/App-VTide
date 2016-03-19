@@ -31,6 +31,12 @@ sub run {
 
     if ($command) {
         # show the help for the command
+        my $title  = ucfirst $command;
+        my $module = 'App/VTide/Command/' . $title . '.pm';
+        pod2usage(
+            -verbose  => 1,
+            -input    => $INC{$module},
+        );
     }
     else {
         # show the list of commands and their descriptions
