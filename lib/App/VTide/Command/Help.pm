@@ -102,11 +102,11 @@ This documentation refers to App::VTide::Command::Help version 0.0.1
 
 =head2 C<run ()>
 
-Run an editor command with passed in file globs
+Displays help for all available commands and individual commands
 
 =head2 C<auto_complete ()>
 
-Auto completes editor file groups
+Auto completes sub-commands that can have help shown
 
 =head1 DIAGNOSTICS
 
