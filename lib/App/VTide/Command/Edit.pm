@@ -64,7 +64,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Edit - Run an edit command (like Run but without a terminal
+App::VTide::Command::Edit - Run an edit command (like Run but without a terminal spec)
 
 =head1 VERSION
 
