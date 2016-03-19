@@ -74,7 +74,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Help - Run an edit command (like Run but without a terminal
+App::VTide::Command::Help - Show help for vtide commands
 
 =head1 VERSION
 
@@ -82,13 +82,10 @@ This documentation refers to App::VTide::Command::Help version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide run (glob ...)
-    vtide run [--help|--man]
+    vtide help
+    vtide help command
 
   OPTIONS:
-   -T --test        Test the running of the terminal (shows the commands
-                    that would be executed)
-   -v --verbose     Show more verbose output.
       --help        Show this help
       --man         Show full documentation
 
