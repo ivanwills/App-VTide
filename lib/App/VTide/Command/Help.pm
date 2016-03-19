@@ -65,6 +65,13 @@ sub run {
 }
 
 sub auto_complete {
+    my ($self) = @_;
+
+    my $env = $self->options->files->[-1];
+    my $sub = $self->vtide->_generate_sub_command;
+
+    print join ' ', grep { $env ne 'edit' ? /^$env/ : 1 } sort keys %$sub;
+
     return;
 }
 
