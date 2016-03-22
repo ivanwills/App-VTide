@@ -42,6 +42,9 @@ editor:
       - lib/App/VTide/Command/Run.pm
       - lib/App/VTide/Command/Edit.pm
       - lib/App/VTide/Command/Save.pm
+    helpers:
+        - lib/App/VTide/Command/Help.pm
+        - lib/App/VTide/Command/Refresh.pm
     test:
       - t/00-load.t
       - t/vtide.t
@@ -80,3 +83,6 @@ terminals:
   4:
     edit:
       - run
+  5:
+    edit:
+      - helpers
