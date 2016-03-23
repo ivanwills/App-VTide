@@ -167,6 +167,12 @@ VTide is the programmatic expression of my workflow. It uses the C<tmux>
 terminal multiplexer to start multiple terminals and run vim (or other
 editors/commands) in each.
 
+=head2 Philosiphy
+
+One piece of work == one project == one terminal tab. In one terminal
+tmux is run with tumx windows for editing different files, running commands
+and version control work.
+
 =head1 SUBROUTINES/METHODS
 
 =head2 C<run ()>
