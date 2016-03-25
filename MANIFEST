@@ -5,7 +5,9 @@ lib/App/VTide.pm
 lib/App/VTide/Command.pm
 lib/App/VTide/Command/Conf.pm
 lib/App/VTide/Command/Edit.pm
+lib/App/VTide/Command/Help.pm
 lib/App/VTide/Command/Init.pm
+lib/App/VTide/Command/Refresh.pm
 lib/App/VTide/Command/Run.pm
 lib/App/VTide/Command/Save.pm
 lib/App/VTide/Command/Start.pm
