@@ -19,6 +19,7 @@ extends 'App::VTide::Command::Run';
 our $VERSION = version->new('0.0.1');
 our $NAME    = 'save';
 our $OPTIONS = [
+    'name|n=s',
     'record_env|record-env|r',
     'diff_env|diff-env|d',
     'save_env|save-env|s',
@@ -45,7 +46,25 @@ sub run {
     elsif ( $self->defaults->{save_env} ) {
         $self->save_env( $self->diff_env() );
     }
+    else {
+        # default name is the project name
+        $self->save( $self->defaults->{name}, @ARGV );
+    }
 
+    return;
+}
+
+sub save {
+    my ($self, $name, @files) = @_;
+
+    my $file   = $ENV{VTIDE_CONFIG} || '.vtide.yml';
+    my $config = LoadFile($file);
+
+    $config->{editor}{files}{$name} = [ @files ];
+
+    DumpFile($file, $config);
+
+    return;
 }
 
 sub record_env {
@@ -113,8 +132,8 @@ This documentation refers to App::VTide::Command::Save version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide run
-    vtide run [--help|--man]
+    vtide save
+    vtide save [--help|--man]
 
   OPTIONS:
     -r --record-env Record the current environment (use before running commands
