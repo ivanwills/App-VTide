@@ -132,20 +132,48 @@ This documentation refers to App::VTide::Command::Save version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide save
+    vtide save [(--name|-n) files-name] file-or-glob (file-or-glob...)
+    vtide save --record-env
+    vtide save --diff-env
+    vtide save --save-env
     vtide save [--help|--man]
 
   OPTIONS:
-    -r --record-env Record the current environment (use before running commands
+   -n --name[=]str  Save the listed files or globs to the editor files list
+                    under this name (Default is the project name)
+   -r --record-env  Record the current environment (use before running commands
                     like nvm, rvm and perlbrew)
-    -d --diff-env   Show the diff of the current environment and recorded
+   -d --diff-env    Show the diff of the current environment and recorded
                     environment
-    -s --save-env   Save the environment differences to .vtide.yml
+   -s --save-env    Save the environment differences to .vtide.yml
    -v --verbose     Show more verbose output.
        --help       Show this help
        --man        Show full documentation
 
 =head1 DESCRIPTION
+
+This L<App::VTide> command saves extra information to the C<.vtide.yml> config
+file. There are two forms:
+
+=over 4
+
+=item files
+
+Saving files or globs to the editor/files list makes it easier to add new
+groups of files. The name of the groups is specified by the C<--name>
+parameter.
+
+=item environment
+
+Saving environment variable changes so specific groups of environment variables
+can be set up each time a session is started. This is a multi step process
+where the current environment before changes are saved via C<--record=env> then
+the changes are made (eg running L<perlbrew>, C<nvm>, C<rvm> etc) and those
+changes can be viewed via C<--dif-env> and recorded to the C<.vtide.yml> file
+via C<--save-env>. This creates a temporary file C<.current-env> to store the
+environment variables when C<--record-env> is run.
+
+=back
 
 =head1 SUBROUTINES/METHODS
 
