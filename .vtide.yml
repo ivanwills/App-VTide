@@ -5,13 +5,13 @@ name: vtide
 count: 6
 # default configs for terminals
 default:
+  env:
+    PERL5LIB: lib:$PERL5LIB
   # when the command finishes restart the command (useful for running
   # dev servers which may die or you may want to kill and restart)
   restart: 0
   # run the command at first start or wait for the user to press enter
   wait: 1
-  env:
-    PERL5LIB: lib:$PERL5LIB
 # configure your editor
 editor:
   # the command to run
@@ -21,6 +21,8 @@ editor:
       -O
   # files store the named file groups
   files:
+    all-tests:
+      - t/**/*.t
     base:
       - lib/App/VTide.pm
       - lib/App/VTide/Config.pm
@@ -34,29 +36,27 @@ editor:
       - t/pod-coverage.t
       - t/pod.t
       - t/spelling.t
+    bin:
+      - bin/*
     cmds:
       - lib/App/VTide/Command.pm
       - lib/App/VTide/Command/Init.pm
       - lib/App/VTide/Command/Start.pm
+    helpers:
+      - lib/App/VTide/Command/Help.pm
+      - lib/App/VTide/Command/Refresh.pm
+    lib:
+      - lib/**/*.pm
+      - lib/**/*.pom
     run:
       - lib/App/VTide/Command/Run.pm
       - lib/App/VTide/Command/Edit.pm
       - lib/App/VTide/Command/Save.pm
-    helpers:
-        - lib/App/VTide/Command/Help.pm
-        - lib/App/VTide/Command/Refresh.pm
     test:
       - t/00-load.t
       - t/vtide.t
       - t/vtide-config.t
       - t/glob.t
-    lib:
-      - lib/**/*.pm
-      - lib/**/*.pom
-    bin:
-      - bin/*
-    all-tests:
-      - t/**/*.t
 # configure the individual terminals
 terminals:
   1:
@@ -65,6 +65,7 @@ terminals:
     # being left in the top right terminal
     split: Hv
   1a:
+    command: ./Build && ./Build testcover
     wait: 0
     # watch is a list of files (or file groups) to watch for changes and
     # re-run the command. This watch waits for changes in files in the
@@ -73,7 +74,6 @@ terminals:
       - lib
       - bin
       - all-tests
-    command: ./Build && ./Build testcover
   2:
     edit:
       - base
