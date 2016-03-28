@@ -128,7 +128,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command - Base class for sub commands
+App::VTide::Command - Base class for VTide sub commands
 
 =head1 VERSION
 
@@ -136,9 +136,10 @@ This documentation refers to App::VTide::Command version 0.0.1
 
 =head1 SYNOPSIS
 
-   extends 'App::VTide::Command';
+    # in a package with the prefix App::VTide::Command::
+    extends 'App::VTide::Command';
 
-   # child class code
+    # child class code
 
 =head1 DESCRIPTION
 
@@ -146,6 +147,10 @@ C<App::VTide::Command> is the base class for the sub-commands of C<vtide>.
 It provides helper methods and default attributes for those commands.
 
 =head1 SUBROUTINES/METHODS
+
+=head2 C<new ( %hash )>
+
+See the attributes for the arguments to pass here.
 
 =head2 C<session_dir ( $name )>
 
