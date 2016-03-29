@@ -158,7 +158,10 @@ Get the session directory for C<$name>.
 
 =head2 C<save_session ( $name, $dir )>
 
-Save the session and directory in the history file.
+Save the session and directory in the history file if it is configured. If
+its not, then the environment variable C<$VTIDE_DIR> is used and failing that
+falls back to the current directory. The local C<.vtide.yml> is then loaded
+into the config.
 
 =head2 C<env ( $name, $dir, $config )>
 
