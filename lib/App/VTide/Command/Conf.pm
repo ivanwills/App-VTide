@@ -55,11 +55,12 @@ sub run {
         : $self->config->get->{editor}{files};
     my @files = sort _alphanum keys %{ $data };
 
+    print $self->defaults->{terms} ? "Terminals configured:\n" : "File groups:\n";
     if ( $self->defaults->{verbose} ) {
         for my $file (@files) {
             my $data = Dump( $data->{$file} );
             $data =~ s/^---//xms;
-            print $file, $data, "\n";
+            print "\n", $file, $data, "\n";
         }
     }
     else {
