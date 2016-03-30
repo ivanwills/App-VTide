@@ -134,7 +134,7 @@ __END__
 
 =head1 NAME
 
-App::VTide - A vim/tmux IDE
+App::VTide - A vim/tmux IDE for the terminal
 
 =head1 VERSION
 
@@ -164,8 +164,10 @@ This documentation refers to App::VTide version 0.0.1
 =head1 DESCRIPTION
 
 VTide is the programmatic expression of my workflow. It uses the C<tmux>
-terminal multiplexer to start multiple terminals and run vim (or other
-editors/commands) in each.
+terminal multiplexer to start multiple terminals and run vim (and other
+editors/programs/commands) in each terminal. The aim is to start a L<vtide>
+with everything open and working straight up. This workflow helps to
+isolate work into small sections.
 
 =head2 Philosiphy
 
