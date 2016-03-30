@@ -104,13 +104,15 @@ This documentation refers to App::VTide::Config version 0.0.1
 
 =head1 DESCRIPTION
 
-This module gets the global and local configuration data for a project.
+This module gets the global L<App::VTide> configuration and the local
+project configuration data and returns the merged configuration.
 
 =head1 SUBROUTINES/METHODS
 
 =head2 C<get ()>
 
-Get the merged local and global configuration files
+Get the merged local and global configuration files. The files are scanned
+for changes each call so the current values are always returned.
 
 =head2 C<changed ()>
 
