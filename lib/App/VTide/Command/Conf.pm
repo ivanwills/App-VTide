@@ -143,6 +143,10 @@ This documentation refers to App::VTide::Command::Conf version 0.0.1
 
 =head1 DESCRIPTION
 
+This module provide command line option to view the current configuartion
+of a L<vtide> project. This can be helpful when wanting to edit file and
+you can't remember which file group has the files you are interested.
+
 =head1 SUBROUTINES/METHODS
 
 =head2 C<run ()>
