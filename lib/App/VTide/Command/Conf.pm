@@ -57,7 +57,9 @@ sub run {
 
     if ( $self->defaults->{verbose} ) {
         for my $file (@files) {
-            print $file, Dump( $data->{$file} ), "\n";
+            my $data = Dump( $data->{$file} );
+            $data =~ s/^---//xms;
+            print $file, $data, "\n";
         }
     }
     else {
@@ -119,7 +121,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Conf - Show the current configuration and environment
+App::VTide::Command::Conf - Show the current VTide configuration and environment
 
 =head1 VERSION
 
