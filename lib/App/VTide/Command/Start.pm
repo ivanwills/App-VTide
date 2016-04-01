@@ -83,15 +83,16 @@ sub tmux_window {
     }
 
     for my $split ( split //, ( $conf->{split} || '' ) ) {
-        next if ! $split;
+        next if ! defined $split || $split eq '';
 
-        my $arg = $split eq 'H' ? '-h'
-            : $split eq 'h' ? '-dh'
-            : $split eq 'V' ? '-v'
-            : $split eq 'v' ? '-dv'
-            :                 die "Unknown split for terminal $term $split (split = '$conf->{split}')!\n";
+        my $arg = $split eq 'H' ? 'split-window -h'
+            : $split eq 'h'     ? 'split-window -dh'
+            : $split eq 'V'     ? 'split-window -v'
+            : $split eq 'v'     ? 'split-window -dv'
+            : $split =~ /^\d$/  ? 'select-pane -t ' . $split
+            :                     die "Unknown split for terminal $term $split (split = '$conf->{split}')!\n";
 
-         $out .= "split-window $arg '$cmd $term$letter' \\; ";
+         $out .= $split =~ /^\d$/ ? "$arg \\; " : "$arg '$cmd $term$letter' \\; ";
          $letter++;
     }
 
