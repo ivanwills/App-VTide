@@ -62,8 +62,8 @@ terminals:
   1:
     # splits once horizontally then once vertically for a large vertical
     # left hand terminal and two smaller right hand terminals, the focus
-    # being left in the top right terminal
-    split: Hv
+    # being sent to the 1st pane (pane 0)
+    split: Hv0
   1a:
     command: ./Build && ./Build testcover
     wait: 0
