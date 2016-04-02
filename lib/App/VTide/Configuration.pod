@@ -1,0 +1,61 @@
+=head1 NAME
+
+App::VTide::Configuration - Description of the vtide configuration files
+
+=head1 VERSION
+
+This documentation refers to App::VTide::Configuration version 0.0.1
+
+=head1 SYNOPSIS
+
+   use App::VTide::Configuration;
+
+   # Brief but working code example(s) here showing the most common usage(s)
+   # This section will be as far as many users bother reading, so make it as
+   # educational and exemplary as possible.
+
+
+=head1 DESCRIPTION
+
+The default configuration file C<~/.vtide/default.yml> and the project specific
+configuration file C<./.vtide.yml> both have the same format.
+
+=head1 CONFIGURATION ITEMS
+
+=head2 name
+
+The name of the project (projects only)
+
+=head2 count
+
+The number of C<tmux> windows to start
+
+=head2 default
+
+Default options for terminals
+
+=head2 editor
+
+Default options for the editor
+
+=head2 terminals
+
+Details about each tmux terminal window
+
+=head1 AUTHOR
+
+Ivan Wills - (ivan.wills@gmail.com)
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright (c) 2016 Ivan Wills (14 Mullion Close, Hornsby Heights, NSW Australia 2077).
+All rights reserved.
+
+This module is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself. See L<perlartistic>.  This program is
+distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+=cut
+
