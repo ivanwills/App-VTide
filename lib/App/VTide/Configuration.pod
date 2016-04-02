@@ -24,21 +24,92 @@ configuration file C<./.vtide.yml> both have the same format.
 
 =head2 name
 
+String
+
 The name of the project (projects only)
 
 =head2 count
+
+Integer
 
 The number of C<tmux> windows to start
 
 =head2 default
 
-Default options for terminals
+Hash
+
+Default options for terminals. The following is a description of each of it's keys.
+
+=head3 env
+
+Hash
+
+A list of environemnt variables to set for terminals. You use other environment
+variables in the values (eg say setting the path you could use C<bin:$PATH>)
+but no other expansions are done.
+
+=head3 restart
+
+Bool
+
+If set to a true value the an option to restart will be given
+
+=head3 wait
+
+Don't instantly start the command/editor wait till enter is pressed.
+
+=head3 split
+
+String
+
+Tells how to split a tmux window into seperate panes
+
+eg
+
+ Hv (cursor ends up in 1a)
+    +--+--+
+    |1 |1a|
+    |  +--+
+    |  |1b|
+    +--+--+
+
+  Hv0 (cursor ends up in 1)
+    +--+--+
+    |1 |1a|
+    |  +--+
+    |  |1b|
+    +--+--+
+
+
+=head3 watch
+
+List
+
+Specifies a list of files to watch for changes. When found the command is
+rerun.
+
+=head3 command
+
+String or List
+
+A command to be run in the terminal
+
+=head3 edit
+
+String or List
+
+A list of files or file groups to run the editor with. If this is specified
+the command attribute is ignored.
 
 =head2 editor
+
+Hash
 
 Default options for the editor
 
 =head2 terminals
+
+Hash
 
 Details about each tmux terminal window
 
