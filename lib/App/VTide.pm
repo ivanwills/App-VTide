@@ -190,6 +190,9 @@ to the caller.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
+A full decription of the configuration files can be found in
+L<App::VTide::Configuration>.
+
 =head1 DEPENDENCIES
 
 =head1 INCOMPATIBILITIES
