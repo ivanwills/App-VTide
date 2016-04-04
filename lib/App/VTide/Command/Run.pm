@@ -44,7 +44,7 @@ sub run {
     my @cmd    = $self->command( $params );
 
     if ( !( $self->first && $params->{watch} && $params->{wait} ) ) {
-        if ( $params->{wait} ) {
+        if ( ! $self->defaults->{test} && $params->{wait} ) {
             print join ' ', @cmd, "\n";
             print "Press enter to start : ";
             my $ans = <STDIN>;
@@ -59,6 +59,11 @@ sub run {
         if ( $params->{dir} ) {
             $CWD = $params->{dir};
         }
+
+        if ( $self->defaults->{verbose} || $self->defaults->{test} ) {
+            warn "Will wait before starting\n" if $params->{wait};
+            warn "Will restart on exit\n" if $params->{restart};
+        }
         $self->runit( @cmd );
     }
 
@@ -72,11 +77,11 @@ sub run {
 }
 
 sub restart {
-    my ($self, $cmd) = @_;
+    my ($self, $cmd, $no_watch) = @_;
 
     my $params = $self->params( $cmd );
 
-    return $self->watch($cmd) if $params->{watch};
+    return $self->watch($cmd) if !$no_watch && $params->{watch};
 
     return if ! $params->{restart};
 
@@ -144,8 +149,18 @@ sub watch {
     }
 
     while (1) {
+        my $done = 0;
+        local $SIG{INT} = sub { $done = $self->restart($cmd, 1); };
+
         sleep 1;
+
         for my $file (@files) {
+
+            # return if interrupted
+            return 1 if $done;
+            # return if asked to quit
+            return if !defined $done;
+
             next if !$file || !-f $file;
             my $stat = stat $file;
             return 1 if $stats{$file}->mtime ne $stat->mtime;
