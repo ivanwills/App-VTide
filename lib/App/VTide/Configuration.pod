@@ -8,12 +8,22 @@ This documentation refers to App::VTide::Configuration version 0.0.1
 
 =head1 SYNOPSIS
 
-   use App::VTide::Configuration;
-
-   # Brief but working code example(s) here showing the most common usage(s)
-   # This section will be as far as many users bother reading, so make it as
-   # educational and exemplary as possible.
-
+   # .vtide.yml
+   ---
+   name: project
+   # terminal count
+   count: 4
+   default:
+     restart: 0
+     wait: 1
+   editor:
+   terminals:
+     2:
+       # override defaults
+       restart: 1
+       wait: 0
+       # run a command
+       command: ./Build
 
 =head1 DESCRIPTION
 
@@ -129,4 +139,3 @@ without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 PARTICULAR PURPOSE.
 
 =cut
-
