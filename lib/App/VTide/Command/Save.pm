@@ -181,6 +181,11 @@ environment variables when C<--record-env> is run.
 
 Need to implement
 
+=head2 C<save ($name, @files)>
+
+Saves new file group C<$name> with the file or glob patters from C<@files>
+into the local C<.vtide.yml> config file.
+
 =head2 C<record_env ()>
 
 Save the current environment variables to a temporary file
