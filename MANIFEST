@@ -12,6 +12,7 @@ lib/App/VTide/Command/Run.pm
 lib/App/VTide/Command/Save.pm
 lib/App/VTide/Command/Start.pm
 lib/App/VTide/Config.pm
+lib/App/VTide/Configuration.pod
 LICENSE
 MANIFEST
 META.json
@@ -21,10 +22,14 @@ t/00-load.t
 t/boilerplate.t
 t/critic.t
 t/glob.t
+t/global.yml
 t/kwalitee.t
+t/local.yml
 t/manifest.t
 t/perlcriticrc
 t/pod-coverage.t
 t/pod.t
 t/spelling.t
+t/vtide-config.t
+t/vtide.t
 TODO.md
