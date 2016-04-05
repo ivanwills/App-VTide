@@ -287,8 +287,7 @@ This documentation refers to App::VTide::Command::Run version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide run terminal
-    vtide run (-n|--name) terminal
+    vtide run [(-n|--name) project] [--test] terminal
     vtide run [--help|--man]
 
   OPTIONS:
@@ -300,6 +299,10 @@ This documentation refers to App::VTide::Command::Run version 0.0.1
       --man         Show full documentation
 
 =head1 DESCRIPTION
+
+The C<run> command runs a terminal with what ever is configured for that
+terminal. A full description of the terminal configuation can be found in
+L<App::VTide::Configuration/terminals>.
 
 =head1 SUBROUTINES/METHODS
 
