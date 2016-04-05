@@ -86,3 +86,6 @@ terminals:
   5:
     edit:
       - helpers
+  6:
+    edit:
+      - test
