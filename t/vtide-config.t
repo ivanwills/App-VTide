@@ -54,7 +54,7 @@ sub changed {
         local_config  => 't/local.yml',
     );
     ok $conf->changed, 'First call shows data has "changed"';
-    diag explain $conf->get;
+    $conf->get;
     ok ! $conf->changed, 'Second call shows data has not "changed"';
     $conf->local_time( $conf->local_time - 60 );
     ok $conf->changed, 'Data has "changed" when dates don\'t match';
