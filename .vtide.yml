@@ -2,7 +2,7 @@
 # optional name of project (default name is the directory)
 name: vtide
 # the total number of terminals to start up
-count: 6
+count: 8
 # default configs for terminals
 default:
   env:
