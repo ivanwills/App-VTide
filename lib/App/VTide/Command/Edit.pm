@@ -72,8 +72,8 @@ This documentation refers to App::VTide::Command::Edit version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide run (glob ...)
-    vtide run [--help|--man]
+    vtide edit (glob ...)
+    vtide edit [--help|--man]
 
   OPTIONS:
    -T --test        Test the running of the terminal (shows the commands
@@ -83,6 +83,10 @@ This documentation refers to App::VTide::Command::Edit version 0.0.1
       --man         Show full documentation
 
 =head1 DESCRIPTION
+
+The C<edit> command allows an adhoc access to starting the editor with lists
+of files, file groups or globs. The file groups are those defined in the
+local C<.vtide.yml> config (as defined in L<App::VTide::Configuration/editor>).
 
 =head1 SUBROUTINES/METHODS
 
