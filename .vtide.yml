@@ -57,6 +57,8 @@ editor:
       - t/vtide.t
       - t/vtide-config.t
       - t/glob.t
+    cmd-tests:
+      - t/vtide-cmd*.t
 # configure the individual terminals
 terminals:
   1:
@@ -89,3 +91,6 @@ terminals:
   6:
     edit:
       - test
+  7:
+    edit:
+      - cmd-tests
