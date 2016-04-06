@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Warnings;
+use App::VTide;
 
 my $module = 'App::VTide::Command::Run';
 use_ok( $module );
@@ -13,7 +14,10 @@ globable();
 done_testing();
 
 sub globable {
-    my $run = App::VTide::Command::Run->new({ glob_depth => 3 });
+    my $run = App::VTide::Command::Run->new(
+        vtide      => App::VTide->new,
+        glob_depth => 3,
+    );
     my @globs = $run->_globable('a/b');
     is $globs[0], 'a/b', 'Plain file just gets returned';
 
