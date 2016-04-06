@@ -68,6 +68,7 @@ terminals:
     split: Hv0
   1a:
     command: ./Build && ./Build testcover
+    restart: 1
     wait: 0
     # watch is a list of files (or file groups) to watch for changes and
     # re-run the command. This watch waits for changes in files in the
