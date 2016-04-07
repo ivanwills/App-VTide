@@ -24,7 +24,7 @@ has [qw/ defaults options /] => (
 has vtide => (
     is       => 'rw',
     required => 1,
-    handles  => [qw/ config /],
+    handles  => [qw/ config hooks /],
 );
 
 has history => (

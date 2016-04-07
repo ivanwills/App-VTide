@@ -23,7 +23,11 @@ has config => (
     lazy    => 1,
     default => sub { App::VTide::Config->new() },
 );
-
+has hooks => (
+    is      => 'rw',
+    lazy    => 1,
+    default => sub { App::VTide::Hooks->new( vtide => $_[0] ) },
+);
 has sub_commands => (
     is      => 'rw',
     lazy    => 1,

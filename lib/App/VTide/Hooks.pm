@@ -10,20 +10,49 @@ use Moo;
 use warnings;
 use version;
 use Carp;
-use Scalar::Util;
-use List::Util;
-#use List::MoreUtils;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
+use Path::Tiny;
 
 our $VERSION = version->new('0.0.1');
 
 has hook_cmds => (
-    is => 'rw',
-    default => sub {{}},
+    is      => 'rw',
+    lazy    => 1,
+    builder => '_hook_cmds',
+);
+has vtide => (
+    is       => 'rw',
+    required => 1,
+    handles  => [qw/ config hooks /],
 );
 
+sub run {
+    my ($self, $hook, @args) = @_;
 
+    if ( $self->hook_cmds->{$hook} ) {
+        $self->hook_cmds->{$hook}->($self, @args);
+    }
+
+    return;
+}
+
+sub _hook_cmds {
+    my ($self) = @_;
+    my $hooks  = {};
+    my $global = path( $self->config->global_config )->parent->path('hooks.pl');
+    my $local  = path( $self->config->local_config )->parent->path('.vtide', 'hooks.pl');
+
+    if ( -f $global ) {
+        $hooks = do $global;
+    }
+    if ( -f $local ) {
+        my $done = do $local;
+        $hooks = { %{ $hooks}, %{ $done } };
+    }
+
+    return $hooks;
+}
 
 1;
 
