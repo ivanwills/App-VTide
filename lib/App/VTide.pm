@@ -13,6 +13,7 @@ use Carp;
 use English qw/ -no_match_vars /;
 use Getopt::Alt;
 use App::VTide::Config;
+use App::VTide::Hooks;
 use Path::Tiny;
 use YAML::Syck qw/ LoadFile DumpFile /;
 
