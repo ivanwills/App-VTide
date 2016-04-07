@@ -39,6 +39,8 @@ sub run {
 
     $self->save_session( $name, $dir );
 
+    $self->hooks->run('start_save_session_post', $name, $dir);
+
     return $self->tmux( $name );
 }
 
