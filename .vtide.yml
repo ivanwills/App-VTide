@@ -26,7 +26,7 @@ editor:
     base:
       - lib/App/VTide.pm
       - lib/App/VTide/Config.pm
-      - lib/App/VTide/Command/Conf.pm
+      - lib/App/VTide/Hooks.pm
     base-tests:
       - t/boilerplate.t
       - t/critic.t
@@ -43,6 +43,7 @@ editor:
       - lib/App/VTide/Command/Init.pm
       - lib/App/VTide/Command/Start.pm
     helpers:
+      - lib/App/VTide/Command/Conf.pm
       - lib/App/VTide/Command/Help.pm
       - lib/App/VTide/Command/Refresh.pm
     lib:
