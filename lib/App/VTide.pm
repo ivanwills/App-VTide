@@ -177,7 +177,7 @@ isolate work into small sections.
 =head2 Philosiphy
 
 One piece of work == one project == one terminal tab. In one terminal
-tmux is run with tumx windows for editing different files, running commands
+tmux is run with tmux windows for editing different files, running commands
 and version control work.
 
 =head1 SUBROUTINES/METHODS
@@ -195,7 +195,7 @@ to the caller.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-A full decription of the configuration files can be found in
+A full description of the configuration files can be found in
 L<App::VTide::Configuration>.
 
 =head1 DEPENDENCIES

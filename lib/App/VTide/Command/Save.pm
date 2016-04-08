@@ -168,7 +168,7 @@ parameter.
 Saving environment variable changes so specific groups of environment variables
 can be set up each time a session is started. This is a multi step process
 where the current environment before changes are saved via C<--record=env> then
-the changes are made (eg running L<perlbrew>, C<nvm>, C<rvm> etc) and those
+the changes are made (e.g. running L<perlbrew>, C<nvm>, C<rvm> etc) and those
 changes can be viewed via C<--dif-env> and recorded to the C<.vtide.yml> file
 via C<--save-env>. This creates a temporary file C<.current-env> to store the
 environment variables when C<--record-env> is run.

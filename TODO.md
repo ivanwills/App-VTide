@@ -7,5 +7,5 @@
 * Hooks?
   * Add a hook infrastructure / API
   * Why is that useful?
-    * change the way files are managed? eg new ways of finding files
+    * change the way files are managed? e.g. new ways of finding files
     * Other things could be useful to dynamically modify.
