@@ -1,6 +1,7 @@
 bin/vtide
 Build.PL
 Changes
+example/hooks.pl
 lib/App/VTide.pm
 lib/App/VTide/Command.pm
 lib/App/VTide/Command/Conf.pm
@@ -13,6 +14,7 @@ lib/App/VTide/Command/Save.pm
 lib/App/VTide/Command/Start.pm
 lib/App/VTide/Config.pm
 lib/App/VTide/Configuration.pod
+lib/App/VTide/Hooks.pm
 LICENSE
 MANIFEST
 META.json
@@ -30,6 +32,8 @@ t/perlcriticrc
 t/pod-coverage.t
 t/pod.t
 t/spelling.t
+t/vtide-cmd-run.t
+t/vtide-cmd.t
 t/vtide-config.t
 t/vtide.t
 TODO.md
