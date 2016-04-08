@@ -54,7 +54,7 @@ Default options for terminals. The following is a description of each of it's ke
 
 Hash
 
-A list of environemnt variables to set for terminals. You use other environment
+A list of environment variables to set for terminals. You use other environment
 variables in the values (e.g. say setting the path you could use C<bin:$PATH>)
 but no other expansions are done.
 
@@ -72,7 +72,7 @@ Don't instantly start the command/editor wait till enter is pressed.
 
 String
 
-Tells how to split a tmux window into seperate panes
+Tells how to split a tmux window into separate panes
 
 e.g.
 

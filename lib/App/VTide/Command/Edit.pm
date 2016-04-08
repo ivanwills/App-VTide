@@ -84,7 +84,7 @@ This documentation refers to App::VTide::Command::Edit version 0.0.1
 
 =head1 DESCRIPTION
 
-The C<edit> command allows an adhoc access to starting the editor with lists
+The C<edit> command allows an ad hoc access to starting the editor with lists
 of files, file groups or globs. The file groups are those defined in the
 local C<.vtide.yml> config (as defined in L<App::VTide::Configuration/editor>).
 

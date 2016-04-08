@@ -174,7 +174,7 @@ editors/programs/commands) in each terminal. The aim is to start a L<vtide>
 with everything open and working straight up. This workflow helps to
 isolate work into small sections.
 
-=head2 Philosiphy
+=head2 Philosophy
 
 One piece of work == one project == one terminal tab. In one terminal
 tmux is run with tmux windows for editing different files, running commands

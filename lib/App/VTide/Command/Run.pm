@@ -301,7 +301,7 @@ This documentation refers to App::VTide::Command::Run version 0.0.1
 =head1 DESCRIPTION
 
 The C<run> command runs a terminal with what ever is configured for that
-terminal. A full description of the terminal configuation can be found in
+terminal. A full description of the terminal configuration can be found in
 L<App::VTide::Configuration/terminals>.
 
 =head1 SUBROUTINES/METHODS
