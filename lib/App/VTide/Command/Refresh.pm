@@ -60,12 +60,11 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Refresh - <One-line description of module's purpose>
+App::VTide::Command::Refresh - Refresh App::VTide configurations
 
 =head1 VERSION
 
 This documentation refers to App::VTide::Command::Refresh version 0.0.1
-
 
 =head1 SYNOPSIS
 
@@ -78,36 +77,15 @@ This documentation refers to App::VTide::Command::Refresh version 0.0.1
 
 =head1 DESCRIPTION
 
-A full description of the module and its features.
-
-May include numerous subsections (i.e., =head2, =head3, etc.).
-
-
 =head1 SUBROUTINES/METHODS
 
-A separate section listing the public components of the module's interface.
+=head3 C<run ()>
 
-These normally consist of either subroutines that may be exported, or methods
-that may be called on objects belonging to the classes that the module
-provides.
+Run the command
 
-Name the section accordingly.
+=head2 C<clean_sessions ()>
 
-In an object-oriented module, this section should begin with a sentence (of the
-form "An object of this class represents ...") to give the reader a high-level
-context to help them understand the methods that are subsequently described.
-
-
-=head3 C<new ( $search, )>
-
-Param: C<$search> - type (detail) - description
-
-Return: App::VTide::Command::Refresh -
-
-Description:
-
-=cut
-
+Clean up sessions which no longer exist.
 
 =head1 DIAGNOSTICS
 

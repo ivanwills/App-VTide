@@ -82,6 +82,16 @@ This documentation refers to App::VTide::Hooks version 0.0.1
 
 The the hook C<$hook> with the supplied arguments.
 
+=head1 ATTRIBUTES
+
+=head2 vtide
+
+Reference to the vtide object
+
+=head2 hook_cmds
+
+Hash of configured hook subroutines
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT
