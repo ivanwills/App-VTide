@@ -18,6 +18,7 @@ extends 'App::VTide::Command::Run';
 our $VERSION = version->new('0.0.1');
 our $NAME    = 'refresh';
 our $OPTIONS = [
+    'force|f',
     'test|T!',
     'verbose|v+',
 ];
@@ -45,7 +46,8 @@ sub clean_sessions {
         my $dir = $sessions->{sessions}{$session};
         if ( ! -d $dir || ! -f "$dir/.vtide.yml" ) {
             warn "$session ($dir) is missing\n";
-            #delete $sessions->{sessions}{$session} if !$self->defaults->{test};
+            $self->hooks->run('refresh_session_missing', $session, $dir);
+            delete $sessions->{sessions}{$session} if $self->defaults->{force};
         }
     }
 
