@@ -60,6 +60,8 @@ sub run {
 
     DumpFile( $file, $config );
 
+    $self->hooks->run('init_name', \$name);
+
     $self->save_session( $name, $dir );
 
     return;
