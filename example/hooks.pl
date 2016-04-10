@@ -1,7 +1,7 @@
 use Path::Tiny;
 
 {
-    start_save_session_post => sub {
+    start_pre => sub {
         my ($self, $name, $dir) = @_;
         my $global = path($self->config->global_config)->parent->path('backups');
         $global->mkpath;
