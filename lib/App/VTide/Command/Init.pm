@@ -34,6 +34,9 @@ sub run {
     my $file   = $dir->path( '.vtide.yml' );
     my $count  = $self->defaults->{windows} || 4;
     my $name   = $self->defaults->{name} || $dir->basename;
+
+    $self->hooks->run('init_name', \$name);
+
     my $config = {
         name    => $name,
         count   => $count,
@@ -59,8 +62,6 @@ sub run {
     }
 
     DumpFile( $file, $config );
-
-    $self->hooks->run('init_name', \$name);
 
     $self->save_session( $name, $dir );
 
