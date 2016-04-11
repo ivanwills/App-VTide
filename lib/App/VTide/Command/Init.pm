@@ -54,6 +54,8 @@ sub run {
         },
     };
 
+    $self->hooks->run('init_config', $config);
+
     if ( -f $file ) {
         if ( ! $self->defaults->{force} ) {
             die "The config file '.vtide.yml' already exists wont overwrite without --force!\n";
