@@ -38,6 +38,7 @@ sub run {
 
     if ( $self->defaults->{record_env} ) {
         $self->record_env();
+        $self->hooks->run('save_record_env');
     }
     elsif ( $self->defaults->{diff_env} ) {
         $self->defaults->{verbose} = 1;
@@ -45,6 +46,7 @@ sub run {
     }
     elsif ( $self->defaults->{save_env} ) {
         $self->save_env( $self->diff_env() );
+        $self->hooks->run( 'save_save_env', $self->diff_env() );
     }
     else {
         # default name is the project name
