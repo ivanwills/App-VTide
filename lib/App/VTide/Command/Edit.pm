@@ -42,6 +42,7 @@ sub run {
     }
 
     $self->load_env( $params->{env} );
+    $self->hooks->run('edit_editing', \@cmd);
     $self->runit( @cmd );
 
     return;

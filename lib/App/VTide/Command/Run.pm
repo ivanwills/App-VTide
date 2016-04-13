@@ -64,6 +64,7 @@ sub run {
             warn "Will wait before starting\n" if $params->{wait};
             warn "Will restart on exit\n" if $params->{restart};
         }
+        $self->hooks->run('run_running', \@cmd);
         $self->runit( @cmd );
     }
 
