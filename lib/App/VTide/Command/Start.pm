@@ -128,13 +128,14 @@ This documentation refers to App::VTide::Command::Start version 0.0.1
 =head1 SYNOPSIS
 
     vtide start
-    vtide start ([-n|--name] name) [[-w|--window] num]
-    vtide init [--help|--man]
+    vtide start name [[-w|--window] num]
+    vtide start [--help|--man]
 
   OPTIONS:
-    -n --name[=]str
+    name
                     The project to start (If not specified the current
                     directory is used to find a .vtide.yml file to start)
+
     -w --windows[=]int
                     Use a different number of windows from the configured
                     number (i.e. as set is .vtide.yml)
