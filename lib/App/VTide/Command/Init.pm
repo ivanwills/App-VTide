@@ -112,6 +112,19 @@ Initialize the configuration file
 
 NoOp.
 
+=head1 HOOKS
+
+=head2 C<init_config ($config)>
+
+This hook is called after the default configuration is created but
+before it's saved. The variable C<$config> is a reference so modifications
+to it will be written to the generated C<.vtide.yml> file.
+
+=head2 C<init_name ($name)>
+
+This allows the modifiation of the generated project name. The variable
+C<$name> is a string reference so it can be modified.
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT
