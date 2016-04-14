@@ -13,6 +13,7 @@ use Carp;
 use List::MoreUtils qw/uniq/;
 use English qw/ -no_match_vars /;
 use YAML::Syck;
+use Path::Tiny;
 
 extends 'App::VTide::Command::Run';
 
@@ -30,7 +31,7 @@ sub _sub {( $NAME, $OPTIONS )};
 
 has env_store => (
     is      => 'ro',
-    default => '.current-env',
+    default => '.vtide/.current-env',
 );
 
 sub run {
@@ -71,6 +72,8 @@ sub save {
 
 sub record_env {
     my ($self) = @_;
+
+    path($self->env_store)->parent->mkpath;
 
     DumpFile($self->env_store, \%ENV);
 
