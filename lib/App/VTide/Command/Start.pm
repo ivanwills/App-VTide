@@ -20,7 +20,6 @@ extends 'App::VTide::Command';
 our $VERSION = version->new('0.0.1');
 our $NAME    = 'start';
 our $OPTIONS = [
-    'name|n=s',
     'windows|w=i',
     'test|T!',
     'verbose|v+',
@@ -31,8 +30,7 @@ sub run {
     my ($self) = @_;
 
     my ( $name, $dir ) = $self->session_dir(
-        $self->defaults->{name}
-        || $self->options->files->[0]
+        $self->options->files->[0]
     );
 
     local $CWD = $dir;
