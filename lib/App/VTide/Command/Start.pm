@@ -167,6 +167,13 @@ Creates the C<tmux> configuration for a new window.
 
 Auto completes session names
 
+=head1 HOOKS
+
+=head2 C<start_pre ( $name, $dir )>
+
+This is run just before the tmux session is started, the C<$name> and the
+directory (C<$dir>) of the project are passed.
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

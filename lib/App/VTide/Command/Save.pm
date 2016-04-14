@@ -207,6 +207,12 @@ Save environment differences to the projects C<.vtide.yml> file
 
 The name of the temporary file for storing the environment variables
 
+=head1 HOOKS
+
+=head2 C<save_record_env ()>
+
+=head2 C<save_save_env ( $diff_env )>
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

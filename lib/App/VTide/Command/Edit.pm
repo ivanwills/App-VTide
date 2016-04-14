@@ -99,6 +99,13 @@ Run an editor command with passed in file globs
 
 Auto completes editor file groups
 
+=head1 HOOKS
+
+=head2 C<edit_editing ($cmd)>
+
+Called just before execution, the command that will be executed is
+passed and can be modified.
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT
