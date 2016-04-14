@@ -76,6 +76,12 @@ This documentation refers to App::VTide::Hooks version 0.0.1
 
 =head1 DESCRIPTION
 
+This module provides the basis from running user defined hooks. Those hooks
+are located in the C<~/.vtide/hooks.pl> and C<$PROJECT/.vtide/hooks.pl> files.
+They are perl files that are expected to return a hash where the keys are the
+hook names and the values are subs to be run. Details about individual hooks
+can be found in the various sub-command modules.
+
 =head1 SUBROUTINES/METHODS
 
 =head2 C<run ( $hook, @args )>
