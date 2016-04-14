@@ -146,7 +146,8 @@ This documentation refers to App::VTide::Command::Start version 0.0.1
 
 =head1 DESCRIPTION
 
-Starts up a VTide project.
+Starts up an existing VTide project, either by name for by using the
+configuration in the current directory.
 
 =head1 SUBROUTINES/METHODS
 
