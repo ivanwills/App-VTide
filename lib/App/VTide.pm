@@ -75,6 +75,8 @@ sub run {
 
     my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
     if ($@) {
+        my $error = $@;
+        warn $@ if $opt->opt->verbose;
         warn "Unknown command '$cmd'!\n",
             "Valid commands - ", ( join ', ', sort keys %{ $self->sub_commands } ),
             "\n";
