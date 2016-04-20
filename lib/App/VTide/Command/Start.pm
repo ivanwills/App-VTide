@@ -45,6 +45,9 @@ sub run {
 sub tmux {
     my ( $self, $name ) = @_;
 
+    eval { require Term::Title; }
+        and Term::Title::set_titlebar($name);
+
     my %session = map {/(^[^:]+)/; $1 => 1} `tmux ls`;
     if ( $session{$name} ) {
         # reconnect
@@ -60,9 +63,6 @@ sub tmux {
         $tmux .= $self->tmux_window($window, "vtide run $v", $name);
     }
     $tmux .= "select-window -t 1";
-
-    eval { require Term::Title; }
-        and Term::Title::set_titlebar($name);
 
     if ( $self->defaults->{test} ) {
         print "$tmux\n";
