@@ -60,6 +60,8 @@ editor:
       - t/glob.t
     cmd-tests:
       - t/vtide-cmd*.t
+    all-tests:
+      - t/*.t
 # configure the individual terminals
 terminals:
   1:
