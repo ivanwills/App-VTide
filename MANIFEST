@@ -20,11 +20,14 @@ MANIFEST
 META.json
 META.yml
 README.pod
+t/.vtide/hooks.pl
 t/00-load.t
 t/boilerplate.t
 t/critic.t
 t/glob.t
 t/global.yml
+t/hooks.pl
+t/hooks.t
 t/kwalitee.t
 t/local.yml
 t/manifest.t
