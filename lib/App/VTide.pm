@@ -126,7 +126,7 @@ sub _generate_sub_command {
 
     my $sub_commands = {};
     for my $command (reverse sort @commands) {
-        my ($name, $conf) = $command->_sub;
+        my ($name, $conf) = $command->details_sub;
         $sub_commands->{$name} = $conf;
     }
 

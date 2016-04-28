@@ -20,7 +20,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub { return ( $NAME, $OPTIONS )};
+sub details_sub { return ( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;
@@ -37,7 +37,7 @@ sub run {
         for my $env ( keys %{ $params->{env} } ) {
             my $orig = $ENV{$env};
             $ENV{$env} = $params->{env}{$env};
-            $ENV{$env} =~ s/[\$]$env/$orig/;
+            $ENV{$env} =~ s/[\$]$env/$orig/xms;
         }
     }
 
@@ -54,7 +54,7 @@ sub auto_complete {
     my $env = $self->options->files->[-1];
     my @files = sort keys %{ $self->config->get->{editor}{files} };
 
-    print join ' ', grep { $env ne 'edit' ? /^$env/ : 1 } @files;
+    print join ' ', grep { $env ne 'edit' ? /^$env/xms : 1 } @files;
 
     return;
 }

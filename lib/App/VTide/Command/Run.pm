@@ -25,7 +25,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub { return ( $NAME, $OPTIONS )};
+sub details_sub { return ( $NAME, $OPTIONS )};
 
 has first => (
     is      => 'rw',
@@ -98,7 +98,7 @@ sub restart {
     );
 
     if ($params->{restart} ne 1) {
-        my ($letter) = $params->{restart} =~ /^(.)/;
+        my ($letter) = $params->{restart} =~ /^(.)/xms;
         $action{$letter} = {
             msg  => $params->{restart},
             exec => sub { exec $params->{restart}; },
@@ -232,7 +232,7 @@ sub load_env {
         for my $env ( keys %{ $ENV } ) {
             my $orig = $ENV{$env};
             $ENV{$env} = $ENV->{$env};
-            $ENV{$env} =~ s/[\$]$env/$orig/;
+            $ENV{$env} =~ s/[\$]$env/$orig/xms;
         }
     }
 
@@ -248,7 +248,7 @@ sub runit {
 
     if ( @cmd > 1 ) {
         my $found = 0;
-        for my $dir ( split /:/, $ENV{PATH} ) {
+        for my $dir ( split /:/xms, $ENV{PATH} ) {
             if ( -d $dir && -x path $dir, $cmd[0] ) {
                 $found = 1;
                 last;
@@ -269,7 +269,7 @@ sub auto_complete {
     my $env = $self->options->files->[-1];
     my @files = sort keys %{ $self->config->get->{terminals} };
 
-    print join ' ', grep { $env ne 'run' ? /^$env/ : 1 } @files;
+    print join ' ', grep { $env ne 'run' ? /^$env/xms : 1 } @files;
 
     return;
 }

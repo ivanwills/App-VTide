@@ -26,7 +26,7 @@ our $OPTIONS = [
     'force|f!',
     'verbose|v+',
 ];
-sub _sub { return ( $NAME, $OPTIONS )};
+sub details_sub { return ( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;

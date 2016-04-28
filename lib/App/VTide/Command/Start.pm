@@ -24,7 +24,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub { return ( $NAME, $OPTIONS )};
+sub details_sub { return ( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;
@@ -48,7 +48,7 @@ sub tmux {
     eval { require Term::Title; }
         and Term::Title::set_titlebar($name);
 
-    my %session = map {/(^[^:]+)/; $1 => 1} `tmux ls`;
+    my %session = map {/(^[^:]+)/xms; $1 => 1} `tmux ls`;
     if ( $session{$name} ) {
         # reconnect
         exec 'tmux', 'attach-session', '-t', $name;
@@ -82,17 +82,17 @@ sub tmux_window {
         $conf = {};
     }
 
-    for my $split ( split //, ( $conf->{split} || '' ) ) {
+    for my $split ( split //xms, ( $conf->{split} || '' ) ) {
         next if ! defined $split || $split eq '';
 
         my $arg = $split eq 'H' ? 'split-window -h'
             : $split eq 'h'     ? 'split-window -dh'
             : $split eq 'V'     ? 'split-window -v'
             : $split eq 'v'     ? 'split-window -dv'
-            : $split =~ /^\d$/  ? 'select-pane -t ' . $split
+            : $split =~ /^\d$/x ? 'select-pane -t ' . $split
             :                     die "Unknown split for terminal $term $split (split = '$conf->{split}')!\n";
 
-         $out .= $split =~ /^\d$/ ? "$arg \\; " : "$arg '$cmd $term$letter' \\; ";
+         $out .= $split =~ /^\d$/xms ? "$arg \\; " : "$arg '$cmd $term$letter' \\; ";
          $letter++;
     }
 
@@ -107,7 +107,7 @@ sub auto_complete {
 
     my $env = $self->options->files->[-1];
     print join ' ',
-        grep { $env ne 'start' ? /^$env/ : 1 }
+        grep { $env ne 'start' ? /^$env/xms : 1 }
         sort keys %{ $sessions->{sessions} };
 
     return;
