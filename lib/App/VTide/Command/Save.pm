@@ -27,7 +27,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub {( $NAME, $OPTIONS )};
+sub _sub { return ( $NAME, $OPTIONS )};
 
 has env_store => (
     is      => 'ro',

@@ -21,14 +21,14 @@ has global_config => (
     is      => 'rw',
     default => sub {
         mkdir path $ENV{HOME}, '.vtide' if ! -d path $ENV{HOME}, '.vtide';
-        path $ENV{HOME}, '.vtide/defaults.yml';
+        return path $ENV{HOME}, '.vtide/defaults.yml';
     },
 );
 
 has local_config => (
     is      => 'rw',
     lazy    => 1,
-    default => sub { path $ENV{VTIDE_CONFIG} || '.vtide.yml' },
+    default => sub { return path $ENV{VTIDE_CONFIG} || '.vtide.yml' },
 );
 
 has [qw/ global_time local_time /] => (

@@ -29,13 +29,13 @@ has vtide => (
 
 has history => (
     is      => 'rw',
-    default => sub { path $ENV{HOME}, '.vtide/history.yml' },
+    default => sub { return path $ENV{HOME}, '.vtide/history.yml' },
 );
 
 has glob_depth => (
     is      => 'rw',
     lazy    => 1,
-    default => sub { $_[0]->config->get->{default}{glob_depth} || 3 },
+    default => sub { return $_[0]->config->get->{default}{glob_depth} || 3 },
 );
 
 sub save_session {

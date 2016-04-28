@@ -22,12 +22,12 @@ our $VERSION = version->new('0.0.1');
 has config => (
     is      => 'rw',
     lazy    => 1,
-    default => sub { App::VTide::Config->new() },
+    default => sub { return App::VTide::Config->new() },
 );
 has hooks => (
     is      => 'rw',
     lazy    => 1,
-    default => sub { App::VTide::Hooks->new( vtide => $_[0] ) },
+    default => sub { return App::VTide::Hooks->new( vtide => $_[0] ) },
 );
 has sub_commands => (
     is      => 'rw',

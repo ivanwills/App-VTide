@@ -20,7 +20,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub {( $NAME, $OPTIONS )};
+sub _sub { return ( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;

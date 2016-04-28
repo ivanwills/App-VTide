@@ -25,7 +25,7 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub {( $NAME, $OPTIONS )};
+sub _sub { return ( $NAME, $OPTIONS )};
 
 has first => (
     is      => 'rw',
@@ -47,7 +47,7 @@ sub run {
         if ( ! $self->defaults->{test} && $params->{wait} ) {
             print join ' ', @cmd, "\n";
             print "Press enter to start : ";
-            my $ans = <STDIN>;
+            my $ans = <ARGV>;
             if (!$ans || !ord $ans) {
                 print "\n";
                 return;
@@ -113,7 +113,7 @@ sub restart {
     print $menu;
 
     # get answer
-    my $answer = <STDIN>;
+    my $answer = <ARGV>;
 
     return if !$answer;
 
@@ -124,7 +124,7 @@ sub restart {
     while ( ! $action{$answer} ) {
         print $menu;
         print "Please choose one of " . (join ', ', sort keys %action) . "\n";
-        $answer = <STDIN>;
+        $answer = <ARGV>;
         chomp $answer if $answer;
         $answer ||= $params->{default} || '';
     }

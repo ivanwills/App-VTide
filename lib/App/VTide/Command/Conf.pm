@@ -25,14 +25,14 @@ our $OPTIONS = [
     'test|T!',
     'verbose|v+',
 ];
-sub _sub {( $NAME, $OPTIONS )};
+sub _sub { return ( $NAME, $OPTIONS )};
 
 sub _alphanum {
     my $A = $a;
     my $B = $b;
     $A =~ s/(\d+)/sprintf "%05i", $1/egxms;
     $B =~ s/(\d+)/sprintf "%05i", $1/egxms;
-    $A cmp $B;
+    return $A cmp $B;
 }
 
 sub run {
