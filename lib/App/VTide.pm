@@ -47,17 +47,17 @@ sub run {
                 test => 0,
             },
             auto_complete => sub {
-                my ($opt, $auto, $errors) = @_;
-                my $cmd = $opt->cmd;
-                if ( $cmd eq '--' ) {
+                my ($option, $auto, $errors) = @_;
+                my $sub_command = $option->cmd;
+                if ( $sub_command eq '--' ) {
                     print join ' ', sort keys %{ $self->sub_commands };
                     return;
                 }
                 eval {
-                    $self->load_subcommand( $cmd, $opt )->auto_complete();
-                };
-                if ($@) {
-                    print join ' ', grep {/$cmd/} sort keys %{ $self->sub_commands };
+                    $self->load_subcommand( $sub_command, $option )->auto_complete();
+                    1;
+                } or do {
+                    print join ' ', grep {/$sub_command/xms} sort keys %{ $self->sub_commands };
                 }
             },
             sub_command   => $self->sub_commands,
@@ -74,7 +74,7 @@ sub run {
     );
 
     my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
-    if ($@) {
+    if ( ! $subcommand ) {
         my $error = $@;
         warn $@ if $opt->opt->verbose;
         warn "Unknown command '$cmd'!\n",
