@@ -80,11 +80,11 @@ sub run {
         warn "Unknown command '$cmd'!\n",
             "Valid commands - ", ( join ', ', sort keys %{ $self->sub_commands } ),
             "\n";
-            require Pod::Usage;
-            Pod::Usage::pod2usage(
-                -verbose => 1,
-                -input   => __FILE__,
-            );
+        require Pod::Usage;
+        Pod::Usage::pod2usage(
+            -verbose => 1,
+            -input   => __FILE__,
+        );
     }
 
     return $subcommand->run;
