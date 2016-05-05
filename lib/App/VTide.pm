@@ -141,7 +141,7 @@ __END__
 
 =head1 NAME
 
-App::VTide - A vim/tmux IDE for the terminal
+App::VTide - A vim/tmux baised IDE for the terminal
 
 =head1 VERSION
 
