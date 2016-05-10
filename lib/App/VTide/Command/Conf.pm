@@ -116,6 +116,17 @@ sub which {
     return;
 }
 
+sub auto_complete {
+    my ($self) = @_;
+
+    my $env = $self->options->files->[-1];
+    my @files = sort keys %{ $self->config->get->{editor}{files} };
+
+    print join ' ', grep { $env ne 'conf' ? /^$env/xms : 1 } @files;
+
+    return;
+}
+
 1;
 
 __END__
@@ -130,7 +141,7 @@ This documentation refers to App::VTide::Command::Conf version 0.0.1
 
 =head1 SYNOPSIS
 
-    vtide conf [-v|--verbose]
+    vtide conf [-e|--env] [-t|--terms] [-v|--verbose]
 
     OPTIONS
      -e --env       Show the current VTIide environment

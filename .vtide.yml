@@ -21,6 +21,8 @@ editor:
       -O
   # files store the named file groups
   files:
+    all:
+      - '**/*'
     all-tests:
       - t/**/*.t
     base:
@@ -80,6 +82,12 @@ terminals:
       - lib
       - bin
       - all-tests
+  1b:
+    restart: 1
+    wait: 0
+    command: git status
+    watch:
+      - all
   2:
     edit:
       - base
