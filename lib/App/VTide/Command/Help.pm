@@ -70,7 +70,7 @@ sub auto_complete {
     my $env = $self->options->files->[-1];
     my $sub = $self->vtide->_generate_sub_command;
 
-    print join ' ', grep { $env ne 'edit' ? /^$env/xms : 1 } sort keys %$sub;
+    print join ' ', grep { $env ne 'help' ? /^$env/xms : 1 } sort keys %$sub;
 
     return;
 }
