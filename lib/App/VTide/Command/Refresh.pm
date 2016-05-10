@@ -19,7 +19,6 @@ our $VERSION = version->new('0.0.1');
 our $NAME    = 'refresh';
 our $OPTIONS = [
     'force|f',
-    'test|T!',
     'verbose|v+',
 ];
 sub details_sub { return ( $NAME, $OPTIONS )};
@@ -56,6 +55,10 @@ sub clean_sessions {
     return;
 }
 
+sub auto_complete {
+    my ($self) = @_;
+}
+
 1;
 
 __END__
@@ -70,12 +73,13 @@ This documentation refers to App::VTide::Command::Refresh version 0.0.1
 
 =head1 SYNOPSIS
 
-   use App::VTide::Command::Refresh;
+    vtide refresh [-f|--force]
 
-   # Brief but working code example(s) here showing the most common usage(s)
-   # This section will be as far as many users bother reading, so make it as
-   # educational and exemplary as possible.
-
+    OPTIONS
+     -f --force     When sessions are mising this will force the removal of the reference
+     -v --verbose   Show environment as well as config
+        --help      Show this help
+        --man       Show the full man page
 
 =head1 DESCRIPTION
 
