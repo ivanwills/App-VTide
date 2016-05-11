@@ -112,6 +112,10 @@ Initialize the configuration file
 
 NoOp.
 
+=head2 C<details_sub ()>
+
+Returns the commands details.
+
 =head1 HOOKS
 
 =head2 C<init_config ($config)>

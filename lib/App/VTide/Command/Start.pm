@@ -167,6 +167,10 @@ Creates the C<tmux> configuration for a new window.
 
 Auto completes session names
 
+=head2 C<details_sub ()>
+
+Returns the commands details.
+
 =head1 HOOKS
 
 =head2 C<start_pre ( $name, $dir )>

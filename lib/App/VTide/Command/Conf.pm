@@ -168,6 +168,14 @@ Show's the current files configuration
 
 Finds which terminals / file globs C<$what> belongs to.
 
+=head2 C<auto_complete ()>
+
+Auto completes sub-commands that can have help shown
+
+=head2 C<details_sub ()>
+
+Returns the commands details
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

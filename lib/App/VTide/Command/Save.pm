@@ -204,6 +204,10 @@ in the temporary file
 
 Save environment differences to the projects C<.vtide.yml> file
 
+=head2 C<details_sub ()>
+
+Returns the commands details.
+
 =head1 ATTRIBUTES
 
 =head2 C<env_store>

@@ -108,6 +108,10 @@ Displays help for all available commands and individual commands
 
 Auto completes sub-commands that can have help shown
 
+=head2 C<details_sub ()>
+
+Returns the commands details
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

@@ -93,6 +93,14 @@ Run the command
 
 Clean up sessions which no longer exist.
 
+=head2 C<auto_complete ()>
+
+Auto completes sub-commands that can have help shown
+
+=head2 C<details_sub ()>
+
+Returns the commands details
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

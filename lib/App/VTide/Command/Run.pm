@@ -344,6 +344,10 @@ Watches files till they change then returns.
 
 Auto completes terminal names
 
+=head2 C<details_sub ()>
+
+Returns the commands details.
+
 =head1 ATTRIBUTES
 
 =head2 first
