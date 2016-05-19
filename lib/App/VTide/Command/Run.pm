@@ -226,12 +226,11 @@ sub _shell_quote {
 }
 
 sub load_env {
-    my ($self, $ENV) = @_;
-
-    if ( $ENV && ref $ENV eq 'HASH' ) {
-        for my $env ( keys %{ $ENV } ) {
+    my ($self, $env_extra) = @_;
+    if ( $env_extra && ref $env_extra eq 'HASH' ) {
+        for my $env ( keys %{ $env_extra } ) {
             my $orig = $ENV{$env};
-            $ENV{$env} = $ENV->{$env};
+            $ENV{$env} = $env_extra->{$env};
             $ENV{$env} =~ s/[\$]$env/$orig/xms;
         }
     }
