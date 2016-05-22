@@ -204,7 +204,7 @@ sub command {
     my @globs  = ref $params->{edit} ? @{ $params->{edit} } : ( $params->{edit} );
 
     eval { require Term::Title; }
-        and Term::Title::set_titlebar($globs[0]);
+        and Term::Title::set_titlebar($params->{title} || $globs[0]);
 
     my $groups = $self->config->get->{editor}{files};
     while ( my $glob = shift @globs ) {
