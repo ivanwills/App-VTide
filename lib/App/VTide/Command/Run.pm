@@ -43,6 +43,7 @@ sub run {
     my $params = $self->params( $cmd );
     my @cmd    = $self->command( $params );
 
+    @ARGV = ();
     if ( !( $self->first && $params->{watch} && $params->{wait} ) ) {
         if ( ! $self->defaults->{test} && $params->{wait} ) {
             print join ' ', @cmd, "\n";
