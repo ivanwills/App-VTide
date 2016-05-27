@@ -171,11 +171,9 @@ This documentation refers to App::VTide version 0.0.1
 
 =head1 DESCRIPTION
 
-VTide is the programmatic expression of my workflow. It uses the C<tmux>
-terminal multiplexer to start multiple terminals and run vim (and other
-editors/programs/commands) in each terminal. The aim is to start a L<vtide>
-with everything open and working straight up. This workflow helps to
-isolate work into small sections.
+VTide provides a way to manage L<tmux> sessions. It allows for an easy way
+to configure a session window and run programs or open files for editing
+in them.
 
 =head2 Philosophy
 
