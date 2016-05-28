@@ -173,7 +173,8 @@ This documentation refers to App::VTide version 0.0.1
 
 VTide provides a way to manage L<tmux> sessions. It allows for an easy way
 to configure a session window and run programs or open files for editing
-in them.
+in them. The aim is to allow for easy project setup and management for
+projects managed on the command line.
 
 =head2 Philosophy
 
