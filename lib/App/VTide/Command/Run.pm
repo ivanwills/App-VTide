@@ -207,10 +207,19 @@ sub command {
     eval { require Term::Title; }
         and Term::Title::set_titlebar($params->{title} || $globs[0]);
 
+    my $helper = $self->config->get->{editor}{helper};
+    if ($helper) {
+        $helper = eval $helper;  ## no critic
+    }
+
     my $groups = $self->config->get->{editor}{files};
     while ( my $glob = shift @globs ) {
         if ( $groups->{$glob} ) {
             push @globs, @{ $groups->{$glob} };
+            next;
+        }
+        elsif ( my @g = $helper->($self, $glob) ) {
+            push @globs, @g;
             next;
         }
 

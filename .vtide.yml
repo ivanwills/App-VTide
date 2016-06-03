@@ -19,6 +19,7 @@ editor:
     # this will run vim -O plus what ever files are found but the files config
     - vim
       -O
+  helper: "sub { $_[1] eq 'json' ? ('*.json') : () }"
   # files store the named file groups
   files:
     all:
