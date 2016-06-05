@@ -17,7 +17,7 @@ use App::VTide::Hooks;
 use Path::Tiny;
 use YAML::Syck qw/ LoadFile DumpFile /;
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 
 has config => (
     is      => 'rw',
@@ -145,7 +145,7 @@ App::VTide - A vim/tmux baised IDE for the terminal
 
 =head1 VERSION
 
-This documentation refers to App::VTide version 0.0.1
+This documentation refers to App::VTide version 0.0.2
 
 =head1 SYNOPSIS
 

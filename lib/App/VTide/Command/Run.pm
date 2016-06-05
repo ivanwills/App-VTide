@@ -18,7 +18,7 @@ use File::chdir;
 
 extends 'App::VTide::Command';
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 our $NAME    = 'run';
 our $OPTIONS = [
     'name|n=s',
@@ -293,7 +293,7 @@ App::VTide::Command::Run - Run a terminal command
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Run version 0.0.1
+This documentation refers to App::VTide::Command::Run version 0.0.2
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,16 @@
 Revision history for App-VTide
 
+0.0.2   2016-06-05
+        Updating for release of version 0.0.2
+        Using YAML multi-line text syntax (Ivan Wills)
+        Added ability to supply a helper for creating globs (Ivan Wills)
+        Added comments about editors (Ivan Wills)
+        More text (Ivan Wills)
+        Working on a better description (Ivan Wills)
+        Fixed issue when value is left in @ARGV (Ivan Wills)
+        Added ability to set a title for a terminal rather than using the editors first file/glob (Ivan Wills)
+        Trying to get the environment working (Ivan Wills)
+
 0.0.1   2016-02-15
         Added missing method documentation (Ivan Wills)
         Fixed auto-complete (Ivan Wills)
