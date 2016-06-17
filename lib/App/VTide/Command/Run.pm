@@ -218,7 +218,7 @@ sub command {
             push @globs, @{ $groups->{$glob} };
             next;
         }
-        elsif ( my @g = $helper->($self, $glob) ) {
+        elsif ( $helper && ( my @g = $helper->($self, $glob) ) ) {
             push @globs, @g;
             next;
         }
