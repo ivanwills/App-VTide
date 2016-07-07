@@ -60,7 +60,7 @@ sub run {
         for my $file (@files) {
             my $data = Dump( $data->{$file} );
             $data =~ s/^---//xms;
-            print "\n", $file, $data, "\n";
+            print $file, $data, "\n";
         }
     }
     else {
