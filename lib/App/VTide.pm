@@ -70,6 +70,7 @@ sub run {
         [
             'name|n=s',
             'test|T!',
+            'verbose|v+',
         ],
     );
 
