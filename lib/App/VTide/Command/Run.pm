@@ -208,19 +208,31 @@ sub command {
         and Term::Title::set_titlebar($params->{title} || $globs[0]);
 
     my $helper = $self->config->get->{editor}{helper};
-    if ($helper) {
-        $helper = eval $helper;  ## no critic
-    }
+    eval {
+        if ($helper) {
+            $helper = eval $helper;  ## no critic
+        }
+        1;
+    } or do { warn $@ };
 
     my $groups = $self->config->get->{editor}{files};
+    GLOB:
     while ( my $glob = shift @globs ) {
         if ( $groups->{$glob} ) {
             push @globs, @{ $groups->{$glob} };
-            next;
+            next GLOB;
         }
-        elsif ( $helper && ( my @g = $helper->($self, $glob) ) ) {
-            push @globs, @g;
-            next;
+        elsif ( $helper ) {
+            my @g;
+            eval {
+                @g = $helper->($self, $glob);
+                1;
+            } or do { warn $@ };
+
+            if (@g) {
+                push @globs, @g;
+                next GLOB;
+            }
         }
 
         push @files, $self->_dglob($glob);
