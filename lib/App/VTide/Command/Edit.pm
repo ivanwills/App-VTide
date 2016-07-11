@@ -54,11 +54,14 @@ sub auto_complete {
     my $env = $self->options->files->[-1];
     my @files = sort keys %{ $self->config->get->{editor}{files} };
 
-    my $helper = $self->config->get->{editor}{helper_autocomplete};
-    if ($helper) {
-        $helper = eval $helper;  ## no critic
-        push @files, $helper->();
-    }
+    eval {
+        my $helper = $self->config->get->{editor}{helper_autocomplete};
+        if ($helper) {
+            $helper = eval $helper;  ## no critic
+            push @files, $helper->();
+        }
+        1;
+    } or do { warn $@ };
 
     print join ' ', grep { $env ne 'edit' ? /^$env/xms : 1 } @files;
 
