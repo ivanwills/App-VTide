@@ -1,5 +1,14 @@
 Revision history for App-VTide
 
+0.0.3   2016-07-17
+        Updating for release of version 0.0.3
+        Added checks around helper method (Ivan Wills)
+        Added wrapper to trap errors in helper (Ivan Wills)
+        Added new helper for autocompleting (Ivan Wills)
+        Removed first new line for shorter output (Ivan Wills)
+        Fixed missing verbose parameter (Ivan Wills)
+        Fixed issue when no helper defined (Ivan Wills)
+
 0.0.2   2016-06-05
         Updating for release of version 0.0.2
         Using YAML multi-line text syntax (Ivan Wills)
