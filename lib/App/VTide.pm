@@ -53,6 +53,10 @@ sub run {
                     print join ' ', sort keys %{ $self->sub_commands };
                     return;
                 }
+                if ( ! $self->sub_commands->{$sub_command} ) {
+                    unshift @{$option->files}, $sub_command;
+                    $sub_command = 'start';
+                }
                 eval {
                     $self->load_subcommand( $sub_command, $option )->auto_complete();
                     1;
