@@ -94,6 +94,7 @@ sub run {
                 -input   => __FILE__,
             );
         }
+        unshift @{ $opt->files }, $opt->cmd;
     }
 
     return $subcommand->run;
