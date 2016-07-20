@@ -53,7 +53,7 @@ sub run {
                     print join ' ', sort keys %{ $self->sub_commands };
                     return;
                 }
-                if ( ! $self->sub_commands->{$sub_command} ) {
+                elsif ( ! $self->sub_commands->{$sub_command} ) {
                     unshift @{$option->files}, $sub_command;
                     $sub_command = 'start';
                 }
@@ -80,16 +80,20 @@ sub run {
 
     my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
     if ( ! $subcommand ) {
-        my $error = $@;
-        warn $@ if $opt->opt->verbose;
-        warn "Unknown command '$cmd'!\n",
-            "Valid commands - ", ( join ', ', sort keys %{ $self->sub_commands } ),
-            "\n";
-        require Pod::Usage;
-        Pod::Usage::pod2usage(
-            -verbose => 1,
-            -input   => __FILE__,
-        );
+        $subcommand = $self->load_subcommand( 'start', $opt );
+        my (undef, $dir) = $subcommand->session_dir($opt->cmd);
+        if ( !$dir ) {
+            my $error = $@;
+            warn $@ if $opt->opt->verbose;
+            warn "Unknown command '$cmd'!\n",
+                "Valid commands - ", ( join ', ', sort keys %{ $self->sub_commands } ),
+                "\n";
+            require Pod::Usage;
+            Pod::Usage::pod2usage(
+                -verbose => 1,
+                -input   => __FILE__,
+            );
+        }
     }
 
     return $subcommand->run;
