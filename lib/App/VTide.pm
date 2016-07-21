@@ -159,6 +159,7 @@ This documentation refers to App::VTide version 0.0.3
 
 =head1 SYNOPSIS
 
+    vtide [start] [project]
     vtide (init|start|refresh|run|edit|save|conf|help) [options]
 
   COMMANDS:
@@ -174,10 +175,14 @@ This documentation refers to App::VTide version 0.0.3
   Examples:
     # start a new project, name taken from the directory name
     vtide init
+    # start a new project specifying the project name
+    vtide init --name my-project
     # start the project in the current directory
     vtide start
     # start the "my-project" project previously initialised
     vtide start my-project
+    # or lazy shortcut
+    vtide my-project
 
 =head1 DESCRIPTION
 
