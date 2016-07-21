@@ -126,7 +126,7 @@ to it will be written to the generated C<.vtide.yml> file.
 
 =head2 C<init_name ($name)>
 
-This allows the modifiation of the generated project name. The variable
+This allows the modification of the generated project name. The variable
 C<$name> is a string reference so it can be modified.
 
 =head1 DIAGNOSTICS

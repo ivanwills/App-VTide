@@ -151,7 +151,7 @@ __END__
 
 =head1 NAME
 
-App::VTide - A vim/tmux baised IDE for the terminal
+App::VTide - A vim/tmux based IDE for the terminal
 
 =head1 VERSION
 
@@ -190,7 +190,7 @@ VTide provides a way to manage L<tmux> sessions. It allows for an easy way
 to configure a session window and run programs or open files for editing
 in them. The aim is to allow for easy project setup and management for
 projects managed on the command line. L<App::VTide> also includes helpers
-for loading files into editors (such as vim) in seperate tmux terminals.
+for loading files into editors (such as vim) in separate tmux terminals.
 This can help to open pre-defined groups of files.
 
 =head2 Philosophy
