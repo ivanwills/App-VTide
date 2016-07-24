@@ -1,5 +1,13 @@
 Revision history for App-VTide
 
+0.0.4   2016-07-24
+        Updating for release of version 0.0.4
+        Fixed spelling (Ivan Wills)
+        Added implicit documentation about default "start" command (Ivan Wills)
+        Added task so title is shown correctly (Ivan Wills)
+        Added logic to test if 'start' isn't passed a start is attempted before showing error (Ivan Wills)
+        WIP defaulting command to "start" (Ivan Wills)
+
 0.0.3   2016-07-17
         Updating for release of version 0.0.3
         Added checks around helper method (Ivan Wills)
