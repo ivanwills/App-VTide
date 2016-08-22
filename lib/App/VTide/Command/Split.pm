@@ -37,8 +37,6 @@ sub run {
         return 1;
     }
 
-    use Data::Dumper qw/Dumper/;
-    die Dumper $self->defaults;
     system "tmux $out";
 
     return;
