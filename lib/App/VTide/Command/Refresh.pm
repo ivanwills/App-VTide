@@ -42,7 +42,10 @@ sub clean_sessions {
     my $sessions = eval { LoadFile( $file ) } || {};
 
     for my $session (keys %{ $sessions->{sessions} }) {
-        my $dir = $sessions->{sessions}{$session};
+        my $dir = ref $sessions->{sessions}{$session}
+            ? $sessions->{sessions}{$session}{dir}
+            : $sessions->{sessions}{$session};
+
         if ( ! -d $dir || ! -f "$dir/.vtide.yml" ) {
             warn "$session ($dir) is missing\n";
             $self->hooks->run('refresh_session_missing', $session, $dir);
