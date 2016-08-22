@@ -2,7 +2,7 @@
 # optional name of project (default name is the directory)
 name: vtide
 # the total number of terminals to start up
-count: 8
+count: 10
 # default configs for terminals
 default:
   env:
@@ -52,6 +52,9 @@ editor:
       - lib/App/VTide/Command/Conf.pm
       - lib/App/VTide/Command/Help.pm
       - lib/App/VTide/Command/Refresh.pm
+    rest:
+      - lib/App/VTide/Command/Split.pm
+      - lib/App/VTide/Command/Recent.pm
     lib:
       - lib/**/*.pm
       - lib/**/*.pom
@@ -106,7 +109,10 @@ terminals:
       - helpers
   6:
     edit:
-      - test
+      - rest
   7:
+    edit:
+      - test
+  8:
     edit:
       - cmd-tests
