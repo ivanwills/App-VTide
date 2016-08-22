@@ -73,16 +73,21 @@ sub tmux {
 }
 
 sub tmux_window {
-    my ( $self, $term, $cmd, $name ) = @_;
-    my $conf = $self->config->get->{terminals}{$term};
-    my $out = $term == 1 ? "new-session -s $name '$cmd $term' \\; " : "new-window '$cmd $term' \\; ";
-    my $letter = 'a';
+    my ( $self, $term, $cmd, $name, $split ) = @_;
+    my $conf = !$term ? {} : $self->config->get->{terminals}{$term};
+    my $out = $split ? ''
+        : $term == 1 ? "new-session -s $name '$cmd $term' \\; "
+        :              "new-window '$cmd $term' \\; ";
+    my $letter = !$term ? '' : 'a';
 
     if ( ! $conf || ref $conf ne 'HASH' ) {
         $conf = {};
     }
 
-    for my $split ( split //xms, ( $conf->{split} || '' ) ) {
+    $term  ||= '';
+    $split ||= $conf->{split};
+
+    for my $split ( split //xms, ( $split || '' ) ) {
         next if ! defined $split || $split eq '';
 
         my $arg = $split eq 'H' ? 'split-window -h'
@@ -90,10 +95,10 @@ sub tmux_window {
             : $split eq 'V'     ? 'split-window -v'
             : $split eq 'v'     ? 'split-window -dv'
             : $split =~ /^\d$/x ? 'select-pane -t ' . $split
-            :                     die "Unknown split for terminal $term $split (split = '$conf->{split}')!\n";
+            :                     die "Unknown split for terminal $term $split (split = '$split')!\n";
 
          $out .= $split =~ /^\d$/xms ? "$arg \\; " : "$arg '$cmd $term$letter' \\; ";
-         $letter++;
+         $letter++ if $letter;
     }
 
     return $out;
