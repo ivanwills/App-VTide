@@ -52,7 +52,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Split - Split App::VTide configurations
+App::VTide::Command::Split - Split tmux terminal helper
 
 =head1 VERSION
 
@@ -60,10 +60,11 @@ This documentation refers to App::VTide::Command::Split version 0.0.4
 
 =head1 SYNOPSIS
 
-    vtide split [-f|--force]
+    vtide split [-t|--test] command
 
     OPTIONS
-     -f --force     When sessions are mising this will force the removal of the reference
+     command        Split command, the same format at the configuration file
+     -t --test      Show the commands to slit the terminal
      -v --verbose   Show environment as well as config
         --help      Show this help
         --man       Show the full man page
@@ -75,10 +76,6 @@ This documentation refers to App::VTide::Command::Split version 0.0.4
 =head3 C<run ()>
 
 Run the command
-
-=head2 C<clean_sessions ()>
-
-Clean up sessions which no longer exist.
 
 =head2 C<auto_complete ()>
 
