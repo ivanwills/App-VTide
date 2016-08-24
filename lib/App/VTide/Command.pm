@@ -56,6 +56,7 @@ sub save_session {
 
 sub session_dir {
     my ( $self, $name ) = @_;
+    $name ||= '';
 
     # there are 3 ways of determining a session name:
     #  1. Passed in directly
@@ -70,9 +71,9 @@ sub session_dir {
     my $file     = $self->history;
     my $sessions = eval { LoadFile( $file ) } || {};
 
-    my $dir = ref $sessions->{sessions}{$name || ''} ?
-        $sessions->{sessions}{$name || ''}{dir}
-        : $sessions->{sessions}{$name || ''}
+    my $dir = ref $sessions->{sessions}{$name} ?
+        $sessions->{sessions}{$name}{dir}
+        : $sessions->{sessions}{$name}
             || $ENV{VTIDE_DIR} || path('.')->absolute;
 
     my $config = path $dir, '.vtide.yml';
