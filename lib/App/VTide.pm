@@ -37,6 +37,7 @@ has sub_commands => (
 
 sub run {
     my ($self) = @_;
+    my @sub_commands = keys %{ $self->sub_commands };
 
     my ($options, $cmd, $opt) = get_options(
         {
@@ -50,7 +51,11 @@ sub run {
                 my ($option, $auto, $errors) = @_;
                 my $sub_command = $option->cmd;
                 if ( $sub_command eq '--' ) {
-                    print join ' ', sort keys %{ $self->sub_commands };
+                    print join ' ', sort @sub_commands;
+                    return;
+                }
+                elsif ( grep {/^$sub_command/} @sub_commands ) {
+                    print join ' ', sort grep {/^$sub_command/} @sub_commands;
                     return;
                 }
                 elsif ( ! $self->sub_commands->{$sub_command} ) {
@@ -61,14 +66,14 @@ sub run {
                     $self->load_subcommand( $sub_command, $option )->auto_complete();
                     1;
                 } or do {
-                    print join ' ', grep {/$sub_command/xms} sort keys %{ $self->sub_commands };
+                    print join ' ', grep {/$sub_command/xms} sort @sub_commands;
                 }
             },
             sub_command   => $self->sub_commands,
             help_package  => __PACKAGE__,
             help_packages => {
                 map {$_ => __PACKAGE__ . '::Command::' . ucfirst $_}
-                qw/ init start run edit save conf /
+                @sub_commands,
             },
         },
         [
@@ -86,7 +91,7 @@ sub run {
             my $error = $@;
             warn $@ if $opt->opt->verbose;
             warn "Unknown command '$cmd'!\n",
-                "Valid commands - ", ( join ', ', sort keys %{ $self->sub_commands } ),
+                "Valid commands - ", ( join ', ', sort @sub_commands ),
                 "\n";
             require Pod::Usage;
             Pod::Usage::pod2usage(
