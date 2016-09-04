@@ -14,9 +14,11 @@ BEGIN {
     use_ok( 'App::VTide::Command::Help' );
     use_ok( 'App::VTide::Hooks' );
     use_ok( 'App::VTide::Command::Init' );
+    use_ok('App::VTide::Command::Recent');
     use_ok( 'App::VTide::Command::Refresh ');
     use_ok( 'App::VTide::Command::Run' );
     use_ok( 'App::VTide::Command::Save' );
+    use_ok('App::VTide::Command::Split');
     use_ok( 'App::VTide::Command::Start' );
 }
 

@@ -8,9 +8,11 @@ lib/App/VTide/Command/Conf.pm
 lib/App/VTide/Command/Edit.pm
 lib/App/VTide/Command/Help.pm
 lib/App/VTide/Command/Init.pm
+lib/App/VTide/Command/Recent.pm
 lib/App/VTide/Command/Refresh.pm
 lib/App/VTide/Command/Run.pm
 lib/App/VTide/Command/Save.pm
+lib/App/VTide/Command/Split.pm
 lib/App/VTide/Command/Start.pm
 lib/App/VTide/Config.pm
 lib/App/VTide/Configuration.pod
