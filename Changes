@@ -1,5 +1,17 @@
 Revision history for App-VTide
 
+0.0.5   2016-09-04
+        Updating for release of version 0.0.5
+        Added missing manifest and boilerplate/load tests (Ivan Wills)
+        Fixed not auto completing sub-commands properly (Ivan Wills)
+        Cleaned up name (Ivan Wills)
+        Update documentation (Ivan Wills)
+        Updated config to add new files (Ivan Wills)
+        Added new command to show recent sessions (Ivan Wills)
+        Added storing last access time with history (Ivan Wills)
+        Removed debugging code (Ivan Wills)
+        Added new command "split" to allow splitting of tmux windows after starting (Ivan Wills)
+
 0.0.4   2016-07-24
         Updating for release of version 0.0.4
         Fixed spelling (Ivan Wills)
