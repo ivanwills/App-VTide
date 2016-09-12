@@ -54,7 +54,7 @@ sub run {
                     print join ' ', sort @sub_commands;
                     return;
                 }
-                elsif ( grep {/^$sub_command/} @sub_commands ) {
+                elsif ( grep {/^$sub_command./} @sub_commands ) {
                     print join ' ', sort grep {/^$sub_command/} @sub_commands;
                     return;
                 }
