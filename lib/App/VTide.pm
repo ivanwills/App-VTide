@@ -60,7 +60,7 @@ sub run {
                 }
                 elsif ( ! $self->sub_commands->{$sub_command} ) {
                     unshift @{$option->files}, $sub_command;
-                    $sub_command = 'start';
+                    $sub_command = $ENV{VTIDE_DIR} ? 'edit' : 'start';
                 }
                 eval {
                     $self->load_subcommand( $sub_command, $option )->auto_complete();
