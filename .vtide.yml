@@ -55,6 +55,7 @@ editor:
     rest:
       - lib/App/VTide/Command/Split.pm
       - lib/App/VTide/Command/Recent.pm
+      - lib/App/VTide/Command/Grep.pm
     lib:
       - lib/**/*.pm
       - lib/**/*.pom
