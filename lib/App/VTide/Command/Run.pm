@@ -199,7 +199,9 @@ sub command {
             : ( $params->{command} );
     }
 
-    my $editor = ref $params->{editor}{command} || $self->config->get->{editor}{command};
+    my $editor = ref $params->{editor}{command}
+        ? $params->{editor}{command}
+        : $self->config->get->{editor}{command};
 
     my @files;
     my @globs  = ref $params->{edit} ? @{ $params->{edit} } : ( $params->{edit} );
