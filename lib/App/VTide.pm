@@ -85,7 +85,7 @@ sub run {
 
     my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
     if ( ! $subcommand ) {
-        $subcommand = $self->load_subcommand( 'start', $opt );
+        $subcommand = $self->load_subcommand( $ENV{VTIDE_DIR} ? 'edit' : 'start', $opt );
         my (undef, $dir) = $subcommand->session_dir($opt->cmd);
         if ( !$dir ) {
             my $error = $@;
