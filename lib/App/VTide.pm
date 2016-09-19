@@ -83,6 +83,12 @@ sub run {
         ],
     );
 
+    if ( ! $self->sub_commands->{ $opt->cmd } ) {
+        unshift @ARGV, $opt->cmd;
+        $opt->cmd( $ENV{VTIDE_DIR} ? 'edit' : 'start' );
+        $opt->files(\@ARGV);
+    }
+
     my $subcommand = eval { $self->load_subcommand( $opt->cmd, $opt ) };
     if ( ! $subcommand ) {
         $subcommand = $self->load_subcommand( $ENV{VTIDE_DIR} ? 'edit' : 'start', $opt );
