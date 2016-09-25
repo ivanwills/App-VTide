@@ -1,5 +1,16 @@
 Revision history for App-VTide
 
+0.0.6   2016-09-25
+        Updating for release of version 0.0.6
+        Added Grep for testing (Ivan Wills)
+        Removed unsupported versions (Ivan Wills)
+        Updated travis config (Ivan Wills)
+        Adding new grep command (Ivan Wills)
+        Fixed not using passed in command param (Ivan Wills)
+        Fixed edit command running with a session (Ivan Wills)
+        Sorted modules (Ivan Wills)
+        Added extra smarts so that edit is the default in a vtide session (Ivan Wills)
+
 0.0.5   2016-09-04
         Updating for release of version 0.0.5
         Added missing manifest and boilerplate/load tests (Ivan Wills)
