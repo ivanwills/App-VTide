@@ -62,8 +62,8 @@ module_boilerplate_ok('lib/App/VTide.pm');
 module_boilerplate_ok('lib/App/VTide/Command.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Conf.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Edit.pm');
+module_boilerplate_ok('lib/App/VTide/Command/Grep.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Help.pm');
-module_boilerplate_ok('lib/App/VTide/Hooks.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Init.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Recent.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Refresh.pm');
@@ -73,6 +73,7 @@ module_boilerplate_ok('lib/App/VTide/Command/Split.pm');
 module_boilerplate_ok('lib/App/VTide/Command/Start.pm');
 module_boilerplate_ok('lib/App/VTide/Config.pm');
 module_boilerplate_ok('lib/App/VTide/Configuration.pod');
+module_boilerplate_ok('lib/App/VTide/Hooks.pm');
 module_boilerplate_ok('bin/vtide');
 done_testing();
 
