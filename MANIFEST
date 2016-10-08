@@ -6,6 +6,7 @@ lib/App/VTide.pm
 lib/App/VTide/Command.pm
 lib/App/VTide/Command/Conf.pm
 lib/App/VTide/Command/Edit.pm
+lib/App/VTide/Command/Grep.pm
 lib/App/VTide/Command/Help.pm
 lib/App/VTide/Command/Init.pm
 lib/App/VTide/Command/Recent.pm
