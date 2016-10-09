@@ -1,5 +1,10 @@
 Revision history for App-VTide
 
+0.0.7   2016-10-09
+        Updating for release of version 0.0.7
+        Added missing entry for Grep (Ivan Wills)
+        Improving default command handling (Ivan Wills)
+
 0.0.6   2016-09-25
         Updating for release of version 0.0.6
         Added Grep for testing (Ivan Wills)
