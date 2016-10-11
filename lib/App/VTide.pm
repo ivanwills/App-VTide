@@ -63,7 +63,7 @@ sub run {
                     $sub_command = $ENV{VTIDE_DIR} ? 'edit' : 'start';
                 }
                 eval {
-                    $self->load_subcommand( $sub_command, $option )->auto_complete();
+                    $self->load_subcommand( $sub_command, $option )->auto_complete($auto);
                     1;
                 } or do {
                     print join ' ', grep {/$sub_command/xms} sort @sub_commands;

@@ -49,7 +49,7 @@ sub run {
 }
 
 sub auto_complete {
-    my ($self) = @_;
+    my ($self, $auto) = @_;
 
     my $env = $self->options->files->[-1];
     my @files = sort keys %{ $self->config->get->{editor}{files} };
@@ -58,7 +58,7 @@ sub auto_complete {
         my $helper = $self->config->get->{editor}{helper_autocomplete};
         if ($helper) {
             $helper = eval $helper;  ## no critic
-            push @files, $helper->();
+            push @files, $helper->($auto, $self->options->files);
         }
         1;
     } or do { warn $@ };
