@@ -65,7 +65,16 @@ sub run {
             warn "Will wait before starting\n" if $params->{wait};
             warn "Will restart on exit\n" if $params->{restart};
         }
+
+        # run any hooks for run_running
         $self->hooks->run('run_running', \@cmd);
+
+        if ( $params->{headding} ) {
+            # show terminal headding if desired
+            print $params->{headding}, "\n";
+        }
+
+        # start the terminal
         $self->runit( @cmd );
     }
 
