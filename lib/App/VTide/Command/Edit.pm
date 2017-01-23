@@ -45,6 +45,10 @@ sub run {
     $self->hooks->run('edit_editing', \@cmd);
     $self->runit( @cmd );
 
+    $params = $self->params($ENV{VTIDE_TERM});
+    eval { require Term::Title; }
+        and Term::Title::set_titlebar($params->{title} || 'bash');
+
     return;
 }
 
