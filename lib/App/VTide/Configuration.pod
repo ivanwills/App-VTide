@@ -111,6 +111,11 @@ String or List
 A list of files or file groups to run the editor with. If this is specified
 the command attribute is ignored.
 
+=head3 headding
+
+This is text to be displayed just before running the terminal. It can be used
+for example to remind of the intended purpose of the terminal.
+
 =head2 editor
 
 Hash
@@ -121,7 +126,8 @@ Default options for the editor
 
 Hash
 
-Details about each tmux terminal window
+Details about each tmux terminal window, these details override what is set in
+C<defaults>.
 
 =head1 AUTHOR
 
