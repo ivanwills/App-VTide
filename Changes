@@ -1,5 +1,13 @@
 Revision history for App-VTide
 
+0.0.8   2017-01-29
+        Updating for release of version 0.0.8
+        Updated licence (Ivan Wills)
+        Added new configuration to documentation (Ivan Wills)
+        Added ability to give terminals a headding (Ivan Wills)
+        Return terminal title to ~ original title (Ivan Wills)
+        Added passing auto complete position and arguments (Ivan Wills)
+
 0.0.7   2016-10-09
         Updating for release of version 0.0.7
         Added missing entry for Grep (Ivan Wills)

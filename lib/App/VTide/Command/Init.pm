@@ -17,7 +17,7 @@ use YAML::Syck;
 
 extends 'App::VTide::Command';
 
-our $VERSION = version->new('0.0.7');
+our $VERSION = version->new('0.0.8');
 our $NAME    = 'init';
 our $OPTIONS = [
     'name|n=s',
@@ -84,7 +84,7 @@ App::VTide::Command::Init - Initialize an session configuration file
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Init version 0.0.7
+This documentation refers to App::VTide::Command::Init version 0.0.8
 
 =head1 SYNOPSIS
 
