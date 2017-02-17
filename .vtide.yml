@@ -72,6 +72,12 @@ editor:
       - t/vtide-cmd*.t
     all-tests:
       - t/*.t
+    ctags-exclude:
+        perl:
+            - blib
+            - _build
+            - Build
+            - tmp
 # configure the individual terminals
 terminals:
   1:
@@ -79,6 +85,8 @@ terminals:
     # left hand terminal and two smaller right hand terminals, the focus
     # being sent to the 1st pane (pane 0)
     split: Hv0
+    ctags: -R
+    ctags-exclude: perl
   1a:
     command: ./Build && ./Build testcover
     restart: 1
