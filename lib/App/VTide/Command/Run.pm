@@ -69,9 +69,9 @@ sub run {
         # run any hooks for run_running
         $self->hooks->run('run_running', \@cmd);
 
-        if ( $params->{headding} ) {
-            # show terminal headding if desired
-            print $params->{headding}, "\n";
+        if ( $params->{heading} ) {
+            # show terminal heading if desired
+            print $params->{heading}, "\n";
         }
 
         # start the terminal
