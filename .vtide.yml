@@ -72,12 +72,22 @@ editor:
       - t/vtide-cmd*.t
     all-tests:
       - t/*.t
-    ctags-exclude:
-        perl:
-            - blib
-            - _build
-            - Build
-            - tmp
+# Start up options
+start:
+  # Running ctags every time vtide is started
+  # This specifies the files to run
+  ctags: -R
+  # list of ctag-exclude groups or directories
+  ctags-exclude:
+    - perl
+    - tmp/
+  # Specify groups of directories to exclude
+  # This can be used to specify global lists of excludes in ~/.vtide.yml
+  ctags-excludes:
+    perl:
+      - blib
+      - _build
+      - Build
 # configure the individual terminals
 terminals:
   1:
@@ -85,8 +95,6 @@ terminals:
     # left hand terminal and two smaller right hand terminals, the focus
     # being sent to the 1st pane (pane 0)
     split: Hv0
-    ctags: -R
-    ctags-exclude: perl
   1a:
     command: ./Build && ./Build testcover
     restart: 1
