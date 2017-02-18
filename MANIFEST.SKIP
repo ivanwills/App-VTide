@@ -76,3 +76,4 @@ debian/
 .travis.yml
 .current-env
 vrc.yml
+tags
