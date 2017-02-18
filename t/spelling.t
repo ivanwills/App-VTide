@@ -35,5 +35,6 @@ add_stopwords(qw/
     programmatic
     tmux
     env
+    ctags
 /);
 all_pod_files_spelling_ok();

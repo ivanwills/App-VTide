@@ -111,7 +111,7 @@ String or List
 A list of files or file groups to run the editor with. If this is specified
 the command attribute is ignored.
 
-=head3 headding
+=head3 heading
 
 This is text to be displayed just before running the terminal. It can be used
 for example to remind of the intended purpose of the terminal.
