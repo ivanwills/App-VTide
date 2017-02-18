@@ -182,6 +182,10 @@ configuration in the current directory.
 
 Starts the tmux session running a C<vtide run> command in each terminal
 
+=head2 C<ctags ()>
+
+Runs the ctags command if the config option I<ctags> in the I<start> group is set
+
 =head2 C<tmux ( $name )>
 
 Run a tmux session with the name C<$name>
@@ -236,4 +240,4 @@ distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 PARTICULAR PURPOSE.
 
-=cut
+ =cut
