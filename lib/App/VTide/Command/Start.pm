@@ -39,7 +39,29 @@ sub run {
 
     $self->hooks->run('start_pre', $name, $dir);
 
+    $self->ctags();
+
     return $self->tmux( $name );
+}
+
+sub ctags {
+    my ( $self ) = @_;
+    my $ctags = path('/usr', 'bin', 'ctags');
+
+    return if !$self->config->get->{start}{ctags} || !-x $ctags;
+
+    my @cmd = ($ctags, $self->config->get->{start}{ctags});
+
+    for my $exclude (@{ $self->config->get->{start}{"ctags-exclude"} }) {
+        if ( $self->config->get->{start}{"ctags-excludes"}{$exclude} ) {
+            push @cmd, map {"--exclude=$_"} @{ $self->config->get->{start}{"ctags-excludes"}{$exclude} };
+        }
+        else {
+            push @cmd, "--exclude=$exclude";
+        }
+    }
+
+    system @cmd;
 }
 
 sub tmux {
