@@ -1,5 +1,15 @@
 Revision history for App-VTide
 
+0.1.0   2017-02-19
+        Updating for release of version 0.1.0
+        Fixed spelling test (Ivan Wills)
+        Fixed spelling of heading (Ivan Wills)
+        Adding ignore of tags file (Ivan Wills)
+        Documented ctags method (Ivan Wills)
+        Added logic to run ctags from config (Ivan Wills)
+        Reorganised config to be more logical (Ivan Wills)
+        Planning adding ctags support (Ivan Wills)
+
 0.0.8   2017-01-29
         Updating for release of version 0.0.8
         Updated licence (Ivan Wills)
