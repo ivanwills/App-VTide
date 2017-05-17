@@ -87,7 +87,7 @@ sub session_dir {
 sub env {
     my ( $self, $name, $dir, $config ) = @_;
 
-    $dir    ||= path( $ENV{VTIDE_DIR} || '.' )->absolute;
+    $dir ||= path( $ENV{VTIDE_DIR} || '.' )->absolute;
     $dir = path($dir);
 
     $config ||= $ENV{VTIDE_CONFIG} || $dir->path( '.vtide.yml' );
