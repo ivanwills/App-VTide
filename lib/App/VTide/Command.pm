@@ -62,7 +62,7 @@ sub session_dir {
     #  1. Passed in directly
     #  2. Set from the environment variable VTIDE_NAME
     #  3. Found in a config file in the current directory
-    if ( !$name && !$$ENV{VTIDE_NAME} ) {
+    if ( ! $name ) {
         die "No session name found!\n" if !-f '.vtide.yml';
         my $config = LoadFile('.vtide.yml');
         $name = $config->{name};
