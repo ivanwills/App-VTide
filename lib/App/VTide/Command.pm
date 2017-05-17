@@ -46,7 +46,7 @@ sub save_session {
 
     $sessions->{sessions}{$name} = {
         time => scalar time,
-        dir  => "$dir" || $CWD,
+        dir  => "$dir",
     };
 
     DumpFile( $file, $sessions );
