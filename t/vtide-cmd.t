@@ -74,6 +74,11 @@ sub save_session {
 
     $cmd->save_session('test', 'dir');
     ok -f $cmd->history, 'History file created';
+
+    # save session again to check updating works
+    $cmd->save_session('test', 'dir');
+    ok -f $cmd->history, 'History file created';
+
     unlink 't/history.yml' if -f 't/history.yml';
 }
 
