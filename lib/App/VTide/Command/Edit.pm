@@ -61,13 +61,21 @@ sub auto_complete {
     eval {
         my $helper = $self->config->get->{editor}{helper_autocomplete};
         if ($helper) {
-            $helper = eval $helper;  ## no critic
-            push @files, $helper->($auto, $self->options->files);
+            my $helper_sub = eval $helper;  ## no critic
+            if ($helper_sub) {
+                push @files, $helper_sub->($auto, $self->options->files);
+            }
+            elsif ($@) {
+                warn "Errored parsing '$@':\n$helper\n";
+            }
+            else {
+                warn "Unknown error with helper sub\n";
+            }
         }
         1;
     } or do { warn $@ };
 
-    print join ' ', grep { $env ne 'edit' ? /^$env/xms : 1 } @files;
+    print join ' ', grep { $env ne 'vtide' && $env ne 'edit' ? /^$env/xms : 1 } @files;
 
     return;
 }
