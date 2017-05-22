@@ -274,7 +274,7 @@ sub load_env {
 sub runit {
     my ( $self, @cmd ) = @_;
 
-    print join ' ', @cmd, "\n" if $self->defaults->{test} || $self->defaults->{verbose};
+    print +(join " \\\n  ", @cmd), "\n" if $self->defaults->{test} || $self->defaults->{verbose};
 
     return if $self->defaults->{test};
 
