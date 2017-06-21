@@ -63,7 +63,11 @@ sub run {
         warn "Overwritting '.vtide.yml'\n";
     }
 
-    DumpFile( $file, $config );
+    my $yaml = Dump( $config );
+    my $now = localtime;
+    $yaml =~ s/^(---\s*\n)/$1# Create by App::VTide::Command::Init $now VERSION $App::VTide::Command::Init::VERSION\n/xms;
+
+    $file->spew($yaml);
 
     $self->save_session( $name, $dir );
 
