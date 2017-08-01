@@ -15,6 +15,7 @@ use Hash::Merge::Simple qw/ merge /;
 use Path::Tiny;
 use File::stat;
 use File::chdir;
+use IO::Prompt qw/prompt/;
 
 extends 'App::VTide::Command';
 
@@ -199,12 +200,25 @@ sub params {
     return merge $config->{default} || {}, $params;
 }
 
+sub command_param {
+    my ( $self, $param ) = @_;
+
+    my ($user_param) = $param =~ /^[{]:(\w+):[}]$/;
+
+    return $param if ! $user_param;
+
+    my $value = prompt "$user_param : ";
+    chomp $value;
+
+    return $value;
+}
+
 sub command {
     my ( $self, $params ) = @_;
 
     if ( ! $params->{edit} ) {
         return ref $params->{command}
-            ? @{ $params->{command} }
+            ? map {$self->command_param($_)} @{ $params->{command} }
             : ( $params->{command} );
     }
 
