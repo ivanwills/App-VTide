@@ -29,10 +29,32 @@ editor:
       - '**/*'
     all-tests:
       - t/**/*.t
+    bin:
+      - bin/*
+    lib:
+      - lib/**/*.pm
+      - lib/**/*.pom
     base:
       - lib/App/VTide.pm
       - lib/App/VTide/Config.pm
       - lib/App/VTide/Hooks.pm
+    cmds:
+      - lib/App/VTide/Command.pm
+      - lib/App/VTide/Command/Init.pm
+      - lib/App/VTide/Command/Start.pm
+    helpers:
+      - lib/App/VTide/Command/Conf.pm
+      - lib/App/VTide/Command/Refresh.pm
+      - lib/App/VTide/Command/Recent.pm
+    rest:
+      - lib/App/VTide/Command/Split.pm
+      - lib/App/VTide/Command/Grep.pm
+      - lib/App/VTide/Command/Who.pm
+      - lib/App/VTide/Command/Help.pm
+    run:
+      - lib/App/VTide/Command/Run.pm
+      - lib/App/VTide/Command/Edit.pm
+      - lib/App/VTide/Command/Save.pm
     base-tests:
       - t/boilerplate.t
       - t/critic.t
@@ -42,27 +64,6 @@ editor:
       - t/pod-coverage.t
       - t/pod.t
       - t/spelling.t
-    bin:
-      - bin/*
-    cmds:
-      - lib/App/VTide/Command.pm
-      - lib/App/VTide/Command/Init.pm
-      - lib/App/VTide/Command/Start.pm
-    helpers:
-      - lib/App/VTide/Command/Conf.pm
-      - lib/App/VTide/Command/Help.pm
-      - lib/App/VTide/Command/Refresh.pm
-    rest:
-      - lib/App/VTide/Command/Split.pm
-      - lib/App/VTide/Command/Recent.pm
-      - lib/App/VTide/Command/Grep.pm
-    lib:
-      - lib/**/*.pm
-      - lib/**/*.pom
-    run:
-      - lib/App/VTide/Command/Run.pm
-      - lib/App/VTide/Command/Edit.pm
-      - lib/App/VTide/Command/Save.pm
     test:
       - t/00-load.t
       - t/vtide.t
