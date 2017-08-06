@@ -48,7 +48,7 @@ sub _hook_cmds {
     }
     if ( -f $local ) {
         my $done = do $local;
-        $hooks = { %{ $hooks}, %{ $done } };
+        $hooks = { %{ $hooks || {} }, %{ $done || {} } };
     }
 
     return $hooks;
