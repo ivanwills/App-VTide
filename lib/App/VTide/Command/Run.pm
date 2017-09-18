@@ -370,6 +370,10 @@ Gets the configuration for the command C<$cmd>
 Gets the command to execute, either a simple command or an "editor" command
 where the files are got from the groups
 
+=head2 C<command_param ( $params )>
+
+Processes any found user params
+
 =head2 C<_shell_quote ( $file )>
 
 Quote C<$file> for shell execution
