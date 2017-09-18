@@ -372,7 +372,7 @@ where the files are got from the groups
 
 =head2 C<command_param ( $params )>
 
-Processes any found user params
+Processes any found user parameters
 
 =head2 C<_shell_quote ( $file )>
 
