@@ -41,7 +41,7 @@ sub run {
 
     $self->ctags();
 
-    return $self->tmux( $name );
+    return $self->tmux( $self->vtide->config->data->{title} || $name );
 }
 
 sub ctags {
