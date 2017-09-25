@@ -64,6 +64,12 @@ Bool
 
 If set to a true value the an option to restart will be given
 
+=head2 title
+
+String
+
+This is the text of the terminal title if you want it to be different from the name field.
+
 =head3 wait
 
 Don't instantly start the command/editor wait till enter is pressed.
