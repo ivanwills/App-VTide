@@ -25,6 +25,14 @@ has global_config => (
     },
 );
 
+has history_file => (
+    is      => 'rw',
+    default => sub {
+        mkdir path $ENV{HOME}, '.vtide' if ! -d path $ENV{HOME}, '.vtide';
+        return path $ENV{HOME}, '.vtide/history.log';
+    },
+);
+
 has local_config => (
     is      => 'rw',
     lazy    => 1,
@@ -74,6 +82,13 @@ sub changed {
     return ! $self->data
         || ( $global_time && $global_orig < $global_time )
         || ( $local_time  && $local_orig  < $local_time  );
+}
+
+sub history {
+    my ($self, @command) = @_;
+    my $fh = $self->history_file->opena;
+    print {$fh} '[' . localtime .'] '. (join ' ', map {/[^\w-]/ ? "'$_'" : $_} @command), "\n";
+    return;
 }
 
 1;

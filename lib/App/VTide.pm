@@ -37,6 +37,7 @@ has sub_commands => (
 
 sub run {
     my ($self) = @_;
+    $self->config->history(@ARGV);
     my @sub_commands = keys %{ $self->sub_commands };
 
     my ($options, $cmd, $opt) = get_options(
