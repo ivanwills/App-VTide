@@ -124,7 +124,7 @@ sub tmux_window {
     }
 
     if ( $conf->{tmux} ) {
-        $out .= "$conf->{tmux} \; ";
+        $out .= "$conf->{tmux} \\; ";
     }
 
     return $out;
