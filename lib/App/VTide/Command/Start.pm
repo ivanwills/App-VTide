@@ -123,6 +123,10 @@ sub tmux_window {
          $letter++ if $letter;
     }
 
+    if ( $conf->{tmux} ) {
+        $out .= "$conf->{tmux} \; ";
+    }
+
     return $out;
 }
 
