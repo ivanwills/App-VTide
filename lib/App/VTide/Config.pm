@@ -134,6 +134,10 @@ for changes each call so the current values are always returned.
 Returns true if either the C<global_config> or C<local_config> files have
 changed since the last read.
 
+=head2 C<history (@command)>
+
+Store C<@command> in history
+
 =head1 ATTRIBUTES
 
 =head2 global_config
@@ -147,6 +151,10 @@ The name of the current project's configuration file (Defaults to ./.vtide.yml)
 =head2 global_time
 
 Last modified time for the C<global_config> file (Defaults to 0)
+
+=head2 history_file
+
+File to store command history
 
 =head2 local_time
 
