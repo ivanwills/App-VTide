@@ -91,6 +91,10 @@ sub tmux {
         return 1;
     }
 
+    mkdir '.vtide' if !-d '.vtide';
+    my $fh = path('.vtide', 'start.log')->opena;
+    print {$fh} '[' . localtime . "] TMUX $tmux\n";
+
     exec $tmux;
 }
 
