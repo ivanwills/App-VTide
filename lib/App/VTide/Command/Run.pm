@@ -261,7 +261,7 @@ sub _globs2files {
             next GLOB;
         }
         elsif ( $groups->{$glob} ) {
-            push @globs, @{ $groups->{$glob} };
+            unshift @globs, @{ $groups->{$glob} };
             next GLOB;
         }
         elsif ( $helper ) {
@@ -272,7 +272,7 @@ sub _globs2files {
             } or do { warn $@ };
 
             if (@g) {
-                push @globs, @g;
+                unshift @globs, @g;
                 next GLOB;
             }
         }
