@@ -61,7 +61,6 @@ Debian_CPANTS.txt
 
 # Avoid archives of this distribution
 \bApp-VTide-[\d\.\_]+
-^MYMETA\.json$
 
 # Avoid prove saved state file
 .prove
@@ -71,9 +70,12 @@ debian/
 
 # Other files of interest
 \..*\.tag$
+errors.err
+.travis.yml
 .editorconfig
 .vtide.yml
-.travis.yml
+^MYMETA\.json$
 .current-env
 vrc.yml
 tags
+^.*\.lock
