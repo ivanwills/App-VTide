@@ -40,8 +40,8 @@ sub run {
 sub _hook_cmds {
     my ($self) = @_;
     my $hooks  = {};
-    my $global = path( $self->config->global_config )->parent->path('hooks.pl');
-    my $local  = path( $self->config->local_config )->parent->path('.vtide', 'hooks.pl');
+    my $global = path( $self->config->global_config )->parent->path('hooks.pl')->absolute;
+    my $local  = path( $self->config->local_config )->parent->path('.vtide', 'hooks.pl')->absolute;
 
     if ( -f $global ) {
         $hooks = do $global;
