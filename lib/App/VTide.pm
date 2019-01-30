@@ -50,7 +50,7 @@ sub run {
             },
             auto_complete => sub {
                 my ($option, $auto, $errors) = @_;
-                my $sub_command = $option->cmd;
+                my $sub_command = $option->files->[0] || '';
                 if ( $sub_command eq '--' ) {
                     print join ' ', sort @sub_commands;
                     return;
