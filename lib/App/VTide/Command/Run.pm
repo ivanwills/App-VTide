@@ -80,6 +80,7 @@ sub run {
         $self->runit( @cmd );
     }
 
+    # flag this is no longer the first run
     $self->first(0);
 
     if ( ! $self->defaults->{test} && $self->restart($cmd) ) {
