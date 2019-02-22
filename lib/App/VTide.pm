@@ -70,6 +70,23 @@ sub run {
                     print join ' ', grep {/$sub_command/xms} sort @sub_commands;
                 }
             },
+            auto_complete_shortener => sub {
+                my ($getopt, @args) = @_;
+                my $sub_command = shift @args;
+
+                if ( grep {/^$sub_command./} @sub_commands ) {
+                    $getopt->cmd($sub_command);
+                }
+                elsif ( ! $self->sub_commands->{$sub_command} ) {
+                    $getopt->cmd( $ENV{VTIDE_DIR} ? 'edit' : 'start' );
+                    unshift @args, $sub_command;
+                }
+                else {
+                    $getopt->cmd($sub_command) if ! $getopt->cmd;
+                }
+
+                return @args;
+            },
             sub_command   => $self->sub_commands,
             help_package  => __PACKAGE__,
             help_packages => {
