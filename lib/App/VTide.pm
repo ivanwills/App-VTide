@@ -72,7 +72,7 @@ sub run {
             },
             auto_complete_shortener => sub {
                 my ($getopt, @args) = @_;
-                my $sub_command = shift @args;
+                my $sub_command = shift @args || '';
 
                 if ( grep {/^$sub_command./} @sub_commands ) {
                     $getopt->cmd($sub_command);
