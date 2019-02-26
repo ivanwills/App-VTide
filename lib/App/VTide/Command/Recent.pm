@@ -36,7 +36,7 @@ sub run {
     my $max = $self->defaults->{max} || 10;
     $max = scalar @sessions if $max - 1 > @sessions;
 
-    for my $session (@sessions[0 .. $max - 1]) {
+    for my $session ((reverse @sessions)[0 .. $max - 1]) {
         print localtime($sessions->{sessions}{$session}{time}) . "\t$session\n";
     }
 
