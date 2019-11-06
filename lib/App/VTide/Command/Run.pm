@@ -47,6 +47,10 @@ sub run {
     @ARGV = ();
     if ( !( $self->first && $params->{watch} && $params->{wait} ) ) {
 
+        if ( $params->{clear} ) {
+            system 'clear';
+        }
+
         if ( $params->{heading} ) {
             # show terminal heading if desired
             print $params->{heading}, "\n";
