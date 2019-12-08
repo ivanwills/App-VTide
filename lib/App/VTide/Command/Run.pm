@@ -108,6 +108,13 @@ sub restart {
             msg  => 'quit',
             exec => sub { 0; },
         },
+        c => {
+            msg  => 'clear screen',
+            exec => sub {
+                system "clear";
+                $self->restart($cmd, $no_watch);
+            },
+        },
         r => {
             msg  => 'restart',
             exec => sub { 1 },
