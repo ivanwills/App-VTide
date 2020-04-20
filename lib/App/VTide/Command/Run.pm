@@ -244,13 +244,21 @@ sub command {
     eval { require Term::Title; }
         and Term::Title::set_titlebar($params->{title} || $globs[0]);
 
-    my $helper = $self->config->get->{editor}{helper};
+    my $helper_text = $self->config->get->{editor}{helper};
+    my $helper;
     eval {
-        if ($helper) {
-            $helper = eval $helper;  ## no critic
+        if ($helper_text) {
+            $helper = eval $helper_text;  ## no critic
+            die "No helper generated!" if !$helper;
+        }
+        else {
+            warn "No helper text";
         }
         1;
-    } or do { warn $@ };
+    } or do {
+        warn $helper_text;
+        warn $@
+    };
 
     my $groups = $self->config->get->{editor}{files};
     my @files = $self->_globs2files($groups, $helper, @globs);
@@ -261,9 +269,11 @@ sub command {
 sub _globs2files {
     my ($self, $groups, $helper, @globs) = @_;
     my @files;
+    my $count = 0;
 
     GLOB:
     while ( my $glob = shift @globs ) {
+        last if $count++ > 30;
         my ($not_glob) = $glob =~ /^[!](.*)$/;
 
         if ( $not_glob ) {
@@ -284,7 +294,8 @@ sub _globs2files {
             } or do { warn $@ };
 
             if (@g) {
-                unshift @globs, @g;
+                push @files, grep { -f $_ } @g;
+                unshift @globs, grep { ! -f $_ } @g;
                 next GLOB;
             }
         }
