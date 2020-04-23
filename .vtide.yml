@@ -49,8 +49,10 @@ editor:
     rest:
       - lib/App/VTide/Command/Split.pm
       - lib/App/VTide/Command/Grep.pm
-      - lib/App/VTide/Command/Who.pm
       - lib/App/VTide/Command/Help.pm
+    meta:
+      - lib/App/VTide/Command/Who.pm
+      - lib/App/VTide/Command/History.pm
     run:
       - lib/App/VTide/Command/Run.pm
       - lib/App/VTide/Command/Edit.pm
@@ -130,7 +132,10 @@ terminals:
       - rest
   7:
     edit:
-      - test
+      - meta
   8:
+    edit:
+      - test
+  9:
     edit:
       - cmd-tests
