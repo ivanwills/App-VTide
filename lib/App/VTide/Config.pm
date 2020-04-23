@@ -28,6 +28,11 @@ has global_config => (
 has history_file => (
     is      => 'rw',
     default => sub {
+        if ( $ENV{VTIDE_DIR} && -d $ENV{VTIDE_DIR} ) {
+            mkdir path $ENV{VTIDE_DIR}, '.vtide' if ! -d path $ENV{VTIDE_DIR}, '.vtide';
+            return path $ENV{VTIDE_DIR}, '.vtide/history.log';
+        }
+
         mkdir path $ENV{HOME}, '.vtide' if ! -d path $ENV{HOME}, '.vtide';
         return path $ENV{HOME}, '.vtide/history.log';
     },
@@ -86,6 +91,9 @@ sub changed {
 
 sub history {
     my ($self, @command) = @_;
+
+    return if $command[0] eq 'run' || grep {$_ eq '--auto-complete'} @command;
+
     my $fh = $self->history_file->opena;
     print {$fh} '[' . localtime .'] '. (join ' ', map {/[^\w-]/ ? "'$_'" : $_} @command), "\n";
     return;
