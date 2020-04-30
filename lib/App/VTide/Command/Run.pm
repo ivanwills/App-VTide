@@ -38,7 +38,6 @@ sub run {
 
     my ( $name ) = $self->session_dir($self->defaults->{name});
     my $cmd = $self->options->files->[0] || '';
-    print "Running $name - $cmd\n";
     $ENV{VTIDE_TERM} = $cmd;
 
     my $params = $self->params( $cmd );
@@ -49,6 +48,9 @@ sub run {
 
         if ( $params->{clear} ) {
             system 'clear';
+        }
+        if ( $self->first ) {
+            print "Running $name - $cmd\n";
         }
 
         if ( $params->{heading} ) {
