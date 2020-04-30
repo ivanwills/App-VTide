@@ -175,7 +175,7 @@ sub watch {
 
     while (1) {
         my $done = 0;
-        local $SIG{INT} = sub { $done = $self->restart($cmd, 1); };
+        local $SIG{INT} = sub { $done = $self->restart($cmd, 1) ? 1 : undef; };
 
         sleep 1;
 
