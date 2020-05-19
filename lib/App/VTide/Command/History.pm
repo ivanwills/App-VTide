@@ -19,18 +19,41 @@ our $VERSION = version->new('0.1.11');
 our $NAME    = 'history';
 our $OPTIONS = [
     'max|m=i',
+    'uniq|u',
     'verbose|v+',
 ];
 sub details_sub { return ( $NAME, $OPTIONS )};
 
 sub run {
     my ($self) = @_;
+    my @history;
+    my %uniq;
+    my $max = $self->defaults->{max} || 10;
 
     my $fh = $self->config->history_file->openr;
-    {
-        local $/;
-        print <$fh>;
-    };
+    while (my $line = <$fh>) {
+        my ($date, $command) = $line =~ /^\[([^\]]+)\] (.*)$/;
+
+        if ($self->defaults->{uniq}) {
+            if ($uniq{$command}) {
+                @history = (
+                    @history[0 .. ($uniq{$command} - 1)],
+                    @history[($uniq{$command} + 1) .. $#history]
+                );
+            }
+            $uniq{$command} = scalar @history;
+            push @history, [$date, $command];
+        }
+        else {
+            push @history, [$date, $command];
+        }
+    }
+
+    @history = ((reverse @history)[ 0 .. $max - 1]);
+    for my $item (reverse @history) {
+        next if !$item;
+        printf "%-30s %s\n", @$item;
+    }
 
     return;
 }
@@ -57,6 +80,7 @@ This documentation refers to App::VTide::Command::History version 0.1.11
 
     OPTIONS
      -m --max[=]int The maximum number of history sessions to show (Default 10)
+     -u --uniq      Show only uniq results
      -v --verbose   Show more detailed output
         --help      Show this help
         --man       Show the full man page
