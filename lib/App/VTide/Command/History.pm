@@ -32,14 +32,18 @@ sub run {
 
     my $fh = $self->config->history_file->openr;
     while (my $line = <$fh>) {
-        my ($date, $command) = $line =~ /^\[([^\]]+)\] (.*)$/;
+        my ($date, $command) = $line =~ /^\[([^\]]+)\]\s+(.*?)\s+$/;
 
         if ($self->defaults->{uniq}) {
-            if ($uniq{$command}) {
+            if (defined $uniq{$command}) {
+                my $size = @history;
                 @history = (
                     @history[0 .. ($uniq{$command} - 1)],
                     @history[($uniq{$command} + 1) .. $#history]
                 );
+                if (@history == $size) {
+                    warn 'No change in history';
+                }
             }
             $uniq{$command} = scalar @history;
             push @history, [$date, $command];
@@ -52,7 +56,7 @@ sub run {
     @history = ((reverse @history)[ 0 .. $max - 1]);
     for my $item (reverse @history) {
         next if !$item;
-        printf "%-30s %s\n", @$item;
+        printf "%-25s %s\n", @$item;
     }
 
     return;
