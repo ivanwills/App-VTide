@@ -15,7 +15,7 @@ use YAML::Syck;
 
 extends 'App::VTide::Command::Run';
 
-our $VERSION = version->new('0.1.11');
+our $VERSION = version->new('0.1.12');
 our $NAME    = 'history';
 our $OPTIONS = [
     'number|n=i',
@@ -76,7 +76,7 @@ App::VTide::Command::History - Tells you about the terminal you are in
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::History version 0.1.11
+This documentation refers to App::VTide::Command::History version 0.1.12
 
 =head1 SYNOPSIS
 

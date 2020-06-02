@@ -15,7 +15,7 @@ use YAML::Syck;
 
 extends 'App::VTide::Command::Run';
 
-our $VERSION = version->new('0.1.11');
+our $VERSION = version->new('0.1.12');
 our $NAME    = 'who';
 our $OPTIONS = [
     'verbose|v+',
@@ -54,7 +54,7 @@ App::VTide::Command::Who - Tells you about the terminal you are in
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Who version 0.1.11
+This documentation refers to App::VTide::Command::Who version 0.1.12
 
 =head1 SYNOPSIS
 
