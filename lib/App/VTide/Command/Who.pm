@@ -18,7 +18,6 @@ extends 'App::VTide::Command::Run';
 our $VERSION = version->new('0.1.11');
 our $NAME    = 'who';
 our $OPTIONS = [
-    'max|m=i',
     'verbose|v+',
 ];
 sub details_sub { return ( $NAME, $OPTIONS )};
@@ -62,7 +61,6 @@ This documentation refers to App::VTide::Command::Who version 0.1.11
     vtide who [-f|--force]
 
     OPTIONS
-     -m --max[=]int The maximum number of who sessions to show (Default 10)
      -v --verbose   Show more detailed output
         --help      Show this help
         --man       Show the full man page

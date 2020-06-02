@@ -18,7 +18,7 @@ extends 'App::VTide::Command::Run';
 our $VERSION = version->new('0.1.11');
 our $NAME    = 'history';
 our $OPTIONS = [
-    'max|m=i',
+    'number|n=i',
     'uniq|u',
     'verbose|v+',
 ];
@@ -28,7 +28,7 @@ sub run {
     my ($self) = @_;
     my @history;
     my %uniq;
-    my $max = $self->defaults->{max} || 10;
+    my $max = $self->defaults->{number} || 10;
 
     my $fh = $self->config->history_file->openr;
     while (my $line = <$fh>) {
@@ -83,7 +83,7 @@ This documentation refers to App::VTide::Command::History version 0.1.11
     vtide history [-f|--force]
 
     OPTIONS
-     -m --max[=]int The maximum number of history sessions to show (Default 10)
+     -n (int)       The maximum number of history sessions to show (Default 10)
      -u --uniq      Show only uniq results
      -v --verbose   Show more detailed output
         --help      Show this help
