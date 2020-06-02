@@ -41,7 +41,7 @@ sub run {
                     @history[0 .. ($uniq{$command} - 1)],
                     @history[($uniq{$command} + 1) .. $#history]
                 );
-                if (@history == $size) {
+                if (@history != $size - 1) {
                     warn 'No change in history';
                 }
             }
