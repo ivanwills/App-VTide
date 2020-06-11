@@ -31,7 +31,8 @@ sub run {
 
     my $params = $self->params( $cmd );
     $params->{edit} = $self->options->files;
-    my @cmd    = $self->command( $params );
+    $params->{title} = $cmd;
+    my @cmd = $self->command( $params );
 
     if ( $params->{env} && ref $params->{env} eq 'HASH' ) {
         for my $env ( keys %{ $params->{env} } ) {
