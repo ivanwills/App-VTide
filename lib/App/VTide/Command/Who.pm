@@ -73,9 +73,11 @@ This documentation refers to App::VTide::Command::Who version 0.1.12
 
 =head1 SYNOPSIS
 
-    vtide who [-f|--force]
+    vtide who [[-s|--set] path/to/.vtide.yml]
 
     OPTIONS
+     -s --set[=]file
+                    Set the current terminal to use the supplied config file
      -v --verbose   Show more detailed output
         --help      Show this help
         --man       Show the full man page
