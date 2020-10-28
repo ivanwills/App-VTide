@@ -117,6 +117,15 @@ sub restart {
                 $self->restart($cmd, $no_watch);
             },
         },
+        s => {
+            msg  => 'Show command',
+            exec => sub {
+                my $params = $self->params( $cmd );
+                print "\nThis terminals command:\n";
+                print join ' ', $self->command( $params ), "\n\n";
+                $self->restart($cmd, $no_watch);
+            },
+        },
         r => {
             msg  => 'restart',
             exec => sub { 1 },
