@@ -33,6 +33,7 @@ sub run {
     my $fh = $self->config->history_file->openr;
     while (my $line = <$fh>) {
         my ($date, $command) = $line =~ /^\[([^\]]+)\]\s+(.*?)\s+$/;
+        next if !$command;
 
         if ($self->defaults->{uniq}) {
             if (defined $uniq{$command}) {
