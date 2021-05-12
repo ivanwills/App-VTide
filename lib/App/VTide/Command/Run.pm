@@ -495,6 +495,14 @@ Executes a command (with --test skipping)
 
 Watches files till they change then returns.
 
+=head2 C<cron ( $cmd )>
+
+Runs the command based on cron tab settings in params
+
+=head2 C<pretty_time ( $time )>
+
+Creates a mildly pretty version of the number of seconds
+
 =head2 C<auto_complete ()>
 
 Auto completes terminal names
