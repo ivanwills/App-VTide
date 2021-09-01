@@ -95,7 +95,7 @@ sub history {
     return if $command[0] eq 'run' || grep {$_ eq '--auto-complete'} @command;
 
     my $fh = $self->history_file->opena;
-    print {$fh} '[' . localtime .'] '. (join ' ', map {/[^\w-]/ ? "'$_'" : $_} @command), "\n";
+    print {$fh} '[' . localtime .'] '. (join ' ', map {/[^\w.\/-]/ ? "'$_'" : $_} @command), "\n";
     return;
 }
 
