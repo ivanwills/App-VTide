@@ -18,6 +18,7 @@ our $VERSION = version->new('0.1.15');
 our $NAME    = 'edit';
 our $OPTIONS = [
     'test|T!',
+    'save|s=s',
     'verbose|v+',
 ];
 sub details_sub { return ( $NAME, $OPTIONS )};
@@ -47,8 +48,16 @@ sub run {
     $self->runit( @cmd );
 
     $params = $self->params($ENV{VTIDE_TERM} || '1');
+
+    my $title = $params->{title} || 'bash';
+    my $max = 15;
+    if (length $title > $max) {
+        $title = substr $title, (length $title) - $max, $max + 1;
+    }
+
     eval { require Term::Title; }
-        and Term::Title::set_titlebar($params->{title} || 'bash');
+        and Term::Title::set_titlebar($title);
+    system 'tmux', 'rename-window', $title;
 
     return;
 }
