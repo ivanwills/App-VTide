@@ -1,0 +1,11 @@
+---
+# default configs for terminals
+default:
+  env:
+    PERL5LIB: lib:$PERL5LIB
+  # when the command finishes restart the command (useful for running
+  # dev servers which may die or you may want to kill and restart)
+  restart: 0
+  # run the command at first start or wait for the user to press enter
+  wait: 1
+

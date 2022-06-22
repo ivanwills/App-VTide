@@ -3,15 +3,8 @@
 name: vtide
 # the total number of terminals to start up
 count: 10
-# default configs for terminals
-default:
-  env:
-    PERL5LIB: lib:$PERL5LIB
-  # when the command finishes restart the command (useful for running
-  # dev servers which may die or you may want to kill and restart)
-  restart: 0
-  # run the command at first start or wait for the user to press enter
-  wait: 1
+# inheriting content from parent yaml file (defaults in this case)
+parent: ./.vtide-parent.yml
 # configure your editor
 editor:
   # the command to run
@@ -97,7 +90,7 @@ terminals:
     # splits once horizontally then once vertically for a large vertical
     # left hand terminal and two smaller right hand terminals, the focus
     # being sent to the 1st pane (pane 0)
-    split: Hv0
+    split: Hvv0
   1a:
     command: ./Build && ./Build testcover
     restart: 1
@@ -115,6 +108,9 @@ terminals:
     command: git status
     watch:
       - all
+  1c:
+    env:
+      IVAN: true
   2:
     edit:
       - base
