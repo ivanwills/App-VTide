@@ -28,7 +28,8 @@ our $OPTIONS = [
     'save|s=s',
     'verbose|v+',
 ];
-sub details_sub { return ( $NAME, $OPTIONS )};
+our $LOCAL   = 1;
+sub details_sub { return ( $NAME, $OPTIONS, $LOCAL ) }
 
 has first => (
     is      => 'rw',
@@ -37,6 +38,7 @@ has first => (
 
 sub run {
     my ($self) = @_;
+    return;
 
     my ( $name ) = $self->session_dir($self->defaults->{name});
     my $cmd = $self->options->files->[0] || '';

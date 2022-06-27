@@ -18,18 +18,16 @@ extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.16');
 our $NAME    = 'who';
-our $OPTIONS = [
-    'set|s=s',
-    'verbose|v+',
-];
-sub details_sub { return ( $NAME, $OPTIONS )};
+our $OPTIONS = [ 'set|s=s', 'verbose|v+', ];
+our $LOCAL   = 1;
+sub details_sub { return ( $NAME, $OPTIONS, $LOCAL ) }
 
 sub run {
     my ($self) = @_;
 
-    if ($self->defaults->{set}) {
-        my $file = path($self->defaults->{set})->absolute;
-        my $dir = $file->parent;
+    if ( $self->defaults->{set} ) {
+        my $file   = path( $self->defaults->{set} )->absolute;
+        my $dir    = $file->parent;
         my $config = LoadFile($file);
         print <<"EXPORTS";
 export VTIDE_NAME="$config->{name}"
@@ -40,13 +38,14 @@ EXPORTS
         return;
     }
 
-    if ( ! $ENV{VTIDE_NAME} ) {
+    if ( !$ENV{VTIDE_NAME} ) {
         print "Not in a VTide session\n";
     }
     else {
         print "Session $ENV{VTIDE_NAME}\n";
         print "Term    $ENV{VTIDE_TERM}\n" if $ENV{VTIDE_TERM};
     }
+
     #VTIDE_CONFIG
     #VTIDE_DIR
     #VTIDE_NAME
