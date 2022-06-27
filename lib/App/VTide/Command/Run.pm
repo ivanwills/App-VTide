@@ -38,7 +38,6 @@ has first => (
 
 sub run {
     my ($self) = @_;
-    return;
 
     my ( $name ) = $self->session_dir($self->defaults->{name});
     my $cmd = $self->options->files->[0] || '';
