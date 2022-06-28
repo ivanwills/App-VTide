@@ -18,7 +18,7 @@ extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.16');
 our $NAME    = 'who';
-our $OPTIONS = [ 'set|s=s', 'verbose|v+', ];
+our $OPTIONS = [ 'set|s=s', 'term|t=i', 'verbose|v+', ];
 our $LOCAL   = 1;
 sub details_sub { return ( $NAME, $OPTIONS, $LOCAL ) }
 
@@ -29,12 +29,29 @@ sub run {
         my $file   = path( $self->defaults->{set} )->absolute;
         my $dir    = $file->parent;
         my $config = LoadFile($file);
+        my $term   = $self->defaults->{term} || 99;
         print <<"EXPORTS";
 export VTIDE_NAME="$config->{name}"
 export VTIDE_CONFIG="$file"
 export VTIDE_DIR="$dir"
-export VTIDE_TERM=99
+export VTIDE_TERM=$term
 EXPORTS
+        $self->config->local_config($file);
+        my $conf = $self->config->get();
+
+        if ( $conf->{default}{env} ) {
+            print "\n";
+            for my $key ( sort keys %{ $conf->{default}{env} } ) {
+                print "export $key=\"$conf->{default}{env}{$key}\"\n";
+            }
+        }
+        if ( $conf->{terminals}{$term}{env} ) {
+            for my $key ( sort keys %{ $conf->{terminals}{$term}{env} } ) {
+                print
+                    "export $key=\"$conf->{terminals}{$term}{env}{$key}\"\n";
+            }
+        }
+
         return;
     }
 
