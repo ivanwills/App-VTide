@@ -17,12 +17,9 @@ extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.17');
 our $NAME    = 'history';
-our $OPTIONS = [
-    'number|n=i',
-    'uniq|u',
-    'verbose|v+',
-];
-sub details_sub { return ( $NAME, $OPTIONS )};
+our $OPTIONS
+    = [ 'number|n=i', 'uniq|u', 'search|s=s', 'ignore|i=s', 'verbose|v+', ];
+sub details_sub { return ( $NAME, $OPTIONS ) }
 
 sub run {
     my ($self) = @_;
@@ -30,34 +27,45 @@ sub run {
     my %uniq;
     my $max = $self->defaults->{number} || 10;
 
-    my $fh = $self->config->history_file->openr;
-    while (my $line = <$fh>) {
-        my ($date, $command) = $line =~ /^\[([^\]]+)\]\s+(.*?)\s+$/;
+    my $fh     = $self->config->history_file->openr;
+    my $search = $self->defaults->{search};
+    my $ignore = $self->defaults->{ignore};
+    while ( my $line = <$fh> ) {
+        my ( $date, $command ) = $line =~ /^\[([^\]]+)\]\s+(.*?)\s+$/;
         next if !$command;
+        next
+            if $search
+            && $command !~ /$search/;
+        next
+            if $ignore
+            && $command =~ /$ignore/;
 
-        if ($self->defaults->{uniq}) {
-            if (defined $uniq{$command}) {
+        if ( $self->defaults->{uniq} ) {
+            if ( defined $uniq{$command} ) {
                 my $size = @history;
+
                 @history = (
-                    @history[0 .. ($uniq{$command} - 1)],
-                    @history[($uniq{$command} + 1) .. $#history]
+                    @history[ 0 .. ( $uniq{$command} - 1 ) ],
+                    @history[ ( $uniq{$command} + 1 ) .. $#history ]
                 );
-                if (@history != $size - 1) {
+
+                if ( @history != $size - 1 ) {
                     warn 'No change in history';
                 }
             }
             $uniq{$command} = scalar @history;
-            push @history, [$date, $command];
+            push @history, [ $date, $command ];
+
         }
         else {
-            push @history, [$date, $command];
+            push @history, [ $date, $command ];
         }
     }
 
-    @history = ((reverse @history)[ 0 .. $max - 1]);
-    for my $item (reverse @history) {
-        next if !$item;
-        printf "%-25s %s\n", @$item;
+    @history = ( ( reverse @history )[ 0 .. $max - 1 ] );
+    for my $item ( reverse @history ) {
+        next if !$item || !@$item;
+        printf "%-25s vtide %s\n", @$item;
     }
 
     return;
@@ -85,6 +93,10 @@ This documentation refers to App::VTide::Command::History version 0.1.17
 
     OPTIONS
      -n (int)       The maximum number of history sessions to show (Default 10)
+     -i --ignore[=]regex
+                    Ignore results matching this regex
+     -s search[=]regex
+                    Search for matches this regex
      -u --uniq      Show only uniq results
      -v --verbose   Show more detailed output
         --help      Show this help
