@@ -6,6 +6,8 @@ count: 10
 # inheriting content from parent yaml file (defaults in this case)
 parent: ./.vtide-parent.yml
 # configure your editor
+env:
+  test: true
 editor:
   # the command to run
   command:
@@ -39,6 +41,7 @@ editor:
       - lib/App/VTide/Command/Conf.pm
       - lib/App/VTide/Command/Refresh.pm
       - lib/App/VTide/Command/Recent.pm
+      - lib/App/VTide/Command/List.pm
     rest:
       - lib/App/VTide/Command/Split.pm
       - lib/App/VTide/Command/Grep.pm
@@ -46,6 +49,8 @@ editor:
     meta:
       - lib/App/VTide/Command/Who.pm
       - lib/App/VTide/Command/History.pm
+      - lib/App/VTide/Command/Help.pm
+      - lib/App/VTide/Command/NewWindow.pm
     run:
       - lib/App/VTide/Command/Run.pm
       - lib/App/VTide/Command/Edit.pm
@@ -72,7 +77,7 @@ editor:
 start:
   # Running ctags every time vtide is started
   # This specifies the files to run
-  ctags: -R
+  #ctags: -R
   # list of ctag-exclude groups or directories
   ctags-exclude:
     - perl
