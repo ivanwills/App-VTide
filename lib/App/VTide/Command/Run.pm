@@ -43,6 +43,7 @@ sub run {
     $ENV{VTIDE_TERM} = $cmd;
 
     my $params = $self->params($cmd);
+    my @cmd    = $self->command($params);
 
     @ARGV = ();
     if (
