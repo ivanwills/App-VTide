@@ -29,7 +29,7 @@ sub run {
     if ($command) {
         my $module = $self->cmd2module($command);
         if ( !$INC{$module} ) {
-            require "$module";
+            require "$module";    ## no critic
         }
 
         pod2usage(
@@ -43,7 +43,7 @@ sub run {
             my $file = $self->cmd2module($cmd);
 
             if ( !$INC{$file} ) {
-                require "$file";
+                require "$file";    ## no critic
             }
             if ( length $cmd > $max ) {
                 $max = length $cmd;
