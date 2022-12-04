@@ -11,6 +11,6 @@ use warnings;
 use version;
 use App::VTide;
 
-our $VERSION = version->new('0.1.18');
+our $VERSION = version->new('0.1.19');
 
 App::VTide->new->run;

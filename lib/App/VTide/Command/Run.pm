@@ -22,7 +22,7 @@ use Data::Dumper    qw/Dumper/;
 
 extends 'App::VTide::Command';
 
-our $VERSION = version->new('0.1.18');
+our $VERSION = version->new('0.1.19');
 our $NAME    = 'run';
 our $OPTIONS = [ 'name|n=s', 'test|T!', 'save|s=s', 'verbose|v+', ];
 our $LOCAL   = 1;
@@ -472,7 +472,7 @@ App::VTide::Command::Run - Run a terminal command
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Run version 0.1.18
+This documentation refers to App::VTide::Command::Run version 0.1.19
 
 =head1 SYNOPSIS
 
