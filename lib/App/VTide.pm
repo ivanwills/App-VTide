@@ -42,7 +42,7 @@ sub run {
 
     my ( $options, $cmd, $opt ) = get_options(
         {
-            name          => 'vtide',
+            name          => 'vtide-cmd',
             conf_prefix   => '.',
             helper        => 1,
             default       => { test => 0, },
@@ -127,7 +127,15 @@ sub run {
         unshift @{ $opt->files }, $opt->cmd;
     }
 
-    return $subcommand->run;
+    eval {
+        $subcommand->run;
+        1;
+    } or do {
+        warn "Error running " . $opt->cmd . "!\n";
+        warn $@;
+        sleep 5;
+    };
+    return;
 }
 
 sub load_subcommand {
@@ -196,8 +204,11 @@ This documentation refers to App::VTide version 0.1.19
 
 =head1 SYNOPSIS
 
+  Session level
+    vtide init
     vtide [start] [project]
-    vtide (init|start|edit|run|conf|grep|recent|split|refresh|save|help) [options]
+  With in a session
+    vtide (edit|run|conf|grep|recent|split|refresh|save|help) [options]
 
   COMMANDS:
     conf    Show editor config settings
