@@ -17,29 +17,35 @@ extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.19');
 our $NAME    = 'history';
-our $OPTIONS
-    = [ 'number|n=i', 'uniq|u', 'search|s=s', 'ignore|i=s', 'verbose|v+', ];
+our $OPTIONS =
+  [ 'number|n=i', 'uniq|u', 'search|s=s', 'ignore|i=s', 'verbose|v+', ];
 sub details_sub { return ( $NAME, $OPTIONS ) }
 
 sub run {
     my ($self) = @_;
     my @history;
     my %uniq;
-    my $max = $self->defaults->{number} || 10;
+    my $max      = $self->defaults->{number} || 10;
+    my $run_line = @ARGV && $ARGV[$#ARGV] =~ /^\d+$/ ? pop @ARGV : -1;
 
     my $fh     = $self->config->history_file->openr;
     my $search = $self->defaults->{search};
     my $ignore = $self->defaults->{ignore};
+    my $lineno = 0;
     while ( my $line = <$fh> ) {
+        $lineno++;
         my ( $date, $command ) = $line =~ /^\[([^\]]+)\]\s+(.*?)\s+$/;
         next if !$command;
         next
-            if $search
-            && $command !~ /$search/;
+          if $search
+          && $command !~ /$search/;
         next
-            if $ignore
-            && $command =~ /$ignore/;
+          if $ignore
+          && $command =~ /$ignore/;
 
+        if ( $lineno == $run_line ) {
+            exec "vtide $command";
+        }
         if ( $self->defaults->{uniq} ) {
             if ( defined $uniq{$command} ) {
                 my $size = @history;
@@ -54,18 +60,19 @@ sub run {
                 }
             }
             $uniq{$command} = scalar @history;
-            push @history, [ $date, $command ];
+            push @history, [ $date, $lineno, $command ];
 
         }
         else {
-            push @history, [ $date, $command ];
+            push @history, [ $date, $lineno, $command ];
         }
     }
 
+    my $max_line = length "$history[$#history][1]";
     @history = ( ( reverse @history )[ 0 .. $max - 1 ] );
     for my $item ( reverse @history ) {
         next if !$item || !@$item;
-        printf "%-25s vtide %s\n", @$item;
+        printf "%-25s [%${max_line}d]  vtide %s\n", @$item;
     }
 
     return;
