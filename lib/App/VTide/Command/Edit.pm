@@ -109,6 +109,9 @@ This documentation refers to App::VTide::Command::Edit version 0.1.20
     vtide edit [--help|--man]
 
   OPTIONS:
+   -r --recurse     Recurse through directories to find files
+      --no-recurese Don't recurse throught directories
+   -s --save[=]name Save edit options
    -T --test        Test the running of the terminal (shows the commands
                     that would be executed)
    -v --verbose     Show more verbose output.
