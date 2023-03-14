@@ -16,7 +16,7 @@ use Data::Dumper qw/Dumper/;
 
 extends 'App::VTide::Command::Run';
 
-our $VERSION = version->new('0.1.20');
+our $VERSION = version->new('0.1.21');
 our $NAME    = 'edit';
 our $OPTIONS = [ 'recurse|r!', 'test|T!', 'save|s=s', 'verbose|v+', ];
 our $LOCAL   = 1;
@@ -101,7 +101,7 @@ App::VTide::Command::Edit - Run an edit command (like Run but without a terminal
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Edit version 0.1.20
+This documentation refers to App::VTide::Command::Edit version 0.1.21
 
 =head1 SYNOPSIS
 
