@@ -395,7 +395,7 @@ sub _globs2files {
                 next GLOB;
             }
         }
-        elsif ( $recurse && -d $glob ) {
+        if ( $recurse && -d $glob ) {
             push @files, map {
                 -d $_
                   ? $self->_globs2files( $groups, $helper, $recurse, $_ )
