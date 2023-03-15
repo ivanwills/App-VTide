@@ -33,6 +33,7 @@ editor:
       - lib/App/VTide.pm
       - lib/App/VTide/Config.pm
       - lib/App/VTide/Hooks.pm
+      - lib/App/VTide/Sessions.pm
     cmds:
       - lib/App/VTide/Command.pm
       - lib/App/VTide/Command/Init.pm

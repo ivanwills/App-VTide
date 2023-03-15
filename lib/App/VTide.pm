@@ -159,11 +159,11 @@ sub _sub_commands {
 
     mkdir $sub_file->parent if !-d $sub_file->parent;
 
-    if ( -f $sub_file && path($0)->stat->mtime ne $sub_file->stat->mtime ) {
-        unlink $sub_file;
-    }
+    #if ( -f $sub_file && path($0)->stat->mtime ne $sub_file->stat->mtime ) {
+    #    unlink $sub_file;
+    #}
 
-    return LoadFile("$sub_file") if -f $sub_file;
+    #return LoadFile("$sub_file") if -f $sub_file;
 
     return $self->_generate_sub_command();
 }

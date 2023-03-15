@@ -13,14 +13,23 @@ use Carp;
 use English qw/ -no_match_vars /;
 use File::chdir;
 use Data::Dumper qw/Dumper/;
+use App::VTide::Sessions;
 
 extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.21');
 our $NAME    = 'edit';
-our $OPTIONS = [ 'recurse|r!', 'test|T!', 'save|s=s', 'verbose|v+', ];
+our $OPTIONS = [ 'add|add-to-session|a', 'recurse|r!', 'test|T!', 'save|s=s', 'verbose|v+', ];
 our $LOCAL   = 1;
 sub details_sub { return ( $NAME, $OPTIONS, $LOCAL ) }
+
+has sessions => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        App::VTide::Sessions->new();
+    },
+);
 
 sub run {
     my ($self) = @_;
@@ -28,6 +37,10 @@ sub run {
     my ($name) = $self->env;
     my $cmd = $self->options->files->[0];
     print "Running $name - $cmd\n";
+
+    if ($self->defaults->{add}) {
+        $self->sessions->add(@{$self->options->files});
+    }
 
     my $params = $self->params($cmd);
     $params->{edit}  = $self->options->files;
