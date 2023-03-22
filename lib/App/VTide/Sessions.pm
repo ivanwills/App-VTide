@@ -20,14 +20,13 @@ our $VERSION = version->new('0.1.20');
 
 has sessions_file => (
     is      => 'rw',
+    lazy    => 1,
     default => sub {
         if ( $ENV{VTIDE_DIR} && -d $ENV{VTIDE_DIR} ) {
-            die "Local setting\n";
             mkdir path $ENV{VTIDE_DIR}, '.vtide'
               if !-d path $ENV{VTIDE_DIR}, '.vtide';
             return path $ENV{VTIDE_DIR}, '.vtide/sessions.yml';
         }
-        die "Global setting\n";
 
         mkdir path $ENV{HOME}, '.vtide' if !-d path $ENV{HOME}, '.vtide';
         return path $ENV{HOME}, '.vtide/sessions.yml';

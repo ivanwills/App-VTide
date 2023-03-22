@@ -19,8 +19,10 @@ extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.21');
 our $NAME    = 'edit';
-our $OPTIONS = [ 'add|add-to-session|a', 'recurse|r!', 'test|T!', 'save|s=s', 'verbose|v+', ];
-our $LOCAL   = 1;
+our $OPTIONS =
+  [ 'add|add-to-session|a', 'recurse|r!', 'test|T!', 'save|s=s', 'verbose|v+',
+  ];
+our $LOCAL = 1;
 sub details_sub { return ( $NAME, $OPTIONS, $LOCAL ) }
 
 has sessions => (
@@ -38,8 +40,8 @@ sub run {
     my $cmd = $self->options->files->[0];
     print "Running $name - $cmd\n";
 
-    if ($self->defaults->{add}) {
-        $self->sessions->add(@{$self->options->files});
+    if ( $self->defaults->{add} ) {
+        $self->sessions->add_session( @{ $self->options->files } );
     }
 
     my $params = $self->params($cmd);

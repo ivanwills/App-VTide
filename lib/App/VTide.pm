@@ -95,6 +95,7 @@ sub run {
             },
         },
         [
+            'add|add-to-session|a',
             'name|n=s',
             'test|T!',
             'verbose|v+',
@@ -127,6 +128,8 @@ sub run {
         unshift @{ $opt->files }, $opt->cmd;
     }
 
+    $subcommand->options->default(
+        { %{$options}, %{ $subcommand->options->default } } );
     eval {
         $subcommand->run;
         1;
@@ -182,6 +185,7 @@ sub _generate_sub_command {
     my $sub_commands = {};
     for my $command ( reverse sort @commands ) {
         my ( $name, $conf ) = $command->details_sub;
+
         $sub_commands->{$name} = $conf;
     }
 
