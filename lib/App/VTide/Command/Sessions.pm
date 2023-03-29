@@ -81,12 +81,14 @@ sub session_list {
             ? ''
             : " --session $name"
           );
-        for my $files ( @{ $session->{$name} } ) {
+        for my $i ( 0 ... @{ $session->{$name} } - 2 ) {
+            my $files = $session->{$name}[$i];
+
             print "  ", ( join " ", @$files ), "\n";
-            if ( $files == $session->{$name}[0] ) {
+            if ( $i == 0 ) {
                 print "    ('$cmd shift' to run)\n";
             }
-            elsif ( $files == $session->{$name}[-1] ) {
+            elsif ( $i == @{ $session->{$name} } - 2 ) {
                 print "    ('$cmd pop' to run)\n";
             }
         }
