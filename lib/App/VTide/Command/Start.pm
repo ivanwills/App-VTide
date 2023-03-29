@@ -48,7 +48,7 @@ sub run {
 
     $self->ctags();
 
-    if ( $self->options->defaults->{add} ) {
+    if ( $self->options->default->{add} ) {
         $self->sessions->add_session($name);
     }
 
