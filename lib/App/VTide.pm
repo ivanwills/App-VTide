@@ -48,12 +48,18 @@ sub run {
             default       => { test => 0, },
             auto_complete => sub {
                 my ( $option, $auto, $errors ) = @_;
-                my $sub_command = $option->files->[0] || '';
+
+                my $sub_command =
+                     $option->cmd
+                  || $ARGV[ $option->opt->{auto_complete} - 1 ]
+                  || '';
                 if ( $sub_command eq '--' ) {
                     print join ' ', sort @sub_commands;
                     return;
                 }
-                elsif ( grep { /^$sub_command./ } @sub_commands ) {
+                elsif ( $sub_command && grep { /^$sub_command./ }
+                    @sub_commands )
+                {
                     print join ' ', sort grep { /^$sub_command/ } @sub_commands;
                     return;
                 }
@@ -75,7 +81,12 @@ sub run {
                 my $sub_command = shift @args || '';
 
                 if ( grep { /^$sub_command./ } @sub_commands ) {
-                    $getopt->cmd($sub_command);
+                    if ( grep { $_ eq $sub_command } @sub_commands ) {
+                        $getopt->cmd($sub_command);
+                    }
+                    else {
+                        unshift @args, $sub_command;
+                    }
                 }
                 elsif ( !$self->sub_commands->{$sub_command} ) {
                     $getopt->cmd( $ENV{VTIDE_DIR} ? 'edit' : 'start' );
@@ -96,6 +107,7 @@ sub run {
         },
         [
             'add|add-to-session|a',
+            'update|u!',
             'name|n=s',
             'test|T!',
             'verbose|v+',
@@ -212,7 +224,7 @@ This documentation refers to App::VTide version 0.1.21
     vtide init
     vtide [start] [project]
   With in a session
-    vtide (edit|run|conf|grep|recent|split|refresh|save|help) [options]
+    vtide (edit|run|conf|grep|recent|split|refresh|save|sessions|help) [options]
 
   COMMANDS:
     conf    Show editor config settings
@@ -224,6 +236,8 @@ This documentation refers to App::VTide version 0.1.21
     refresh Refreshes the autocomplete cache
     run     Run a projects terminal command
     save    Make/Save changes to a projects config file
+    sessions
+            run of save a session
     split   Simply split up a tmux widow (using the same syntax as the config)
     start   Open a project in Tmux
 
