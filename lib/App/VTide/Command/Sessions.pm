@@ -49,9 +49,7 @@ sub run {
     my $base = $local ? $self->config->local_base : $self->config->global_base;
     my $session_file = path( $base, 'sessions.yml' );
 
-    warn "running $command\n";
     $self->$command($session_file);
-    warn "ran $command\n";
 
     return;
 }
@@ -77,13 +75,19 @@ sub session_list {
 
     print "$name:\n";
     if ( $session->{$name} ) {
+        my $cmd = "vtide session"
+          . (
+            $name eq 'current'
+            ? ''
+            : " --session $name"
+          );
         for my $files ( @{ $session->{$name} } ) {
             print "  ", ( join " ", @$files ), "\n";
             if ( $files == $session->{$name}[0] ) {
-                print "    shift to run\n";
+                print "    ('$cmd shift' to run)\n";
             }
             elsif ( $files == $session->{$name}[-1] ) {
-                print "    pop to run\n";
+                print "    ('$cmd pop' to run)\n";
             }
         }
     }
@@ -129,12 +133,10 @@ sub session_shift {
 
 sub session_pop {
     my ( $self, $session_file ) = @_;
-    warn "pop";
     return $self->modify_session(
         $session_file,
         sub {
             my ($session) = @_;
-            warn "pop pop";
             return pop @$session;
         }
     );
@@ -155,6 +157,8 @@ sub modify_session {
 
     # write the new session out
     if ( !$self->options->default->{update} ) {
+
+        # TODO work out why update isn't be passed
         DumpFile $session_file, $session;
     }
 
@@ -186,7 +190,17 @@ sub session_copy {
 }
 
 sub auto_complete {
-    my ($self) = @_;
+    my ( $self, $auto ) = @_;
+
+    my $partial = $ARGV[ $auto - 1 ] || '';
+    print join ' ', grep { /^$partial/ } qw/
+      copy
+      list
+      pop
+      push
+      shift
+      unshift
+      /;
 }
 
 1;
@@ -195,7 +209,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::Sessions - Create a new-window in a running App::VTide session
+App::VTide::Command::Sessions - Create/Update/List saved vtide sessions
 
 =head1 VERSION
 

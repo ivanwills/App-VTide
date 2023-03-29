@@ -16,7 +16,7 @@ use YAML::Syck;
 extends 'App::VTide::Command::Run';
 
 our $VERSION = version->new('0.1.16');
-our $NAME    = 'new-window';
+our $NAME    = 'list';
 our $OPTIONS = [ 'number|n=s', 'verbose|v+', ];
 sub details_sub { return ( $NAME, $OPTIONS ) }
 
@@ -38,7 +38,7 @@ __END__
 
 =head1 NAME
 
-App::VTide::Command::List - Create a new-window in a running App::VTide session
+App::VTide::Command::List - Create a list in a running App::VTide session
 
 =head1 VERSION
 
@@ -46,10 +46,10 @@ This documentation refers to App::VTide::Command::List version 0.1.16
 
 =head1 SYNOPSIS
 
-    vtide new-window [-f|--force]
+    vtide list [-f|--force]
 
     OPTIONS
-     -n (int)       The maximum number of new-window sessions to show (Default 10)
+     -n (int)       The maximum number of list sessions to show (Default 10)
      -v --verbose   Show more detailed output
         --help      Show this help
         --man       Show the full man page
