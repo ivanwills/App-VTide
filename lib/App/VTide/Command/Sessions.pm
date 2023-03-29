@@ -29,15 +29,15 @@ has global => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
-        $_[0]->options->default->{global} || !$ENV{VTIDE_NAME};
+        $_[0]->options->opt->{global} || !$ENV{VTIDE_NAME};
     },
 );
 
 sub run {
     my ($self) = @_;
 
-    $self->options->default->{update} //= 1;
-    $self->options->default->{session} ||= 'current';
+    $self->options->opt->{update} //= 1;
+    $self->options->opt->{session} ||= 'current';
     my $local   = !$self->global;
     my $command = 'session_' . ( shift @{ $self->options->files } || 'list' );
 
@@ -56,7 +56,7 @@ sub run {
 
 sub session_list {
     my ( $self, $session_file ) = @_;
-    my $name = $self->options->default->{session};
+    my $name = $self->options->opt->{session};
 
     if ( !-f $session_file ) {
         warn "No sessions\n";
@@ -65,7 +65,7 @@ sub session_list {
 
     my $session = LoadFile($session_file);
 
-    if ( $self->options->default->{verbose} ) {
+    if ( $self->options->opt->{verbose} ) {
         print "Sessions:\n";
         for my $name ( sort keys %$session ) {
             print "  $name\n";
@@ -146,7 +146,7 @@ sub session_pop {
 
 sub modify_session {
     my ( $self, $session_file, $modify ) = @_;
-    my $name = $self->options->default->{session};
+    my $name = $self->options->opt->{session};
 
     my $session = -f $session_file ? LoadFile($session_file) : {};
 
@@ -157,10 +157,9 @@ sub modify_session {
         warn "Empty session removed!\n";
     }
 
+    # TODO work out why update unset with --no-update
     # write the new session out
-    if ( !$self->options->default->{update} ) {
-
-        # TODO work out why update isn't be passed
+    if ( $self->options->opt->update ) {
         DumpFile $session_file, $session;
     }
 
@@ -176,8 +175,8 @@ sub modify_session {
 
 sub session_copy {
     my ( $self, $session_file ) = @_;
-    my $name = $self->options->default->{session};
-    my $dest = $self->options->default->{dest};
+    my $name = $self->options->opt->{session};
+    my $dest = $self->options->opt->{dest};
 
     my $session = -f $session_file ? LoadFile($session_file) : {};
 
