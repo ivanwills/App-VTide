@@ -18,7 +18,7 @@ use App::VTide::Sessions;
 
 extends 'App::VTide::Command';
 
-our $VERSION = version->new('0.1.21');
+our $VERSION = version->new('1.0.1');
 our $NAME    = 'start';
 our $OPTIONS =
   [ 'windows|w=i', 'add|add-to-session|a', 'test|T!', 'verbose|v+', ];
@@ -176,7 +176,7 @@ App::VTide::Command::Start - Start a session
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Start version 0.1.21
+This documentation refers to App::VTide::Command::Start version 1.0.1
 
 =head1 SYNOPSIS
 
