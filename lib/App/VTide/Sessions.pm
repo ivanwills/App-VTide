@@ -16,7 +16,7 @@ use App::VTide::Config;
 use Path::Tiny;
 use YAML::Syck qw/ LoadFile DumpFile /;
 
-our $VERSION = version->new('0.1.20');
+our $VERSION = version->new('1.0.2');
 
 has sessions_file => (
     is      => 'rw',
@@ -71,7 +71,7 @@ App::VTide::Sessions - Manage start and edit session
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Sessions version 0.1.20
+This documentation refers to App::VTide::Sessions version 1.0.2
 
 =head1 SYNOPSIS
 

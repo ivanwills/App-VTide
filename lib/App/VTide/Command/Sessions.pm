@@ -17,7 +17,7 @@ use Data::Dumper qw/Dumper/;
 
 extends 'App::VTide::Command::Run';
 
-our $VERSION = version->new('0.1.16');
+our $VERSION = version->new('1.0.2');
 our $NAME    = 'sessions';
 our $OPTIONS = [
     'dest|d=s',  'global|g', 'session|source|s=s', 'verbose|v+',
@@ -214,7 +214,7 @@ App::VTide::Command::Sessions - Create/Update/List saved vtide sessions
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Sessions version 0.1.16
+This documentation refers to App::VTide::Command::Sessions version 1.0.2
 
 =head1 SYNOPSIS
 
