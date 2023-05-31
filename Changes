@@ -1,5 +1,10 @@
 Revision history for App-VTide
 
+1.0.2   2023-05-31
+        Updating for release of version 1.0.2
+        Updating the manifest (Ivan Wills)
+        Adding missing tests (Ivan Wills)
+
 1.0.1   2023-04-01
         Updating for release of version 1.0.1
         Adding missing new files (Ivan Wills)
