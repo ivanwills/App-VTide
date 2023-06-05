@@ -189,6 +189,8 @@ This documentation refers to App::VTide::Command::Start version 1.0.2
                     The project to start (If not specified the current
                     directory is used to find a .vtide.yml file to start)
 
+    -a --add-to-session
+                    Save to sessions
     -w --windows[=]int
                     Use a different number of windows from the configured
                     number (i.e. as set is .vtide.yml)
