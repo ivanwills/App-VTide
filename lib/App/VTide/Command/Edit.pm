@@ -124,6 +124,8 @@ This documentation refers to App::VTide::Command::Edit version 1.0.2
     vtide edit [--help|--man]
 
   OPTIONS:
+   -a --add-to-session
+                    Save this edit to the sessions file
    -r --recurse     Recurse through directories to find files
       --no-recurese Don't recurse throught directories
    -s --save[=]name Save edit options
