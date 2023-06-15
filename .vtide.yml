@@ -56,6 +56,10 @@ editor:
       - lib/App/VTide/Command/Run.pm
       - lib/App/VTide/Command/Edit.pm
       - lib/App/VTide/Command/Save.pm
+    sessions:
+      - lib/App/VTide/Sessions.pm
+      - lib/App/VTide/Command/Sessions.pm
+      - t/vtide-sessions.t
     base-tests:
       - t/boilerplate.t
       - t/critic.t
