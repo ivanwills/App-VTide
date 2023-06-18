@@ -80,6 +80,7 @@ sub ctags {
 sub tmux {
     my ( $self, $title, $name ) = @_;
 
+    print "\033];$title\007";
     eval { require Term::Title; }
       and Term::Title::set_titlebar($title);
 
