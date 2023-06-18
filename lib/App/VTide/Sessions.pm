@@ -18,8 +18,9 @@ use YAML::Syck qw/ LoadFile DumpFile /;
 
 our $VERSION = version->new('1.0.2');
 
-our $global_file = path $ENV{HOME},      '.vtide/sessions.yml';
-our $local_file  = path $ENV{VTIDE_DIR}, '.vtide/sessions.yml';
+our $global_file = path $ENV{HOME}, '.vtide/sessions.yml';
+our $local_file =
+  path( $ENV{VTIDE_DIR} || $ENV{TMP} || $ENV{TMPDIR}, '.vtide/sessions.yml' );
 
 has sessions_file => (
     is      => 'rw',
