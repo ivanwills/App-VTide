@@ -15,7 +15,7 @@ use Pod::Usage;
 
 extends 'App::VTide::Command::Run';
 
-our $VERSION = version->new('1.0.2');
+our $VERSION = version->new('1.0.3');
 our $NAME    = 'help';
 our $OPTIONS = [ 'test|T!', 'verbose|v+', ];
 sub details_sub { return ( $NAME, $OPTIONS ) }
@@ -121,7 +121,7 @@ App::VTide::Command::Help - Show help for vtide commands
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Help version 1.0.2
+This documentation refers to App::VTide::Command::Help version 1.0.3
 
 =head1 SYNOPSIS
 
