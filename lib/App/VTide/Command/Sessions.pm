@@ -37,15 +37,12 @@ has sessions => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
-        warn "here";
         my ($self) = @_;
         my $file =
             $self->global
           ? $App::VTide::Sessions::global_file
           : $App::VTide::Sessions::local_file;
-        my $obj = App::VTide::Sessions->new( { sessions_file => $file } );
-        warn $obj;
-        return $obj;
+        return App::VTide::Sessions->new( { sessions_file => $file } );
     },
 );
 
@@ -72,6 +69,7 @@ sub run {
 sub session_list {
     my ( $self, $session ) = @_;
     my $name = $self->options->opt->{session};
+    $session ||= $self->sessions;
 
     if ( $self->options->opt->{verbose} ) {
         print "Sessions:\n";
@@ -133,6 +131,7 @@ sub session_shift {
     return $self->modify_session(
         sub {
             my ($session) = @_;
+            warn "running $session->[0][0]\n";
             return shift @$session;
         }
     );
@@ -173,6 +172,7 @@ sub modify_session {
     }
 
     my $action = $self->global ? "start" : "edit";
+    warn join ' ', 'vtide', $action, @$files;
     system 'vtide', $action, @$files;
     warn join ' ', 'vtide', $action, @$files;
 }
