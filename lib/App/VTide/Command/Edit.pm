@@ -80,7 +80,7 @@ sub run {
 sub auto_complete {
     my ( $self, $auto ) = @_;
 
-    my $env   = $self->options->files->[-1];
+    my $env   = $self->options->files->[-1] // '';
     my @files = sort keys %{ $self->config->get->{editor}{files} };
 
     eval {
