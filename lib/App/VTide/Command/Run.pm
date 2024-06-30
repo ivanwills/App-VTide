@@ -114,7 +114,7 @@ sub run {
 }
 
 sub restart {
-    my ( $self, $cmd, $no_watch ) = @_;
+    my ( $self, $cmd, $no_watch, $default ) = @_;
 
     my $params = $self->params($cmd);
 
@@ -165,9 +165,18 @@ sub restart {
     }
     print $menu;
 
-    # get answer
-    my $answer = <ARGV>;
+    local $SIG{ALRM} = sub {
+        $self->run;
+    };
+    if ( $params->{timeout} ) {
+        warn "Will run default in $params->{timeout}\n";
+        alarm $params->{timeout};
+    }
 
+    # get answer
+    my $answer = $default || <ARGV> || '';
+
+    delete $SIG{ALARM};
     return if !$answer;
 
     chomp $answer if $answer;
