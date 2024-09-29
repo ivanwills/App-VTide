@@ -131,6 +131,10 @@ sub session_shift {
     return $self->modify_session(
         sub {
             my ($session) = @_;
+            if ( !$session->[0] ) {
+                warn "No more sessions to run!\n";
+                exit 0;
+            }
             warn "running $session->[0][0]\n";
             return shift @$session;
         }
