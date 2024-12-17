@@ -18,7 +18,6 @@ use File::chdir;
 use IO::Prompt qw/prompt/;
 use Algorithm::Cron;
 use List::MoreUtils qw/uniq/;
-use Data::Dumper    qw/Dumper/;
 
 extends 'App::VTide::Command';
 
@@ -166,10 +165,12 @@ sub restart {
     print $menu;
 
     local $SIG{ALRM} = sub {
+        warn "Re-running...\n";
         $self->run;
     };
     if ( $params->{timeout} ) {
-        warn "Will run default in $params->{timeout}\n";
+        my ($time) = localtime( time + $params->{timeout} ) =~ /(\d+:\d+:\d+)/;
+        warn "Will run default in $params->{timeout} ($time)\n";
         alarm $params->{timeout};
     }
 
@@ -469,9 +470,12 @@ sub runit {
 
 sub log {
     my ( $self, @msg ) = @_;
+
     my $fh = path( $self->base, '.vtide', 'run.log' )->opena;
-    print {$fh} '[' . localtime . "] RUN $ENV{VTIDE_TERM} " . join ' ',
-      @msg . "\n";
+    print {$fh} '['
+      . localtime
+      . "] RUN $ENV{VTIDE_TERM} "
+      . ( join ' ', @msg ) . "\n";
 }
 
 sub auto_complete {

@@ -45,7 +45,7 @@ sub run {
             name          => 'vtide-cmd',
             conf_prefix   => '.',
             helper        => 1,
-            default       => { test => 0, },
+            default       => {},
             auto_complete => sub {
                 my ( $option, $auto, $errors ) = @_;
 
@@ -101,8 +101,10 @@ sub run {
             sub_command   => $self->sub_commands,
             help_package  => __PACKAGE__,
             help_packages => {
-                map { $_ => __PACKAGE__ . '::Command::' . ucfirst $_ }
-                  @sub_commands,
+                map {
+                    $_ => __PACKAGE__ . '::Command::' . join '',
+                      map { ucfirst $_ } split /-/, $_
+                } @sub_commands,
             },
         },
         [
@@ -156,8 +158,9 @@ sub run {
 sub load_subcommand {
     my ( $self, $cmd, $opt ) = @_;
 
-    my $file   = 'App/VTide/Command/' . ucfirst $cmd . '.pm';
-    my $module = 'App::VTide::Command::' . ucfirst $cmd;
+    my $lib    = join '', map { ucfirst $_ } split /-/, $cmd;
+    my $file   = "App/VTide/Command/$lib.pm";
+    my $module = "App::VTide::Command::$lib";
 
     require $file;
 

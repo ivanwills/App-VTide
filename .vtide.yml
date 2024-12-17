@@ -78,6 +78,49 @@ editor:
       - t/vtide-cmd*.t
     all-tests:
       - t/*.t
+    hooks:
+      - lib/App/VTide/Hooks.pm
+      - t/hooks.pl
+      - t/hooks.t
+      - t/.vtide/hooks.pl
+    config:
+      - lib/App/VTide/Configuration.pod
+      - lib/App/VTide/Config.pm
+      - lib/App/VTide/Command/Conf.pm
+      - t/vtide-config.t
+    commands:
+      - lib/App/VTide/Command.pm
+      - lib/App/VTide/Command/Run.pm
+      - t/vtide-cmd-run.t
+    save:
+      - lib/App/VTide/Command/Save.pm
+    list:
+      - lib/App/VTide/Command/List.pm
+    who:
+      - lib/App/VTide/Command/Who.pm
+    new-window:
+      - lib/App/VTide/Command/NewWindow.pm
+    start:
+      - lib/App/VTide/Command/Start.pm
+    grep:
+      - lib/App/VTide/Command/Grep.pm
+    edit:
+      - lib/App/VTide/Command/Edit.pm
+    split:
+      - lib/App/VTide/Command/Split.pm
+    recent:
+      - lib/App/VTide/Command/Recent.pm
+    refresh:
+      - lib/App/VTide/Command/Refresh.pm
+    help:
+      - lib/App/VTide/Command/Help.pm
+    init:
+      - lib/App/VTide/Command/Init.pm
+    history:
+      - lib/App/VTide/Command/History.pm
+    vtide:
+      - lib/App/VTide.pm
+      - t/vtide.t
 # Start up options
 start:
   # Running ctags every time vtide is started
@@ -100,7 +143,7 @@ terminals:
     # splits once horizontally then once vertically for a large vertical
     # left hand terminal and two smaller right hand terminals, the focus
     # being sent to the 1st pane (pane 0)
-    split: Hvv0
+    split: HvV0
   1a:
     command: ./Build && ./Build testcover
     restart: 1
@@ -116,32 +159,20 @@ terminals:
     restart: 1
     wait: 0
     command: git status
-    watch:
-      - all
+    command: echo "\n\n----\ncommand\n----\n\n"
+    timeout: 3
+    #watch:
+    #  - all
+    restart: 1
   1c:
     env:
       IVAN: true
   2:
     edit:
       - base
-  3:
-    edit:
-      - cmds
-  4:
-    edit:
-      - run
   5:
-    edit:
-      - helpers
-  6:
-    edit:
-      - rest
-  7:
-    edit:
-      - meta
-  8:
-    edit:
-      - test
-  9:
-    edit:
-      - cmd-tests
+    wait: 0;
+    split: h
+    command: "echo 5"
+  5a:
+    command: "echo 5a; sleep 4"
