@@ -21,7 +21,7 @@ use List::MoreUtils qw/uniq/;
 
 extends 'App::VTide::Command';
 
-our $VERSION = version->new('1.0.5');
+our $VERSION = version->new('1.0.6');
 our $NAME    = 'run';
 our $OPTIONS = [ 'name|n=s', 'test|T!', 'save|s=s', 'verbose|v+', ];
 our $LOCAL   = 1;
@@ -499,7 +499,7 @@ App::VTide::Command::Run - Run a terminal command
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::Run version 1.0.5
+This documentation refers to App::VTide::Command::Run version 1.0.6
 
 =head1 SYNOPSIS
 

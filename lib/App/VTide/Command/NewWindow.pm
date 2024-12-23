@@ -17,7 +17,7 @@ use Data::Dumper qw/Dumper/;
 
 extends 'App::VTide::Command::Run';
 
-our $VERSION = version->new('1.0.5');
+our $VERSION = version->new('1.0.6');
 our $NAME    = 'new-window';
 our $OPTIONS = [ 'force|f!', 'number|n=s', 'test|t!', 'verbose|v+', ];
 our $LOCAL   = 1;
@@ -117,7 +117,7 @@ App::VTide::Command::NewWindow - Create a new-window in a running App::VTide ses
 
 =head1 VERSION
 
-This documentation refers to App::VTide::Command::NewWindow version 1.0.5
+This documentation refers to App::VTide::Command::NewWindow version 1.0.6
 
 =head1 SYNOPSIS
 
