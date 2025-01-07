@@ -64,7 +64,7 @@ Bool
 
 If set to a true value the an option to restart will be given
 
-=head2 title
+=head3 title
 
 String
 
