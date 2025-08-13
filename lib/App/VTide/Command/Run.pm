@@ -43,6 +43,16 @@ sub run {
 
     my $params = $self->params($cmd);
     my @cmd    = $self->command($params);
+    my $config = $self->config->get;
+
+    if ($config->{default}{sleep}) {
+        my ($num, $letter) = $cmd =~ /^(\d+)([a-z])?$/;
+        my $sleep = (($num || 1) - 1) * 2 + ($letter ? (ord $letter) - ord "a" : 0);
+
+        if ($sleep) {
+            sleep $sleep;
+        }
+    }
     $self->log( 'START', @cmd );
 
     @ARGV = ();
@@ -83,6 +93,8 @@ sub run {
         $self->base($CWD);
         if ( $params->{dir} && -d $params->{dir} ) {
             $CWD = $params->{dir};
+        } elsif (-d $params->{dir}) {
+            warn "Configured directory ", $params->{dir} . " is missing, can't change directories!\n";
         }
 
         if ( $self->defaults->{verbose} || $self->defaults->{test} ) {
