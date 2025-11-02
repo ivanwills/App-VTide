@@ -93,7 +93,7 @@ sub run {
         $self->base($CWD);
         if ( $params->{dir} && -d $params->{dir} ) {
             $CWD = $params->{dir};
-        } elsif (-d $params->{dir}) {
+        } elsif ($params->{dir} && ! -d $params->{dir}) {
             warn "Configured directory ", $params->{dir} . " is missing, can't change directories!\n";
         }
 
@@ -138,6 +138,13 @@ sub restart {
         q => {
             msg  => 'quit',
             exec => sub { 0; },
+        },
+        b => {
+            msg  => 'Run bash terminal',
+            exec => sub {
+                system "clear";
+                exec 'bash';
+            },
         },
         c => {
             msg  => 'clear screen',

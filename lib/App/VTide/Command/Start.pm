@@ -147,6 +147,9 @@ sub tmux_window {
         $letter++ if $letter;
     }
 
+    if ( $conf->{name} ) {
+        $out .= "rename-window " . $conf->{name} . ' \\; ';
+    }
     if ( $conf->{tmux} ) {
         $out .= "$conf->{tmux} \\; ";
     }
