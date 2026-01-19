@@ -61,6 +61,7 @@ sub run {
     my @test    = $self->defaults->{test}    ? ('--test')    : ();
     $ENV{VTIDE_TERM} = $number;
     if ( $term->{dir} ) {
+        $term->{dir} =~ s/^[~]/$ENV{HOME}/;
         $CWD = $term->{dir};
     }
     system 'tmux', 'new-window', "vtide run @test @verbose $number && sleep 15";

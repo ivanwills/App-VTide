@@ -40,6 +40,7 @@ sub run {
 
     my ( $name, $dir ) = $self->session_dir( $self->options->files->[0] );
 
+    $dir =~ s/^[~]/$ENV{HOME}/;
     local $CWD = $dir;
 
     $self->save_session( $name, $dir );
