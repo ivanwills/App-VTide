@@ -58,8 +58,11 @@ EXPORTS
         print "Not in a VTide session\n";
     }
     else {
-        print "Session $ENV{VTIDE_NAME}\n";
-        print "Term    $ENV{VTIDE_TERM}\n" if $ENV{VTIDE_TERM};
+        print "Session   $ENV{VTIDE_NAME}\n";
+        print "Term      $ENV{VTIDE_TERM}\n" if $ENV{VTIDE_TERM};
+        if ($self->options->opt->{verbose}) {
+            print "Directory $ENV{VTIDE_DIR}\n";
+        }
     }
 
     #VTIDE_CONFIG
