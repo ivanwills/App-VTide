@@ -141,6 +141,7 @@ sub run {
         }
         unshift @{ $opt->files }, $opt->cmd;
     }
+    @ARGV = @{ $opt->files };
 
     $subcommand->options->default(
         { %{$options}, %{ $subcommand->options->default } } );

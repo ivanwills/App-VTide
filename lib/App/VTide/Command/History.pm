@@ -18,7 +18,7 @@ extends 'App::VTide::Command::Run';
 our $VERSION = version->new('1.0.6');
 our $NAME    = 'history';
 our $OPTIONS =
-  [ 'number|n=i', 'uniq|u', 'search|s=s', 'ignore|i=s', 'verbose|v+', ];
+  [ 'number|n=i', 'uniq|u', 'search|s=s', 'ignore|i=s', 'verbose|v+', 'quiet|q!' ];
 sub details_sub { return ( $NAME, $OPTIONS ) }
 
 sub run {
@@ -26,7 +26,7 @@ sub run {
     my @history;
     my %uniq;
     my $max      = $self->defaults->{number} || 10;
-    my $run_line = @ARGV && $ARGV[$#ARGV] =~ /^\d+$/ ? pop @ARGV : -1;
+    my $run_line = pop @ARGV || -1;
 
     my $fh     = $self->config->history_file->openr;
     my $search = $self->defaults->{search};
@@ -72,7 +72,12 @@ sub run {
     @history = ( ( reverse @history )[ 0 .. $max - 1 ] );
     for my $item ( reverse @history ) {
         next if !$item || !@$item;
-        printf "%-25s [%${max_line}d]  vtide %s\n", @$item;
+        if ($self->defaults->{quiet}) {
+            print 'vtide ', (join ' ',  @$item[2 .. $#{$item}]), "\n";
+        }
+        else {
+            printf "%-25s [%${max_line}d]  vtide %s\n", @$item;
+        }
     }
 
     return;

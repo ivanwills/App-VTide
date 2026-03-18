@@ -91,6 +91,7 @@ sub run {
         $self->load_env( $params->{env} );
         local $CWD = $CWD;
         $self->base($CWD);
+        $params->{dir} ||= '';
         $params->{dir} =~ s/^[~]/$ENV{HOME}/;
         if ( $params->{dir} && -d $params->{dir} ) {
             $CWD = $params->{dir};
